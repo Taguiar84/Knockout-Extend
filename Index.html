@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>AsyncRequest Home</title>
+    <link href="Content/jasmine/jasmine.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        for the time this is Home and Test page.
+
+        <div class="row">
+            <div class="col-md-12">
+                Teste, Teste, Teste!!!!
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" data-bind="value: NormalText"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <input id="integerValue" type="text" data-bind="integerMask: IntegerValue">
+            </div>
+            <div class="col-md-6">
+                <input id="anotherIntegerValue" type="text" data-bind="integerMask: AnotherIntegerValue">
+            </div>
+        </div>
+        
+
+    <script src="Scripts/jquery-2.1.0.min.js"></script>    
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.meio.mask.min.js"></script>
+    <script src="Scripts/knockout-3.1.0.js"></script>
+
+    <!-- Test framework-->
+    <script src="Scripts/jasmine/jasmine.js"></script>
+    <script src="Scripts/jasmine/jasmine-html.js"></script>
+    <script src="Scripts/jasmine/boot.js"></script>
+
+    <!-- System to test-->
+    <script src="Scripts/knockoutExtend.js"></script>
+    <script src="Scripts/knockoutExtend.number.js"></script>
+
+    <!--<script src="Scripts/Globalization/AsyncRequest.en-US.js"></script>
+    <script src="Scripts/Globalization/AsyncRequest.pt-BR.js"></script>-->
+
+    <!-- mock files-->
+    <script src="spec/viewModel.js"></script>
+    <!-- Test files-->    
+    <script src="spec/knockoutExtend.js"></script>
+    <script src="spec/knockoutExtend.number.js"></script>
+
+    
+
+    
+
+
+</body>
+
+
+</html>

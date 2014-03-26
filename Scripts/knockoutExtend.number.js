@@ -40,7 +40,9 @@
         }
     }
 };
-ko.validation.makeBindingHandlerValidatable('currencyMask');
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('currencyMask');
+}
 
 //ko.bindingHandlers.currencyNegativeMask = {
 //    init: function (element, valueAccessor, allBindingsAccessor) {
@@ -128,10 +130,9 @@ ko.bindingHandlers.integerMask = {
         }
     }
 };
-ko.validation.makeBindingHandlerValidatable('integerMask');
-
-
-
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('integerMask');
+}
 
 ko.bindingHandlers.percentMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
@@ -175,4 +176,6 @@ ko.bindingHandlers.percentMask = {
         }
     }
 };
-ko.validation.makeBindingHandlerValidatable('percentMask');
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('percentMask');
+}
