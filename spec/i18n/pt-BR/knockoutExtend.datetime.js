@@ -13,14 +13,22 @@
         var dateValue = $('#dateValue');
         var anotherDateValue = $('#anotherDateValue');
 
-        //var currencyValue = $('#currencyValue');
-        //var anotherCurrencyValue = $('#anotherCurrencyValue');
-
-        //var percentValue = $('#percentValue');
-        //var anotherPercentValue = $('#anotherPercentValue');
-
         expect($(dateValue).val()).toBe('01/01/2014');
         expect($(anotherDateValue).val()).toBe('01/01/2014');
+
+        done();
+    });
+
+    it("Change values by knockout", function (done) {
+
+        var dateValue = $('#dateValue');
+        var anotherDateValue = $('#anotherDateValue');
+
+        viewModel.DateValue(new Date('2014-02-01 12:00:00'));
+        expect($(dateValue).val()).toBe('01/02/2014');
+
+        viewModel.AnotherDateValue(new Date('2015-12-12 12:00:00'));
+        expect($(anotherDateValue).val()).toBe('12/12/2015');
 
         done();
     });

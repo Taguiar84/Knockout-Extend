@@ -4,8 +4,8 @@
     , 'integer16': { mask: '9999', type: 'reverse', defaultValue: '+' }
     , 'integer': { mask: '999.999.999', type: 'reverse', defaultValue: '+' }
     , 'integer64': { mask: '999.999.999.999.999.999', type: 'reverse', defaultValue: '+' }
-    , 'decimal': { mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+' }
+    , 'currency': { mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+' }
     , 'percent': { mask: '9999,999', type: 'reverse', defaultValue: '+' }
-
+    , 'zipCode': { mask: '99999-999', defaultValue: '' }
     //, 'telefone': { mask: '(99) 9999-9999' }
 });

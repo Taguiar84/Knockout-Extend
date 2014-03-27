@@ -3,7 +3,7 @@
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
         if ($(element).is("input"))
-            $(element).setMask('decimal');
+            $(element).setMask('currency');
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
@@ -33,60 +33,16 @@
             valor = Globalize.parseFloat(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
-            $(element).setMask('decimal');
+            $(element).setMask('currency');
         }
         else {
-            $(element).text($.mask.string(valor, 'decimal'));
+            $(element).text($.mask.string(valor, 'currency'));
         }
     }
 };
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('currencyMask');
 }
-
-//ko.bindingHandlers.currencyNegativeMask = {
-//    init: function (element, valueAccessor, allBindingsAccessor) {
-//        var options = allBindingsAccessor().currencyMaskOptions || {};
-
-//        if ($(element).is("input"))
-//            $(element).setMask('signed-decimal');
-
-//        ko.utils.registerEventHandler(element, 'focusout', function () {
-//            var observable = valueAccessor();
-//            var value = $(element).val();
-//            var numberValue = Globalize.parseFloat(value); //parseFloat(value.toString().replace(/\./g, '').replace(/\,/g, '.'));
-//            if (isNaN(numberValue))
-//                observable(null);
-//            else
-//                observable(numberValue);
-//        });
-//        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-//        });
-//    },
-
-//    update: function (element, valueAccessor) {
-//        var value = ko.utils.unwrapObservable(valueAccessor());
-
-//        if (value == null || isNaN(value)) {
-//            $(element).val(null);
-//            return;
-//        }
-//        var valor;
-//        if (typeof value == "number") {
-//            valor = value.toString();
-//        }
-//        else
-//            valor = Globalize.parseFloat(value).toString(); //parseFloat(value.toString().replace(/\./g, '').replace(/\,/g, '.')).toFixed(2);
-//        if ($(element).is("input")) {
-//            $(element).val(valor);
-//            $(element).setMask('signed-decimal');
-//        }
-//        else {
-//            $(element).text($.mask.string(valor, 'signed-decimal'));
-//        }
-//    }
-//};
-//ko.validation.makeBindingHandlerValidatable('currencyNegativeMask');
 
 ko.bindingHandlers.integerMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {

@@ -83,6 +83,8 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\knockoutExtend.datetime.js" />
+    <Content Include="Scripts\knockoutExtend.compoments.js" />
+    <Content Include="Scripts\knockoutExtend.other.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.datetime.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.number.js" />
