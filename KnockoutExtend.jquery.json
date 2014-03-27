@@ -1,15 +1,15 @@
 {
     "name": "KnockoutExtend",
     "title": "Knockout Extend",
-    "description": "jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.",
+    "description": "jQuery plugin to make Mask with Globalization and visual elements like Date.",
     "keywords": [
         "Knockout", 
 		"Globalize",		
 		"Bootstrap",
 		"MeioMask",		
-		"Bootstrap DatePicker"
+		"Bootstrap-Datepicker"
     ],
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": {
         "name": "Thiago Aguiar",
         "url": "https://github.com/Taguiar84/Knockout-Extend/AUTHORS.txt"
@@ -34,6 +34,8 @@
 	"demo": "http://taguiar84.github.io/Knockout-Extend/",
     "dependencies": {
         "jquery": ">=2.0",
-        "BlockUI": ">=2.5"
+        "knockoutjs": ">=3.0.0",
+		"bootstrap": ">=3.0.2",
+		"Bootstrap-Datepicker": ">=1.2.0"
     }
 }
