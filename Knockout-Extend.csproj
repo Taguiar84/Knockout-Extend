@@ -62,8 +62,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />
     <Content Include="Scripts\i18n\en-US\globalize.culture.js" />
+    <Content Include="Scripts\i18n\en-US\meio.mask.js" />
     <Content Include="Scripts\i18n\globalize.js" />
     <Content Include="Scripts\i18n\pt-BR\globalize.culture.js" />
+    <Content Include="Scripts\i18n\pt-BR\meio.mask.js" />
     <Content Include="Scripts\jasmine-samples\Player.js" />
     <Content Include="Scripts\jasmine-samples\PlayerSpec.js" />
     <Content Include="Scripts\jasmine-samples\Song.js" />
@@ -76,6 +78,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="spec\i18n\pt-BR\knockoutExtend.js" />
+    <Content Include="spec\i18n\pt-BR\knockoutExtend.number.js" />
     <Content Include="spec\viewModel.js" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
@@ -90,7 +94,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\jquery.meio.mask.min.js" />
     <Content Include="Scripts\knockoutExtend.number.js" />
-    <Content Include="Scripts\jasmine\MIT.LICENSE" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
@@ -100,6 +103,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="spec\i18n\en-US\" />
     <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>

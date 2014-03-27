@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>AsyncRequest Home</title>
+    <title>KnockoutExtend Home</title>
     <link href="Content/jasmine/jasmine.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
@@ -20,7 +20,8 @@
 
         <div class="row">
             <div class="col-md-6">
-                <input type="text" data-bind="value: NormalText"></div>
+                <input type="text" data-bind="value: NormalText">
+            </div>
         </div>
 
 
@@ -32,10 +33,24 @@
                 <input id="anotherIntegerValue" type="text" data-bind="integerMask: AnotherIntegerValue">
             </div>
         </div>
-        
 
-    <script src="Scripts/jquery-2.1.0.min.js"></script>    
+        <div class="row">
+            <div class="col-md-6">
+                <input id="currencyValue" type="text" data-bind="currencyMask: CurrencyValue">
+            </div>
+            <div class="col-md-6">
+                <input id="anotherCurrencyValue" type="text" data-bind="currencyMask: AnotherCurrencyValue">
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="Scripts/jquery-2.1.0.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/i18n/globalize.js"></script>
+    <!--<script src="Scripts/i18n/pt-BR/globalize.culture.js"></script>
+    <script src="Scripts/i18n/en-US/globalize.culture.js"></script>-->
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
 
@@ -50,16 +65,15 @@
 
     <!--<script src="Scripts/Globalization/AsyncRequest.en-US.js"></script>
     <script src="Scripts/Globalization/AsyncRequest.pt-BR.js"></script>-->
-
     <!-- mock files-->
     <script src="spec/viewModel.js"></script>
-    <!-- Test files-->    
-    <script src="spec/knockoutExtend.js"></script>
-    <script src="spec/knockoutExtend.number.js"></script>
+    <!-- Test files-->
+    <script src="spec/i18n/pt-BR/knockoutExtend.js"></script>
+    <script src="spec/i18n/pt-BR/knockoutExtend.number.js"></script>
 
-    
 
-    
+
+
 
 
 </body>
