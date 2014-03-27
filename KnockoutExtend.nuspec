@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>KnockoutExtend</id>
+        <version>0.0.1</version>
+        <title>KnockoutExtend</title>
+        <authors>Thiago Aguiar</authors>
+        <owners>Thiago Aguiar</owners>
+        <licenseUrl>https://raw.github.com/Taguiar84/Knockout-Extend/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/Taguiar84/Knockout-Extend</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.</description>
+        <summary>jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.</summary>
+        <dependencies>
+            <dependency id="jQuery" version="2.0.3" />
+            <dependency id="knockoutjs" version="3.0.0" />
+            <dependency id="bootstrap" version="3.0.2" />
+            <dependency id="Bootstrap.Datepicker" version="1.2.0.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockout\i18n\en-US\globalize.culture.js" />
+        <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockout\i18n\en-US\meio.mask.js" />
+        <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockout\i18n\pt-BR\bootstrap-datepicker.js" />
+        <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockout\i18n\pt-BR\globalize.culture.js" />
+        <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockout\i18n\pt-BR\meio.mask.js" />
+        <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockout\i18n\globalize.js" />
+        <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockout\jquery.meio.mask.min.js" />
+        <file src="Scripts\knockoutExtend.compoments.js" target="content\Scripts\knockout\knockoutExtend.compoments.js" />
+        <file src="Scripts\knockoutExtend.datetime.js" target="content\Scripts\knockout\knockoutExtend.datetime.js" />
+        <file src="Scripts\knockoutExtend.js" target="content\Scripts\knockout\knockoutExtend.js" />
+        <file src="Scripts\knockoutExtend.number.js" target="content\Scripts\knockout\knockoutExtend.number.js" />
+        <file src="Scripts\knockoutExtend.other.js" target="content\Scripts\knockout\knockoutExtend.other.js" />
+    </files>
+</package>

@@ -1,0 +1,39 @@
+{
+    "name": "KnockoutExtend",
+    "title": "Knockout Extend",
+    "description": "jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.",
+    "keywords": [
+        "Knockout", 
+		"Globalize",		
+		"Bootstrap",
+		"MeioMask",		
+		"Bootstrap DatePicker"
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Thiago Aguiar",
+        "url": "https://github.com/Taguiar84/Knockout-Extend/AUTHORS.txt"
+    },
+    "maintainers": [
+        {
+            "name": "Thiago Aguiar",
+            "email": "thiago.sol@gmail.com",
+            "url": "https://github.com/Taguiar84"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/Taguiar84/Knockout-Extend/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/Taguiar84/Knockout-Extend/issues",
+    "homepage": "https://github.com/Taguiar84/Knockout-Extend",
+    "docs": "https://github.com/Taguiar84/Knockout-Extend/blob/master/README.md",
+    "download": "https://github.com/Taguiar84/Knockout-Extend/raw/master/Version/latest/AsyncRequest.zip",
+	"demo": "http://taguiar84.github.io/Knockout-Extend/",
+    "dependencies": {
+        "jquery": ">=2.0",
+        "BlockUI": ">=2.5"
+    }
+}
