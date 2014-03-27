@@ -7,6 +7,7 @@
     <link href="Content/jasmine/jasmine.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-datepicker.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -19,27 +20,54 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <input type="text" data-bind="value: NormalText">
+            <div class="col-md-12">
+                <label>Texto</label>
+                <input class="form-control" type="text" data-bind="value: NormalText">
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-md-6">
-                <input id="integerValue" type="text" data-bind="integerMask: IntegerValue">
+                <label>Inteiro</label>
+                <input class="form-control" id="integerValue" type="text" data-bind="integerMask: IntegerValue">
             </div>
             <div class="col-md-6">
-                <input id="anotherIntegerValue" type="text" data-bind="integerMask: AnotherIntegerValue">
+                <label>Inteiro</label>
+                <input class="form-control" id="anotherIntegerValue" type="text" data-bind="integerMask: AnotherIntegerValue">
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <input id="currencyValue" type="text" data-bind="currencyMask: CurrencyValue">
+                <label>Valor</label>
+                <input class="form-control" id="currencyValue" type="text" data-bind="currencyMask: CurrencyValue">
             </div>
             <div class="col-md-6">
-                <input id="anotherCurrencyValue" type="text" data-bind="currencyMask: AnotherCurrencyValue">
+                <label>Valor</label>
+                <input class="form-control" id="anotherCurrencyValue" type="text" data-bind="currencyMask: AnotherCurrencyValue">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Percent</label>
+                <input class="form-control" id="percentValue" type="text" data-bind="percentMask: PercentValue">
+            </div>
+            <div class="col-md-6">
+                <label>Percent</label>
+                <input class="form-control" id="anotherPercentValue" type="text" data-bind="percentMask: AnotherPercentValue">
+            </div>
+        </div>        
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Data</label>
+                <input class="form-control" id="dateValue" type="text" data-bind="dateMask: DateValue">
+            </div>
+            <div class="col-md-6">
+                <label>Data</label>
+                <input class="form-control" id="anotherDateValue" type="text" data-bind="dateMask: AnotherDateValue">
             </div>
         </div>
 
@@ -48,9 +76,8 @@
 
     <script src="Scripts/jquery-2.1.0.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/i18n/globalize.js"></script>
-    <!--<script src="Scripts/i18n/pt-BR/globalize.culture.js"></script>
-    <script src="Scripts/i18n/en-US/globalize.culture.js"></script>-->
+    <script src="Scripts/bootstrap-datepicker.js"></script>
+     <script src="Scripts/i18n/globalize.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
 
@@ -58,10 +85,11 @@
     <script src="Scripts/jasmine/jasmine.js"></script>
     <script src="Scripts/jasmine/jasmine-html.js"></script>
     <script src="Scripts/jasmine/boot.js"></script>
-
+    <script src="Scripts/jasmine/console.js"></script>
     <!-- System to test-->
     <script src="Scripts/knockoutExtend.js"></script>
     <script src="Scripts/knockoutExtend.number.js"></script>
+    <script src="Scripts/knockoutExtend.datetime.js"></script>
 
     <!--<script src="Scripts/Globalization/AsyncRequest.en-US.js"></script>
     <script src="Scripts/Globalization/AsyncRequest.pt-BR.js"></script>-->
@@ -70,7 +98,7 @@
     <!-- Test files-->
     <script src="spec/i18n/pt-BR/knockoutExtend.js"></script>
     <script src="spec/i18n/pt-BR/knockoutExtend.number.js"></script>
-
+    <script src="spec/i18n/pt-BR/knockoutExtend.datetime.js"></script>
 
 
 

@@ -2,7 +2,7 @@
     var self = this;
 
     self.NormalText = ko.observable();
-    
+
     self.IntegerValue = ko.observable();
     self.AnotherIntegerValue = ko.observable();
 
@@ -19,7 +19,7 @@
     self.AnotherPercentValue = ko.observable();
 
 
-    self.Load = 
+    self.Load =
         function () {
             self.NormalText('It\'s normal text');
 
@@ -38,24 +38,26 @@
             self.AnotherDateTimeValue(new Date('2014-01-01 12:00:00'));
 
             self.PercentValue(.15);
-            self.AnotherPercentValue(.15);
+            self.AnotherPercentValue(.04);
 
 
+        }
+
+    self.Locale =
+        function (locale) {
+            //loadjscssfile("Scripts/i18n/globalize.js", "js");
+            loadjscssfile("Scripts/i18n/" + locale + "/globalize.culture.js", "js");
+            loadjscssfile("Scripts/i18n/" + locale + "/meio.mask.js", "js");
+            loadjscssfile("Scripts/i18n/" + locale + "/bootstrap-datepicker.js", "js");            
         }
 
     self.Apply =
         function (locale) {
             var element = $('.container')[0];
             ko.cleanNode(element);
-            //loadjscssfile("Scripts/i18n/globalize.js", "js");
-            loadjscssfile("Scripts/i18n/" + locale + "/globalize.culture.js", "js");
-            loadjscssfile("Scripts/i18n/" + locale + "/meio.mask.js", "js");
-
-            setTimeout(function () {
-                Globalize.culture(locale);
-                ko.applyBindings(self, element);
-                self.Load();
-            }, 100);
+            Globalize.culture(locale);
+            ko.applyBindings(self, element);
+            self.Load();
         }
 
     function loadjscssfile(filename, filetype) {

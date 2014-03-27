@@ -53,6 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -61,9 +63,11 @@
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\en-US\globalize.culture.js" />
     <Content Include="Scripts\i18n\en-US\meio.mask.js" />
     <Content Include="Scripts\i18n\globalize.js" />
+    <Content Include="Scripts\i18n\pt-BR\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\pt-BR\globalize.culture.js" />
     <Content Include="Scripts\i18n\pt-BR\meio.mask.js" />
     <Content Include="Scripts\jasmine-samples\Player.js" />
@@ -78,6 +82,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\knockoutExtend.datetime.js" />
+    <Content Include="spec\i18n\pt-BR\knockoutExtend.datetime.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.number.js" />
     <Content Include="spec\viewModel.js" />
