@@ -19,10 +19,13 @@
         </dependencies>
     </metadata>
     <files>
+        <file src="Scripts\i18n\en-US\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datepicker.js" />
         <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\globalize.culture.js" />
+        <file src="Scripts\i18n\en-US\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\en-US\meio.mask.js" />
         <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datepicker.js" />
         <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\globalize.culture.js" />
+        <file src="Scripts\i18n\pt-BR\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\meio.mask.js" />
         <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockoutExtend\i18n\globalize.js" />
         <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockoutExtend\jquery.meio.mask.min.js" />

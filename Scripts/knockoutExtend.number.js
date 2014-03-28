@@ -206,7 +206,7 @@ ko.bindingHandlers.phoneMask = {
 
         ko.utils.registerEventHandler(element, 'keydown', function () {
             currentValue = $(element).val().replace(/[^\d]+/g, '');
-            var mask 
+            var mask;
             if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
                 mask = $.knockoutExtend.defaults.culture.changeMaskFunction(currentValue, options);
                 $(element).setMask(mask);
