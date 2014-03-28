@@ -19,6 +19,11 @@
     self.AnotherPercentValue = ko.observable();
 
 
+    self.PhoneValue = ko.observable();
+    self.PhoneCountryValue = ko.observable();
+    self.AnotherPhoneValue = ko.observable();
+
+
     self.Load =
         function () {
             self.NormalText('It\'s normal text');
@@ -40,7 +45,9 @@
             self.PercentValue(.15);
             self.AnotherPercentValue(.04);
 
-
+            self.PhoneValue('7991999401');
+            self.PhoneCountryValue('157991999401');
+            self.AnotherPhoneValue('19993214321');
         }
 
     self.Locale =

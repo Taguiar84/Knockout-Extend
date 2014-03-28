@@ -58,7 +58,7 @@
                 <label>Percent</label>
                 <input class="form-control" id="anotherPercentValue" type="text" data-bind="percentMask: AnotherPercentValue">
             </div>
-        </div>        
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -71,13 +71,30 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-4">
+                <label>Phone</label>
+                <input class="form-control" id="phoneValue" type="text" data-bind="phoneMask: PhoneValue" />
+            </div>
+            <div class="col-md-4">
+                <label>Data</label>
+                <input class="form-control" id="anotherPhoneValue" type="text" data-bind="phoneMask: AnotherPhoneValue" />
+            </div>
+            <div class="col-md-4">
+                <label>Data</label>
+                <input class="form-control" id="phoneCountryValue" type="text" data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }" />
+            </div>
+        </div>
+
+
+
     </div>
 
 
     <script src="Scripts/jquery-2.1.0.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap-datepicker.js"></script>
-     <script src="Scripts/i18n/globalize.js"></script>
+    <script src="Scripts/i18n/globalize.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
 
@@ -90,7 +107,7 @@
     <script src="Scripts/knockoutExtend.js"></script>
     <script src="Scripts/knockoutExtend.number.js"></script>
     <script src="Scripts/knockoutExtend.datetime.js"></script>
-
+    <script src="Scripts/i18n/pt-BR/knockoutExtend.culture.js"></script>
     <!--<script src="Scripts/Globalization/AsyncRequest.en-US.js"></script>
     <script src="Scripts/Globalization/AsyncRequest.pt-BR.js"></script>-->
     <!-- mock files-->

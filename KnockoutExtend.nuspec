@@ -19,17 +19,17 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockout\i18n\en-US\globalize.culture.js" />
-        <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockout\i18n\en-US\meio.mask.js" />
-        <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockout\i18n\pt-BR\bootstrap-datepicker.js" />
-        <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockout\i18n\pt-BR\globalize.culture.js" />
-        <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockout\i18n\pt-BR\meio.mask.js" />
-        <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockout\i18n\globalize.js" />
-        <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockout\jquery.meio.mask.min.js" />
-        <file src="Scripts\knockoutExtend.compoments.js" target="content\Scripts\knockout\knockoutExtend.compoments.js" />
-        <file src="Scripts\knockoutExtend.datetime.js" target="content\Scripts\knockout\knockoutExtend.datetime.js" />
-        <file src="Scripts\knockoutExtend.js" target="content\Scripts\knockout\knockoutExtend.js" />
-        <file src="Scripts\knockoutExtend.number.js" target="content\Scripts\knockout\knockoutExtend.number.js" />
-        <file src="Scripts\knockoutExtend.other.js" target="content\Scripts\knockout\knockoutExtend.other.js" />
+        <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\globalize.culture.js" />
+        <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\en-US\meio.mask.js" />
+        <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datepicker.js" />
+        <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\globalize.culture.js" />
+        <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\meio.mask.js" />
+        <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockoutExtend\i18n\globalize.js" />
+        <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockoutExtend\jquery.meio.mask.min.js" />
+        <file src="Scripts\knockoutExtend.compoments.js" target="content\Scripts\knockoutExtend\knockoutExtend.compoments.js" />
+        <file src="Scripts\knockoutExtend.datetime.js" target="content\Scripts\knockoutExtend\knockoutExtend.datetime.js" />
+        <file src="Scripts\knockoutExtend.js" target="content\Scripts\knockoutExtend\knockoutExtend.js" />
+        <file src="Scripts\knockoutExtend.number.js" target="content\Scripts\knockoutExtend\knockoutExtend.number.js" />
+        <file src="Scripts\knockoutExtend.other.js" target="content\Scripts\knockoutExtend\knockoutExtend.other.js" />
     </files>
 </package>

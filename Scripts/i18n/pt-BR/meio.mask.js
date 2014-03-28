@@ -7,5 +7,5 @@
     , 'currency': { mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+' }
     , 'percent': { mask: '9999,999', type: 'reverse', defaultValue: '+' }
     , 'zipCode': { mask: '99999-999', defaultValue: '' }
-    //, 'telefone': { mask: '(99) 9999-9999' }
+    , 'phone': { mask: '(99) 9999-9999', defaultValue: '' }
 });

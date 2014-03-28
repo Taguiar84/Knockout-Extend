@@ -69,6 +69,7 @@
     <Content Include="Scripts\i18n\globalize.js" />
     <Content Include="Scripts\i18n\pt-BR\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\pt-BR\globalize.culture.js" />
+    <Content Include="Scripts\i18n\pt-BR\knockoutExtend.culture.js" />
     <Content Include="Scripts\i18n\pt-BR\meio.mask.js" />
     <Content Include="Scripts\jasmine-samples\Player.js" />
     <Content Include="Scripts\jasmine-samples\PlayerSpec.js" />

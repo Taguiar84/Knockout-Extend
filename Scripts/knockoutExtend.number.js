@@ -135,3 +135,109 @@ ko.bindingHandlers.percentMask = {
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('percentMask');
 }
+
+ko.bindingHandlers.zipCodeMask = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().currencyMaskOptions || {};
+
+        if ($(element).is("input"))
+            $(element).setMask('zipCode');
+
+        ko.utils.registerEventHandler(element, 'focusout', function () {
+            var observable = valueAccessor();
+            var valor = $(element).val().replace(/[^\d]+/g, '');
+            observable(valor);
+            observable.isValid();
+        });
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        });
+    },
+
+    update: function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+
+        if (value == null) {
+            $(element).val(null);
+            return;
+        }
+        if ($(element).is("input")) {
+            $(element).val(value);
+            $(element).setMask('zipCode');
+        }
+        else {
+            $(element).text($.mask.string(value, 'zipCode'));
+        }
+    }
+};
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('zipCodeMask');
+}
+
+
+ko.bindingHandlers.phoneMask = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().phoneMaskOptions || {};
+
+        var mask = 'phone';
+        var newMask;
+        mask = options.mask || mask;
+        
+        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
+            mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
+        }
+
+        if ($(element).is("input"))
+            $(element).setMask(mask);
+
+        ko.utils.registerEventHandler(element, 'focusout', function () {
+            var observable = valueAccessor();
+            var valor = $(element).val().replace(/[^\d]+/g, '');
+            observable(valor);
+            //observable.isValid();
+        });
+
+        ko.utils.registerEventHandler(element, 'keydown', function () {
+            currentValue = $(element).val().replace(/[^\d]+/g, '');
+            var mask 
+            if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
+                mask = $.knockoutExtend.defaults.culture.changeMaskFunction(currentValue, options);
+                $(element).setMask(mask);
+            }
+            else {
+                $(element).setMask(mask);
+            }
+        });
+
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        });
+    },
+
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().phoneMaskOptions || {};
+        var value = ko.utils.unwrapObservable(valueAccessor());
+
+        var mask = 'phone';
+        var newMask;
+        mask = options.mask || mask;
+
+        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
+            mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
+        }
+
+        if (value == null) {
+            $(element).val(null);
+            return;
+        }
+        if ($(element).is("input")) {
+            $(element).val(value);
+            $(element).setMask(mask);
+        }
+        else {
+            $(element).text($.mask.string(value, mask));
+        }
+    }
+};
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('phoneMask');
+}
