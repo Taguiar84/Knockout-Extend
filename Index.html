@@ -50,13 +50,17 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Percent</label>
-                <input class="form-control" id="percentValue" type="text" data-bind="percentMask: PercentValue">
+                <input class="form-control" id="percentValue" type="text" data-bind="decimalMask: PercentValue">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Percent</label>
-                <input class="form-control" id="anotherPercentValue" type="text" data-bind="percentMask: AnotherPercentValue">
+                <input class="form-control" id="anotherPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue">
+            </div>
+            <div class="col-md-4">
+                <label>Percent</label>
+                <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: { mask: '999999,999.99', type: 'reverse' }, globalizeFormat: 'n6' } ">
             </div>
         </div>
 

@@ -90,12 +90,15 @@ if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('integerMask');
 }
 
-ko.bindingHandlers.percentMask = {
+ko.bindingHandlers.decimalMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().percentMaskOptions || {};
+        var options = allBindingsAccessor().decimalMaskOptions || {};
+
+        var mask = options.mask || 'decimal';;
+        var globalizeFormat = options.globalizeFormat ||  "n4";
 
         if ($(element).is("input"))
-            $(element).setMask('percent');
+            $(element).setMask(mask);
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
@@ -110,8 +113,13 @@ ko.bindingHandlers.percentMask = {
         });
     },
 
-    update: function (element, valueAccessor) {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().decimalMaskOptions || {};
+
         var value = ko.utils.unwrapObservable(valueAccessor());
+
+        var mask = options.mask || 'decimal';;
+        var globalizeFormat = options.globalizeFormat || "n4";
 
         if (value == null || isNaN(value)) {
             $(element).val(null);
@@ -119,21 +127,21 @@ ko.bindingHandlers.percentMask = {
         }
         var valor;
         if (typeof value == "number") {
-            valor = Globalize.format(value, 'n4');
+            valor = Globalize.format(value, globalizeFormat);
         }
         else
             valor = Globalize.parseFloat(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
-            $(element).setMask('percent');
+            $(element).setMask(mask);
         }
         else {
-            $(element).text($.mask.string(valor, 'percent'));
+            $(element).text($.mask.string(valor, mask));
         }
     }
 };
 if (ko.validation != null) {
-    ko.validation.makeBindingHandlerValidatable('percentMask');
+    ko.validation.makeBindingHandlerValidatable('decimalMask');
 }
 
 ko.bindingHandlers.zipCodeMask = {

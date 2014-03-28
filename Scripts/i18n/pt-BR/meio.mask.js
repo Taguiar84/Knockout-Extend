@@ -4,6 +4,7 @@
     , 'integer16': { mask: '9999', type: 'reverse', defaultValue: '+' }
     , 'integer': { mask: '999.999.999', type: 'reverse', defaultValue: '+' }
     , 'integer64': { mask: '999.999.999.999.999.999', type: 'reverse', defaultValue: '+' }
+    , 'decimal'  : { mask : '9999,999.999.999.9', type : 'reverse', defaultValue: '+' }
     , 'currency': { mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+' }
     , 'percent': { mask: '9999,999', type: 'reverse', defaultValue: '+' }
     , 'zipCode': { mask: '99999-999', defaultValue: '' }

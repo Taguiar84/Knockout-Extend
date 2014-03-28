@@ -28,11 +28,9 @@
         function () {
             self.NormalText('It\'s normal text');
 
-            self.IntegerValue(null);
             self.IntegerValue(2);
             self.AnotherIntegerValue(5);
 
-            self.CurrencyValue(null);
             self.CurrencyValue(2.46);
             self.AnotherCurrencyValue(0.20);
 
