@@ -64,7 +64,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\i18n\en-US\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\en-US\globalize.culture.js" />
+    <Content Include="Scripts\i18n\en-US\knockoutExtend.culture.js" />
     <Content Include="Scripts\i18n\en-US\meio.mask.js" />
     <Content Include="Scripts\i18n\globalize.js" />
     <Content Include="Scripts\i18n\pt-BR\bootstrap-datepicker.js" />
@@ -86,6 +88,8 @@
     <Content Include="Scripts\knockoutExtend.datetime.js" />
     <Content Include="Scripts\knockoutExtend.compoments.js" />
     <Content Include="Scripts\knockoutExtend.other.js" />
+    <Content Include="spec\i18n\en-US\knockoutExtend.datetime.js" />
+    <Content Include="spec\i18n\en-US\knockoutExtend.number.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.datetime.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.number.js" />
@@ -112,7 +116,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="spec\i18n\en-US\" />
     <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>
