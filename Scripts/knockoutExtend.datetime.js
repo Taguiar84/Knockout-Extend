@@ -174,3 +174,7 @@ if (ko.validation != null) {
 //        valor += ":00";
 //    return valor;
 //}
+
+if (ko.validation != null) {
+    ko.validation.registerExtenders();
+}

@@ -249,3 +249,8 @@ ko.bindingHandlers.phoneMask = {
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('phoneMask');
 }
+
+if (ko.validation != null) {
+    ko.validation.registerExtenders();
+}
+

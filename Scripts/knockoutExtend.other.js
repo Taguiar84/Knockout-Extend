@@ -108,3 +108,7 @@ ko.bindingHandlers.cpfMask = {
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('cpfMask');
 }
+
+if (ko.validation != null) {
+    ko.validation.registerExtenders();
+}
