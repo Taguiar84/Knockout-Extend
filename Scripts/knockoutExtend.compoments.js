@@ -228,6 +228,6 @@ ko.bindingHandlers.colorpicker = {
 //        //$(element).multiSelect('refresh');
 //    }
 //};
-//if (ko.validation != null) {
-//    ko.validation.registerExtenders();
-//}
+if (ko.validation != null) {
+    ko.validation.registerExtenders();
+}

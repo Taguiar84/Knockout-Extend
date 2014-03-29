@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.1</version>
+        <version>0.0.3</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
         <licenseUrl>https://raw.github.com/Taguiar84/Knockout-Extend/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/Taguiar84/Knockout-Extend</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.</description>
-        <summary>jQuery plugin to make request with visual feedback, blocked element, result notification, queue or parallel queues for you requests.</summary>
+        <description>Extend knockout with BootStrap, Mask and Globalization and Format</description>
+        <summary>Extend knockout with BootStrap, Mask and Globalization and Format</summary>
         <dependencies>
             <dependency id="jQuery" version="2.0.3" />
             <dependency id="knockoutjs" version="3.0.0" />
@@ -19,6 +19,7 @@
         </dependencies>
     </metadata>
     <files>
+        <file src="Content\bootstrap-colorpicker.css" target="content\Content\bootstrap-colorpicker.css" />
         <file src="Scripts\i18n\en-US\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datepicker.js" />
         <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\globalize.culture.js" />
         <file src="Scripts\i18n\en-US\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\knockoutExtend.culture.js" />
