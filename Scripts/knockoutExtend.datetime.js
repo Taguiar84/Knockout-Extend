@@ -41,7 +41,7 @@ ko.bindingHandlers.dateMask = {
             $(element).setMask('date');
             $(element).datepicker({
                 language: Globalize.culture().name,
-                format: Globalize.culture().calendar.patterns.d.toLowerCase()//Pemsar melhor
+                format: Globalize.culture().calendar.patterns.d.toLowerCase()//Pensar melhor
             });
         }
 
@@ -62,10 +62,7 @@ ko.bindingHandlers.dateMask = {
             $(element).val(null);
             return;
         }
-        var valor = new Date(value); //Globalize.parseDate(value);        
-        //if (valor != null)
-        //    valor = valor.toString();
-        //Ver compoemente para data
+        var valor = new Date(value);
         if ($(element).is("input")) {
             $(element).val(Globalize.format(valor, 'd'));
             $(element).setMask('date');
@@ -80,12 +77,63 @@ if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('dateMask');
 }
 
+
+ko.bindingHandlers.dateTimeMask = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().currencyMaskOptions || {};
+
+        if ($(element).is("input")) {
+            $(element).setMask('datetime');
+            $(element).datetimepicker({
+                language: Globalize.culture().name,
+                format: Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
+            });
+        }
+
+        ko.utils.registerEventHandler(element, 'focusout', function () {
+            var observable = valueAccessor();
+            var value = $(element).val();
+            var numberValue = Globalize.parseDate(value);
+            observable(numberValue);
+        });
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        });
+    },
+
+    update: function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+
+        if (value == null) {
+            $(element).val(null);
+            return;
+        }
+        var valor = new Date(value);
+        if ($(element).is("input")) {
+            $(element).val(Globalize.format(valor, 'F'));
+            $(element).setMask('datetime');
+        }
+        else {
+            $(element).text(Globalize.format(valor, 'F'));
+
+        }
+    }
+};
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('dateTimeMask');
+}
+
+
 ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
-        if ($(element).is("input"))
+        if ($(element).is("input")) {
             $(element).setMask('datetime');
+            $(element).datepicker({
+                language: Globalize.culture().name,
+                format: Globalize.culture().calendar.patterns.F.toLowerCase()//Pensar melhor
+            });
+        }
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();

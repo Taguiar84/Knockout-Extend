@@ -54,6 +54,7 @@
             loadjscssfile("Scripts/i18n/" + locale + "/globalize.culture.js", "js");
             loadjscssfile("Scripts/i18n/" + locale + "/meio.mask.js", "js");
             loadjscssfile("Scripts/i18n/" + locale + "/bootstrap-datepicker.js", "js");
+            loadjscssfile("Scripts/i18n/" + locale + "/bootstrap-datetimepicker.js", "js");
             loadjscssfile("Scripts/i18n/" + locale + "/knockoutExtend.culture.js", "js");            
         }
 

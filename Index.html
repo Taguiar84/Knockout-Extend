@@ -8,7 +8,9 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 </head>
+
 <body>
     <div class="container">
         for the time this is Home and Test page.
@@ -74,6 +76,16 @@
                 <input class="form-control" id="anotherDateValue" type="text" data-bind="dateMask: AnotherDateValue">
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>DataTime</label>
+                <input class="form-control" id="dateTimeValue" type="text" data-bind="dateTimeMask: DateValue">
+            </div>
+            <div class="col-md-6">
+                <label>DataTime</label>
+                <input class="form-control" id="anotherDateTimeValue" type="text" data-bind="dateTimeMask: AnotherDateValue">
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-4">
@@ -98,7 +110,8 @@
     <script src="Scripts/jquery-2.1.0.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap-datepicker.js"></script>
-    <script src="Scripts/i18n/globalize.js"></script>
+    <script src="Scripts/bootstrap-datetimepicker.min.js"></script>
+     <script src="Scripts/i18n/globalize.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
 
@@ -122,8 +135,8 @@
     <script src="spec/i18n/pt-BR/knockoutExtend.number.js"></script>
     <script src="spec/i18n/pt-BR/knockoutExtend.datetime.js"></script>
     <!--en-US-->    
-    <script src="spec/i18n/en-US/knockoutExtend.number.js"></script>
-    <script src="spec/i18n/en-US/knockoutExtend.datetime.js"></script>
+    <!--<script src="spec/i18n/en-US/knockoutExtend.number.js"></script>
+    <script src="spec/i18n/en-US/knockoutExtend.datetime.js"></script>-->
 
 
 </body>
