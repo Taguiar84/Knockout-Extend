@@ -3,28 +3,30 @@
 
     self.NormalText = ko.observable();
 
-    self.IntegerValue = ko.observable();
-    self.AnotherIntegerValue = ko.observable();
+    self.IntegerValue = ko.observable(null);
+    self.AnotherIntegerValue = ko.observable(null);
+    self.ShortValue = ko.observable(null);
+    self.LongValue = ko.observable(null);
 
-    self.CurrencyValue = ko.observable();
-    self.AnotherCurrencyValue = ko.observable();
+    self.CurrencyValue = ko.observable(null);
+    self.AnotherCurrencyValue = ko.observable(null);
 
-    self.DateValue = ko.observable();
-    self.AnotherDateValue = ko.observable();
+    self.DateValue = ko.observable(null);
+    self.AnotherDateValue = ko.observable(null);
 
-    self.DateTimeValue = ko.observable();
-    self.AnotherDateTimeValue = ko.observable();
+    self.DateTimeValue = ko.observable(null);
+    self.AnotherDateTimeValue = ko.observable(null);
 
-    self.TimeValue = ko.observable();
-    self.AnotherTimeValue = ko.observable();
+    self.TimeValue = ko.observable(null);
+    self.AnotherTimeValue = ko.observable(null);
 
-    self.PercentValue = ko.observable();
-    self.AnotherPercentValue = ko.observable();
+    self.PercentValue = ko.observable(null);
+    self.AnotherPercentValue = ko.observable(null);
 
 
-    self.PhoneValue = ko.observable();
-    self.PhoneCountryValue = ko.observable();
-    self.AnotherPhoneValue = ko.observable();
+    self.PhoneValue = ko.observable(null);
+    self.PhoneCountryValue = ko.observable(null);
+    self.AnotherPhoneValue = ko.observable(null);
 
 
     self.Load =
@@ -33,6 +35,8 @@
 
             self.IntegerValue(2);
             self.AnotherIntegerValue(5);
+            self.ShortValue(3123);
+            self.LongValue(8763423746);
 
             self.CurrencyValue(2.46);
             self.AnotherCurrencyValue(0.20);

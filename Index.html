@@ -33,12 +33,23 @@
 
         <div class="row">
             <div class="col-md-6">
-                <label>Inteiro</label>
+                <label>Integer</label>
                 <input class="form-control" id="integerValue" type="text" data-bind="integerMask: IntegerValue">
             </div>
             <div class="col-md-6">
-                <label>Inteiro</label>
+                <label>Integer</label>
                 <input class="form-control" id="anotherIntegerValue" type="text" data-bind="integerMask: AnotherIntegerValue">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Short</label>
+                <input class="form-control" id="integerValue" type="text" data-bind="integerMask: ShortValue, integerMaskOptions: { mask: 'integer16'}">
+            </div>
+            <div class="col-md-6">
+                <label>Long</label>
+                <input class="form-control" id="anotherIntegerValue" type="text" data-bind="integerMask: LongValue, integerMaskOptions: { mask: 'integer64'}">
             </div>
         </div>
 

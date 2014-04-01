@@ -2,8 +2,8 @@ KnocoutExtend
 ============
 //Mask / Compoments
 //integerMask --OK
-//integer16Mask --ERRO
-//integer64Mask --ERRO
+//integer16Mask --OK
+//integer64Mask --OK
 //currencyMask --OK
 //decimalMask --OK
 //zipCodeMask --OK

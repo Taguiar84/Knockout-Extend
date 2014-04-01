@@ -46,10 +46,11 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.integerMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().integerMaskOptions || {};
 
+        var mask = options.mask || 'integer';
         if ($(element).is("input"))
-            $(element).setMask('integer');
+            $(element).setMask(mask);
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
@@ -64,9 +65,12 @@ ko.bindingHandlers.integerMask = {
         });
     },
 
-    update: function (element, valueAccessor) {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().integerMaskOptions || {};
+
         var value = ko.utils.unwrapObservable(valueAccessor());
 
+        var mask = options.mask || 'integer';
         if (value == null || isNaN(value)) {
             $(element).val(null);
             return;
@@ -79,10 +83,10 @@ ko.bindingHandlers.integerMask = {
             valor = Globalize.parseInt(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
-            $(element).setMask('integer');
+            $(element).setMask(mask);
         }
         else {
-            $(element).text($.mask.string(valor, 'integer'));
+            $(element).text($.mask.string(valor, mask));
         }
     }
 };
@@ -94,7 +98,7 @@ ko.bindingHandlers.decimalMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().decimalMaskOptions || {};
 
-        var mask = options.mask || 'decimal';;
+        var mask = options.mask || 'decimal';
         var globalizeFormat = options.globalizeFormat ||  "n4";
 
         if ($(element).is("input"))
@@ -118,7 +122,7 @@ ko.bindingHandlers.decimalMask = {
 
         var value = ko.utils.unwrapObservable(valueAccessor());
 
-        var mask = options.mask || 'decimal';;
+        var mask = options.mask || 'decimal';
         var globalizeFormat = options.globalizeFormat || "n4";
 
         if (value == null || isNaN(value)) {
