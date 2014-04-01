@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.3</version>
+        <version>0.0.3.3</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
@@ -20,15 +20,19 @@
     </metadata>
     <files>
         <file src="Content\bootstrap-colorpicker.css" target="content\Content\bootstrap-colorpicker.css" />
+        <file src="Content\bootstrap-datetimepicker.css" target="content\Content\bootstrap-datetimepicker.css" />
         <file src="Scripts\i18n\en-US\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datepicker.js" />
+        <file src="Scripts\i18n\en-US\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datetimepicker.js" />
         <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\globalize.culture.js" />
         <file src="Scripts\i18n\en-US\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\en-US\meio.mask.js" />
         <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datepicker.js" />
+        <file src="Scripts\i18n\pt-BR\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datetimepicker.js" />
         <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\globalize.culture.js" />
         <file src="Scripts\i18n\pt-BR\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\meio.mask.js" />
         <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockoutExtend\i18n\globalize.js" />
+        <file src="Scripts\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\bootstrap-datetimepicker.js" />
         <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockoutExtend\jquery.meio.mask.min.js" />
         <file src="Scripts\knockoutExtend.compoments.js" target="content\Scripts\knockoutExtend\knockoutExtend.compoments.js" />
         <file src="Scripts\knockoutExtend.datetime.js" target="content\Scripts\knockoutExtend\knockoutExtend.datetime.js" />

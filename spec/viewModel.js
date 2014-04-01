@@ -15,6 +15,9 @@
     self.DateTimeValue = ko.observable();
     self.AnotherDateTimeValue = ko.observable();
 
+    self.TimeValue = ko.observable();
+    self.AnotherTimeValue = ko.observable();
+
     self.PercentValue = ko.observable();
     self.AnotherPercentValue = ko.observable();
 
@@ -39,6 +42,9 @@
 
             self.DateTimeValue(new Date('2014-01-01 12:00:00'));
             self.AnotherDateTimeValue(new Date('2014-01-01 12:00:00'));
+
+            self.TimeValue(new Date('11:45:42'));
+            self.AnotherTimeValue(new Date('23:01:00'));
 
             self.PercentValue(.15);
             self.AnotherPercentValue(.04);
