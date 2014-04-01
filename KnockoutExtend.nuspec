@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.3.4</version>
+        <version>0.0.3.5</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
