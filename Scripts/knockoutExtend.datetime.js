@@ -200,20 +200,43 @@ ko.bindingHandlers.timeMask = {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
         if ($(element).is("input")) {
-            $(element).timepicker({showMeridian: false, showSeconds: false});
-            $(element).setMask('time');
-        }        
+            //$(element).setMask('time');
 
-        ko.utils.registerEventHandler(element, 'change', function () {
+            //$(element).timepicker().on('changeTime.timepicker', function (e) {
+            //    console.log('The time is ' + e.time.value);
+            //    console.log('The hour is ' + e.time.hour);
+            //    console.log('The minute is ' + e.time.minute);
+            //    console.log('The meridian is ' + e.time.meridian);
+            //});
+
+            $(element).timepicker({
+                //language: Globalize.culture().name
+                //, pickDate: false
+                //, pickTime: true
+                showMeridian: false
+                //, format: Globalize.culture().calendar.patterns.T //Pensar melhor
+            });
+        }
+
+
+        ko.utils.registerEventHandler(element, 'changeTime.timepicker', function (e) {            
             var observable = valueAccessor();
-            var value = $(element).val();            
-            observable(value);
+            observable(e.time.value);
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
-            var value = $(element).val();            
-            observable(value);
+            var value = $(element).val();
+            var numberValue = null;
+            switch (Globalize.culture().name) {
+                case 'en-US':
+                    numberValue = new Date(value);
+                    break;
+                default:
+                    numberValue = Globalize.parseDate(value);
+                    break;
+            }
+            observable(numberValue);
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -226,17 +249,14 @@ ko.bindingHandlers.timeMask = {
             $(element).val(null);
             return;
         }
+        //var valor = new Date(value);
         if ($(element).is("input")) {
+            //var format = Globalize.culture().calendar.patterns.T;
             $(element).val(value);
-            $(element).setMask('time');
+            //$(element).setMask('time');
         }
         else {
-            if (value == null || value == "") {
-                $(element).text("");
-            }
-            else {
-                $(element).text(value);
-            }
+            $(element).text(value);
         }
     }
 };

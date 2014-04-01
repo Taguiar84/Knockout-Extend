@@ -1,15 +1,33 @@
-AsyncRequest
+KnocoutExtend
 ============
+//Mask / Compoments
+//integerMask --OK
+//integer16Mask --ERRO
+//integer64Mask --ERRO
+//currencyMask --OK
+//decimalMask --OK
+//zipCodeMask --OK
+//phoneMask --OK
+//cpfMask --OK
+//cnpjMask --OK
+//creditCardMask --OK
+
+//Compoments
+//select2 --ERRO
+//multiselect --ERRO
+//colorpicker --ERRO
+
+
 
 ## Description
 
-jQuery plugin for make request with visual feedback, like blocked element, notify result, yet make queue and parallel queue for you requests.
+Extend knockout with BootStrap, Mask and Globalization and Format.
 
 ## Setup
-* [How to setup the plugin on your website](https://github.com/Taguiar84/AsyncRequest/wiki/Setup)
+* [How to setup the plugin on your website](https://github.com/Taguiar84/Knockout-Extend/wiki/Setup)
 
 ## How to Use
-* [How to use the plugin on you website](https://github.com/Taguiar84/AsyncRequest/blob/master/HowToUse.md)
+* [How to use the plugin on you website](https://github.com/Taguiar84/Knockout-Extend/blob/master/HowToUse.md)
 
 ## Support
 
@@ -19,19 +37,21 @@ jQuery plugin for make request with visual feedback, like blocked element, notif
 If your question is not directly related to the AsyncRequest plugin, you might have a better chance to get a reply by posting to [Stack Overflow](http://stackoverflow.com/questions/tagged/AsyncRequest).
 
 * Bugs and Feature requests  
-**Bugs** and **Feature requests** can be reported using the [issues tracker](https://github.com/Taguiar84/AsyncRequest/issues).  
-Please read the [issue guidelines](https://github.com/Taguiar84/AsyncRequest/tree/master/CONTRIBUTING.md) before posting.
+**Bugs** and **Feature requests** can be reported using the [issues tracker](https://github.com/Taguiar84/Knockout-Extend/issues).  
+Please read the [issue guidelines](https://github.com/Taguiar84/Knockout-Extend/tree/master/CONTRIBUTING.md) before posting.
 
 ## Requirements
 
 ### Mandatory requirements
-* [jQuery](http://jquery.com/) v. 2.0+
-* [BlockUI](http://www.malsup.com/jquery/block/) v. 2.62+
+* [jQuery](http://jquery.com/) v. 2.0+ 
+* [knockoutjs](http://knockoutjs.com/) v. 3.0.0
+* [bootstrap](http://getbootstrap.com/) v. 3.0.2
+* [Bootstrap.Datepicker](https://github.com/eternicode/bootstrap-datepicker) v. 1.2.0.1
 
 
 ### Optional requirements
-* [Jgrowl](https://github.com/stanlemon/jGrowl) v. 1.2.7
-* [Noty](http://needim.github.io/noty/)
+* [font-awesome] - To Use TimeMask
+
 
 The JavaScript Templates engine is used to render the selected and uploaded files for the Basic Plus UI and jQuery UI versions.
 

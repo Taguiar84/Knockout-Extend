@@ -43,8 +43,8 @@
             self.DateTimeValue(new Date('2014-01-01 12:00:00'));
             self.AnotherDateTimeValue(new Date('2014-01-01 12:00:00'));
 
-            self.TimeValue(new Date('11:45:42'));
-            self.AnotherTimeValue(new Date('23:01:00'));
+            self.TimeValue('11:45');
+            self.AnotherTimeValue('23:01');
 
             self.PercentValue(.15);
             self.AnotherPercentValue(.04);
