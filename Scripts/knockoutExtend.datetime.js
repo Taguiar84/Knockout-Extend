@@ -85,15 +85,21 @@ ko.bindingHandlers.dateTimeMask = {
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: Globalize.culture().name
+                language: Globalize.culture().name,
+                //timeFormat: 'hh:mm z',
+                //showTimezone: true,
+                //TimeZone: "-0400"
+                //pickDate: false
                 //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }
 
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
-            var observable = valueAccessor();            
-            observable(e.date);
+            var observable = valueAccessor();
+            var date = new Date(e.date.toUTCString())
+            date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
+            observable(date);
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
@@ -144,7 +150,7 @@ ko.bindingHandlers.dateTimeOffSetMask = {
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: Globalize.culture().name
+                language: Globalize.culture().name                
                 //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }

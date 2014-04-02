@@ -9,6 +9,9 @@
     <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <!--<link href="Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />-->
+
+
     <link href="Content/bootstrap-timepicker.css" rel="stylesheet" />
     <link href="Content/css/font-awesome.css" rel="stylesheet" />
 </head>
@@ -45,11 +48,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Short</label>
-                <input class="form-control" id="integerValue" type="text" data-bind="integerMask: ShortValue, integerMaskOptions: { mask: 'integer16'}">
+                <input class="form-control" id="shortValue" type="text" data-bind="integerMask: ShortValue, integerMaskOptions: { mask: 'integer16'}">
             </div>
             <div class="col-md-6">
                 <label>Long</label>
-                <input class="form-control" id="anotherIntegerValue" type="text" data-bind="integerMask: LongValue, integerMaskOptions: { mask: 'integer64'}">
+                <input class="form-control" id="longValue" type="text" data-bind="integerMask: LongValue, integerMaskOptions: { mask: 'integer64'}">
             </div>
         </div>
 
@@ -135,6 +138,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap-datepicker.js"></script>
     <script src="Scripts/bootstrap-datetimepicker.js"></script>
+    <!--<script src="Scripts/bootstrap-datetimepicker.min.js"></script>-->
     <script src="Scripts/bootstrap-timepicker.js"></script>
      <script src="Scripts/i18n/globalize.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
@@ -149,9 +153,7 @@
     <script src="Scripts/knockoutExtend.js"></script>
     <script src="Scripts/knockoutExtend.number.js"></script>
     <script src="Scripts/knockoutExtend.datetime.js"></script>
-    <script src="Scripts/i18n/pt-BR/knockoutExtend.culture.js"></script>
-    <!--<script src="Scripts/Globalization/AsyncRequest.en-US.js"></script>
-    <script src="Scripts/Globalization/AsyncRequest.pt-BR.js"></script>-->
+    <script src="Scripts/i18n/pt-BR/knockoutExtend.culture.js"></script>    
     <!-- mock files-->
     <script src="spec/viewModel.js"></script>
     <!-- Test files-->

@@ -38,6 +38,8 @@
 
         var integerValue = $('#integerValue');
         var anotherIntegerValue = $('#anotherIntegerValue');
+        var shortValue = $('#shortValue');
+        var longValue = $('#longValue');
 
         var currencyValue = $('#currencyValue');
         var anotherCurrencyValue = $('#anotherCurrencyValue');
@@ -46,16 +48,31 @@
         var anotherPercentValue = $('#anotherPercentValue');
         var maskPercentValue = $('#maskPercentValue');
 
+        //Integer
         viewModel.IntegerValue(34658);
         expect($(integerValue).val()).toBe('34.658');
         viewModel.AnotherIntegerValue(97689);
         expect($(anotherIntegerValue).val()).toBe('97.689');
+        //Short
+        viewModel.ShortValue(432);
+        expect($(shortValue).val()).toBe('432');
+        viewModel.ShortValue(4322342342);
+        expect($(shortValue).val()).toBe('2342');
+        //Long
+        viewModel.LongValue(353453);
+        expect($(longValue).val()).toBe('353.453');
+        viewModel.LongValue(034028402428792823847293487);
+        expect($(longValue).val()).toBe('402.840.242.879.282.525');
 
+
+        //Currency
         viewModel.CurrencyValue(9876.89)
         expect($(currencyValue).val()).toBe('9.876,89');
         viewModel.AnotherCurrencyValue(1263.99)
         expect($(anotherCurrencyValue).val()).toBe('1.263,99');
 
+
+        //Decimal
         viewModel.PercentValue(0.0001)
         expect($(percentValue).val()).toBe('0,0001');
         viewModel.AnotherPercentValue(341.0801)
