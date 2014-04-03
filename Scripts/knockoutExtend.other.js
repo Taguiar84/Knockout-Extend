@@ -8,7 +8,9 @@
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             observable($(element).val());
-            observable.isValid();
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -45,7 +47,9 @@ ko.bindingHandlers.cnpjMask = {
             var observable = valueAccessor();
             var valor = $(element).val().replace(/[^\d]+/g, '');
             observable(valor);
-            observable.isValid();
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -83,7 +87,9 @@ ko.bindingHandlers.cpfMask = {
             var observable = valueAccessor();
             var valor = $(element).val().replace(/[^\d]+/g, '');
             observable(valor);
-            observable.isValid();
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -107,6 +113,45 @@ ko.bindingHandlers.cpfMask = {
 };
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('cpfMask');
+}
+
+ko.bindingHandlers.carPlateMask = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().carPlateMaskOptions || {};
+
+        if ($(element).is("input"))
+            $(element).setMask('carPlate');
+
+        ko.utils.registerEventHandler(element, 'focusout', function () {
+            var observable = valueAccessor();
+            var valor = $(element).val().replace(/[\-]+/g, '');
+            observable(valor);
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
+        });
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        });
+    },
+
+    update: function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+
+        if (value == null) {
+            $(element).val(null);
+            return;
+        }
+        if ($(element).is("input")) {
+            $(element).val(value);
+            $(element).setMask('carPlate');
+        }
+        else {
+            $(element).text($.mask.string(value, 'carPlate'));
+        }
+    }
+};
+if (ko.validation != null) {
+    ko.validation.makeBindingHandlerValidatable('carPlateMask');
 }
 
 if (ko.validation != null) {

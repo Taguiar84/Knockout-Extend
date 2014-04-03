@@ -114,17 +114,21 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label>Phone</label>
                 <input class="form-control" id="phoneValue" type="text" data-bind="phoneMask: PhoneValue" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label>Phone</label>
                 <input class="form-control" id="anotherPhoneValue" type="text" data-bind="phoneMask: AnotherPhoneValue" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label>Phone</label>
                 <input class="form-control" id="phoneCountryValue" type="text" data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }" />
+            </div>
+            <div class="col-md-3">
+                <label>Placa</label>
+                <input class="form-control" id="carPlateValue" type="text" data-bind="carPlateMask: CarPlate" />
             </div>
         </div>
 
@@ -152,7 +156,7 @@
     <script src="Scripts/knockoutExtend.js"></script>
     <script src="Scripts/knockoutExtend.number.js"></script>
     <script src="Scripts/knockoutExtend.datetime.js"></script>
-    <script src="Scripts/i18n/pt-BR/knockoutExtend.culture.js"></script>    
+    <script src="Scripts/knockoutExtend.other.js"></script>
     <!-- mock files-->
     <script src="spec/viewModel.js"></script>
     <!-- Test files-->

@@ -159,7 +159,9 @@ ko.bindingHandlers.zipCodeMask = {
             var observable = valueAccessor();
             var valor = $(element).val().replace(/[^\d]+/g, '');
             observable(valor);
-            observable.isValid();
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -205,7 +207,9 @@ ko.bindingHandlers.phoneMask = {
             var observable = valueAccessor();
             var valor = $(element).val().replace(/[^\d]+/g, '');
             observable(valor);
-            //observable.isValid();
+            if (observable.isValid != null) {
+                observable.isValid();
+            }
         });
 
         ko.utils.registerEventHandler(element, 'keydown', function () {
