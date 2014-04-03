@@ -115,12 +115,12 @@ if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('cpfMask');
 }
 
-ko.bindingHandlers.carPlateMask = {
+ko.bindingHandlers.licenceTagMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().carPlateMaskOptions || {};
 
         if ($(element).is("input"))
-            $(element).setMask('carPlate');
+            $(element).setMask('licenceTag');
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
@@ -143,15 +143,15 @@ ko.bindingHandlers.carPlateMask = {
         }
         if ($(element).is("input")) {
             $(element).val(value);
-            $(element).setMask('carPlate');
+            $(element).setMask('licenceTag');
         }
         else {
-            $(element).text($.mask.string(value, 'carPlate'));
+            $(element).text($.mask.string(value, 'licenceTag'));
         }
     }
 };
 if (ko.validation != null) {
-    ko.validation.makeBindingHandlerValidatable('carPlateMask');
+    ko.validation.makeBindingHandlerValidatable('licenceTagMask');
 }
 
 if (ko.validation != null) {

@@ -27,7 +27,7 @@
     self.PhoneValue = ko.observable(null);
     self.PhoneCountryValue = ko.observable(null);
     self.AnotherPhoneValue = ko.observable(null);
-    self.CarPlate = ko.observable(null);
+    self.LicenceTag = ko.observable(null);
 
     self.Load =
         function () {
@@ -56,7 +56,7 @@
             self.PhoneValue('7991999401');
             self.PhoneCountryValue('157991999401');
             self.AnotherPhoneValue('19993214321');
-            self.CarPlate('DEM-6143');
+            self.LicenceTag('DEM-6143');
         }
 
     self.Locale =
