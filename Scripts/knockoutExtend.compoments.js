@@ -1,4 +1,40 @@
-﻿//ko.bindingHandlers.endereco = {
+﻿ko.bindingHandlers.ckeditor = {
+    init: function (element, valueAccessor, allBindingsAccessor, context) {
+        var options = allBindingsAccessor().ckeditorOptions || {};
+        var modelValue = valueAccessor();
+        var value = ko.utils.unwrapObservable(valueAccessor());
+
+        $(element).html(value);
+        var editor = CKEDITOR.replace(element, {
+            toolbar: 'Standard'
+        });
+
+        //handle edits made in the editor
+        editor.on('change', function (e) {
+            var self = this;
+            if (ko.isWriteableObservable(self)) {
+                self(e.editor.getData());
+            }
+        }, modelValue, element);
+
+        //handle disposal (if KO removes by the template binding)
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            if (editor) {
+                CKEDITOR.remove(editor);
+            };
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, context) {
+        // handle programmatic updates to the observable
+        var newValue = ko.utils.unwrapObservable(valueAccessor());
+        var id = $(element).attr('id');
+
+        if (CKEDITOR.instances[id].getData() != newValue)
+            CKEDITOR.instances[id].setData(newValue);
+    }
+};
+
+//ko.bindingHandlers.endereco = {
 //    init: function (element, valueAccessor, allBindingsAccessor) {
 
 //        //Register templates
