@@ -1,4 +1,4 @@
-﻿ko.bindingHandlers.ckeditor = {
+﻿ko.bindingHandlers.wysiwyg = {
     init: function (element, valueAccessor, allBindingsAccessor, context) {
         var options = allBindingsAccessor().ckeditorOptions || {};
         var modelValue = valueAccessor();
