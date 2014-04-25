@@ -48,8 +48,9 @@ ko.bindingHandlers.dateMask = {
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = Globalize.parseDate(value);
-            observable(numberValue);
+            var dateValue = Globalize.parseDate(value);
+            observable(dateValue);
+            $(element).datepicker("setDate", dateValue);
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -66,6 +67,7 @@ ko.bindingHandlers.dateMask = {
         if ($(element).is("input")) {
             $(element).val(Globalize.format(valor, 'd'));
             $(element).setMask('date');
+            $(element).datepicker("setDate", valor);
         }
         else {
             $(element).text(Globalize.format(valor, 'd'));
@@ -150,7 +152,7 @@ ko.bindingHandlers.dateTimeOffSetMask = {
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: Globalize.culture().name                
+                language: Globalize.culture().name
                 //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }
@@ -225,7 +227,7 @@ ko.bindingHandlers.timeMask = {
         }
 
 
-        ko.utils.registerEventHandler(element, 'changeTime.timepicker', function (e) {            
+        ko.utils.registerEventHandler(element, 'changeTime.timepicker', function (e) {
             var observable = valueAccessor();
             observable(e.time.value);
         });
