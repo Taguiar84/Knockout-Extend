@@ -1,12 +1,12 @@
 ﻿describe("KnockoutExtend.datetime", function () {
 
-    beforeEach(function (done) {
-        viewModel.Locale('pt-BR');
-        setTimeout(function () {
-            viewModel.Apply('pt-BR');
-            done();
-        }, 100);
-    })
+    //beforeEach(function (done) {
+    //    viewModel.Locale('pt-BR');
+    //    setTimeout(function () {
+    //        viewModel.Apply('pt-BR');
+    //        done();
+    //    }, 1000);
+    //})
 
     it("Read visual element", function (done) {
 

@@ -8,7 +8,7 @@
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = Globalize.parseFloat(value);
+            var numberValue = Globalize.parseNumber(value);
             if (isNaN(numberValue))
                 observable(null);
             else
@@ -27,10 +27,10 @@
         }
         var valor;
         if (typeof value == "number") {
-            valor = Globalize.format(value, 'n2');
+            valor = Globalize.formatNumber(value, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
         else
-            valor = Globalize.parseFloat(value).toString();
+            valor = Globalize.parseNumber(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
             $(element).setMask('currency');
@@ -55,7 +55,7 @@ ko.bindingHandlers.integerMask = {
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = Globalize.parseInt(value);
+            var numberValue = Globalize.parseNumber(value);
             if (isNaN(numberValue))
                 observable(null);
             else
@@ -80,7 +80,7 @@ ko.bindingHandlers.integerMask = {
             valor = value.toString();
         }
         else
-            valor = Globalize.parseInt(value).toString();
+            valor = Globalize.parseNumber(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
             $(element).setMask(mask);
@@ -107,7 +107,7 @@ ko.bindingHandlers.decimalMask = {
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = Globalize.parseFloat(value);
+            var numberValue = Globalize.parseNumber(value);
             if (isNaN(numberValue))
                 observable(null);
             else
@@ -123,7 +123,7 @@ ko.bindingHandlers.decimalMask = {
         var value = ko.utils.unwrapObservable(valueAccessor());
 
         var mask = options.mask || 'decimal';
-        var globalizeFormat = options.globalizeFormat || "n4";
+        var globalizeFormat = options.globalizeFormat || { minimumFractionDigits: 4, maximumFractionDigits: 4 };
 
         if (value == null || isNaN(value)) {
             $(element).val(null);
@@ -131,10 +131,10 @@ ko.bindingHandlers.decimalMask = {
         }
         var valor;
         if (typeof value == "number") {
-            valor = Globalize.format(value, globalizeFormat);
+            valor = Globalize.formatNumber(value, globalizeFormat);
         }
         else
-            valor = Globalize.parseFloat(value).toString();
+            valor = Globalize.parseNumber(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
             $(element).setMask(mask);

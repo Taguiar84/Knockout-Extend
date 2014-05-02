@@ -1,0 +1,63 @@
+﻿{
+  "main": {
+    "pt": {
+      "identity": {
+        "version": {
+          "_cldrVersion": "25",
+          "_number": "$Revision: 91 $"
+        },
+        "generation": {
+          "_date": "$Date: 2014-03-13 22:27:12 -0500 (Thu, 13 Mar 2014) $"
+        },
+        "language": "pt"
+      },
+      "dates": {
+        "calendars": {
+          "gregorian": {
+           "dateTimeFormats": {              
+              "availableFormats": {
+				"dateTime": "dd/MM/yyyy HH:mm",
+                "EHm": "E, HH:mm",
+                "EHms": "E, HH:mm:ss",
+                "Ed": "E, d",
+                "Ehm": "E, h:mm a",
+                "Ehms": "E, h:mm:ss a",
+                "Gy": "y G",
+                "GyMMM": "MMM 'de' y G",
+                "GyMMMEd": "E, d 'de' MMM 'de' y G",
+                "GyMMMd": "d 'de' MMM 'de' y G",
+                "H": "HH",
+                "HHmm": "HH:mm",
+                "HHmmss": "HH:mm:ss",
+                "Hm": "HH:mm",
+                "Hms": "HH:mm:ss",
+                "M": "L",
+                "MEd": "E, dd/MM",
+                "MMM": "LLL",
+                "MMMEd": "E, d 'de' MMM",
+                "MMMd": "d 'de' MMM",
+                "MMdd": "dd/MM",
+                "Md": "d/M",
+                "d": "d",
+                "h": "h a",
+                "hm": "h:mm a",
+                "hms": "h:mm:ss a",
+                "ms": "mm:ss",
+                "y": "y",
+                "yM": "MM/y",
+                "yMEd": "E, dd/MM/y",
+                "yMM": "MM/y",
+                "yMMM": "MMM 'de' y",
+                "yMMMEd": "E, d 'de' MMM 'de' y",
+                "yMMMd": "d 'de' MMM 'de' y",
+                "yMd": "dd/MM/y",
+                "yQQQ": "y QQQ",
+                "yQQQQ": "y QQQQ"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

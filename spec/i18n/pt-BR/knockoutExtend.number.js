@@ -1,12 +1,4 @@
-﻿describe("KnockoutExtend.number", function () {
-
-    beforeEach(function (done) {
-        viewModel.Locale('pt-BR');
-        setTimeout(function () {
-            viewModel.Apply('pt-BR');
-            done();
-        }, 100);
-    })
+﻿describe("KnockoutExtend.number", function () {    
 
     it("Read visual element", function (done) {
         

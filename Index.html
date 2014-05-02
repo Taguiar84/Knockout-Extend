@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-4">
                 <label>Percent</label>
-                <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: { mask: '999999,999.99', type: 'reverse' }, globalizeFormat: 'n6' } ">
+                <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: { mask: '999999,999.99', type: 'reverse' }, globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">
             </div>
         </div>
 
@@ -86,10 +86,10 @@
                 <label>Data</label>
                 <input class="form-control" id="dateValue" type="text" data-bind="dateMask: DateValue">
             </div>
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
                 <label>Data</label>
                 <input class="form-control" id="anotherDateValue" type="text" data-bind="dateMask: AnotherDateValue">
-            </div>
+            </div>-->
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -138,16 +138,32 @@
 
 
     <script src="Scripts/jquery-2.1.0.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+    
+     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap-datepicker.js"></script>
     <script src="Scripts/bootstrap-datetimepicker.js"></script>
     <!--<script src="Scripts/bootstrap-datetimepicker.min.js"></script>-->
     <script src="Scripts/bootstrap-timepicker.js"></script>
-     <script src="Scripts/i18n/globalize.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
+    
+     <!--<script src="Scripts/i18n/globalize.js"></script>-->
 
-    <!-- Test framework-->
+    <!--<script data-main="Scripts/i18n/Globalize/globalize.js" src="Scripts/require.js"></script>
+    <script data-main="Scripts/i18n/Globalize/globalize-allinone-node.js" src="Scripts/require.js"></script>-->
+    <script src="Scripts/Globalize/cldr.js"></script>
+    <script src="Scripts/Globalize/cldr/supplemental.js"></script>
+    <script src="Scripts/Globalize/cldr/unresolved.js"></script>
+    <script src="Scripts/Globalize/globalize.js"></script>
+    <script src="Scripts/Globalize/globalize/date.js"></script>
+    <script src="Scripts/Globalize/globalize/number.js"></script>
+    <script src="Scripts/Globalize/globalize/message.js"></script>
+
+    <!--<script src="Scripts/i18n/Globalize/globalize-allinone-node.js"></script>-->
+
+    
+
+    <!--<!-- Test framework-->
     <script src="Scripts/jasmine/jasmine.js"></script>
     <script src="Scripts/jasmine/jasmine-html.js"></script>
     <script src="Scripts/jasmine/boot.js"></script>
@@ -165,8 +181,10 @@
     <script src="spec/i18n/pt-BR/knockoutExtend.number.js"></script>
     <script src="spec/i18n/pt-BR/knockoutExtend.datetime.js"></script>
     <!--en-US-->    
+
+    <!--<script src="spec/i18n/en-US/knockoutExtend.js"></script>
     <script src="spec/i18n/en-US/knockoutExtend.number.js"></script>
-    <script src="spec/i18n/en-US/knockoutExtend.datetime.js"></script>
+    <script src="spec/i18n/en-US/knockoutExtend.datetime.js"></script>-->
 
 
 </body>

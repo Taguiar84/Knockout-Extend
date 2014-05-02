@@ -39,16 +39,32 @@ ko.bindingHandlers.dateMask = {
 
         if ($(element).is("input")) {
             $(element).setMask('date');
+            //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
+            var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
             $(element).datepicker({
-                language: Globalize.culture().name,
-                format: Globalize.culture().calendar.patterns.d.toLowerCase()//Pensar melhor
+                language: locale,
+                //format: 'dd/mm/yyyy'//Pensar melhor
             });
         }
+
+        ko.utils.registerEventHandler(element, 'changeDate', function (e) {
+            //var observable = valueAccessor();
+            //var date = new Date(e.date.toUTCString())
+            //date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
+            //observable(date);
+        });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var dateValue = Globalize.parseDate(value);
+            switch (Globalize.locale().locale) {
+                case 'en-US':
+                    dateValue = new Date(value);
+                    break;
+                default:
+                    dateValue = Globalize.parseDate(value, "yMd");
+                    break;
+            }            
             observable(dateValue);
             $(element).datepicker("setDate", dateValue);
         });
@@ -64,14 +80,15 @@ ko.bindingHandlers.dateMask = {
             return;
         }
         var valor = new Date(value);
+        var format = { date: "short" }
+
         if ($(element).is("input")) {
-            $(element).val(Globalize.format(valor, 'd'));
-            $(element).setMask('date');
+            $(element).val(Globalize.formatDate(valor, format));
+            //$(element).setMask('date');
             $(element).datepicker("setDate", valor);
         }
         else {
-            $(element).text(Globalize.format(valor, 'd'));
-
+            $(element).text(Globalize.formatDate(valor, format));
         }
     }
 };
@@ -84,15 +101,17 @@ ko.bindingHandlers.dateTimeMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
+        //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
+        var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: Globalize.culture().name,
+                language: locale,
                 //timeFormat: 'hh:mm z',
                 //showTimezone: true,
                 //TimeZone: "-0400"
                 //pickDate: false
-                //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
+                //format: 'dd/mm/yyyy hh:ii'
             });
         }
 
@@ -107,16 +126,18 @@ ko.bindingHandlers.dateTimeMask = {
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = null;
-            switch (Globalize.culture().name) {
+            var dateValue = null;
+            switch (Globalize.locale().locale) {
                 case 'en-US':
-                    numberValue = new Date(value);
+                    dateValue = new Date(value);
                     break;
                 default:
-                    numberValue = Globalize.parseDate(value);
+                    dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
                     break;
             }
-            observable(numberValue);
+            observable(dateValue);
+            $(element).datetimepicker("setDate", dateValue);
+
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -130,13 +151,14 @@ ko.bindingHandlers.dateTimeMask = {
             return;
         }
         var valor = new Date(value);
-        if ($(element).is("input")) {
-            var format = Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
-            $(element).val(Globalize.format(valor, format));
+        var format = { datetime: "short" }
+        if ($(element).is("input")) {            
+            $(element).val(Globalize.formatDate(valor, format));
             $(element).setMask('datetime');
+            $(element).datetimepicker("setDate", valor);
         }
         else {
-            $(element).text(Globalize.format(valor, 'd'));
+            $(element).text(Globalize.formatDate(valor, format));
         }
     }
 };
@@ -167,7 +189,7 @@ ko.bindingHandlers.dateTimeOffSetMask = {
             var observable = valueAccessor();
             var value = $(element).val();
             var numberValue = null;
-            switch (Globalize.culture().name) {
+            switch (Globalize.locale().locale) {
                 case 'en-US':
                     numberValue = new Date(value);
                     break;
@@ -191,11 +213,11 @@ ko.bindingHandlers.dateTimeOffSetMask = {
         var valor = new Date(value);
         if ($(element).is("input")) {
             var format = Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
-            $(element).val(Globalize.format(valor, format));
+            $(element).val(Globalize.formatDate(valor, format));
             $(element).setMask('datetime');
         }
         else {
-            $(element).text(Globalize.format(valor, 'd'));
+            $(element).text(Globalize.formatDate(valor, 'd'));
         }
     }
 };
@@ -236,7 +258,7 @@ ko.bindingHandlers.timeMask = {
             var observable = valueAccessor();
             var value = $(element).val();
             var numberValue = null;
-            switch (Globalize.culture().name) {
+            switch (Globalize.locale().locale) {
                 case 'en-US':
                     numberValue = new Date(value);
                     break;
