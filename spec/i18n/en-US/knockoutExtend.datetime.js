@@ -48,8 +48,8 @@
         viewModel.TimeValue('13:33');
         expect($(timeValue).val()).toBe('13:33');
 
-        viewModel.AnotherTimeValue('03:06');
-        expect($(anotherTimeValue).val()).toBe('03:06');
+        viewModel.AnotherTimeValue('3:06');
+        expect($(anotherTimeValue).val()).toBe('3:06');
 
         done();
     });
