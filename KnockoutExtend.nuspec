@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.3.7</version>
+        <version>0.0.3.9</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
@@ -22,17 +22,49 @@
         <file src="Content\bootstrap-colorpicker.css" target="content\Content\bootstrap-colorpicker.css" />
         <file src="Content\bootstrap-datetimepicker.css" target="content\Content\bootstrap-datetimepicker.css" />
         <file src="Content\bootstrap-timepicker.css" target="content\Content\bootstrap-timepicker.css" />
+        <file src="Scripts\Globalize\cldr\i18n\main\en-US\ca-gregorian.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\ca-gregorian.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\en-US\currencies.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\currencies.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\en-US\dateFields.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\dateFields.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\en-US\listPatterns.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\listPatterns.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\en-US\numbers.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\numbers.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\pt-BR\ca-gregorian.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\pt-BR\ca-gregorian.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\pt-BR\currencies.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\pt-BR\currencies.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\pt-BR\dateFields.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\pt-BR\dateFields.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\pt-BR\listPatterns.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\pt-BR\listPatterns.json" />
+        <file src="Scripts\Globalize\cldr\i18n\main\pt-BR\numbers.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\pt-BR\numbers.json" />
+        <file src="Scripts\Globalize\cldr\i18n\segments\en-US\exceptions.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\segments\en-US\exceptions.json" />
+        <file src="Scripts\Globalize\cldr\i18n\segments\pt-BR\exceptions.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\segments\pt-BR\exceptions.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\calendarData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\calendarData.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\calendarPreferenceData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\calendarPreferenceData.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\currencyData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\currencyData.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\dayPeriods.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\dayPeriods.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\likelySubtags.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\likelySubtags.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\numberingSystems.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\numberingSystems.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\timeData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\timeData.json" />
+        <file src="Scripts\Globalize\cldr\i18n\supplemental\weekData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\weekData.json" />
+        <file src="Scripts\Globalize\cldr\supplemental.js" target="content\Scripts\knockoutExtend\Globalize\cldr\supplemental.js" />
+        <file src="Scripts\Globalize\cldr\supplemental.min.js" target="content\Scripts\knockoutExtend\Globalize\cldr\supplemental.min.js" />
+        <file src="Scripts\Globalize\cldr\unresolved.js" target="content\Scripts\knockoutExtend\Globalize\cldr\unresolved.js" />
+        <file src="Scripts\Globalize\cldr\unresolved.min.js" target="content\Scripts\knockoutExtend\Globalize\cldr\unresolved.min.js" />
+        <file src="Scripts\Globalize\globalize\date.js" target="content\Scripts\knockoutExtend\Globalize\globalize\date.js" />
+        <file src="Scripts\Globalize\globalize\date.min.js" target="content\Scripts\knockoutExtend\Globalize\globalize\date.min.js" />
+        <file src="Scripts\Globalize\globalize\message.js" target="content\Scripts\knockoutExtend\Globalize\globalize\message.js" />
+        <file src="Scripts\Globalize\globalize\message.min.js" target="content\Scripts\knockoutExtend\Globalize\globalize\message.min.js" />
+        <file src="Scripts\Globalize\globalize\number.js" target="content\Scripts\knockoutExtend\Globalize\globalize\number.js" />
+        <file src="Scripts\Globalize\globalize\number.min.js" target="content\Scripts\knockoutExtend\Globalize\globalize\number.min.js" />
+        <file src="Scripts\Globalize\cldr.js" target="content\Scripts\knockoutExtend\Globalize\cldr.js" />
+        <file src="Scripts\Globalize\cldr.min.js" target="content\Scripts\knockoutExtend\Globalize\cldr.min.js" />
+        <file src="Scripts\Globalize\globalize-allinone-node.js" target="content\Scripts\knockoutExtend\Globalize\globalize-allinone-node.js" />
+        <file src="Scripts\Globalize\globalize.js" target="content\Scripts\knockoutExtend\Globalize\globalize.js" />
+        <file src="Scripts\Globalize\globalize.min.js" target="content\Scripts\knockoutExtend\Globalize\globalize.min.js" />
         <file src="Scripts\i18n\en-US\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datepicker.js" />
         <file src="Scripts\i18n\en-US\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\i18n\en-US\bootstrap-datetimepicker.js" />
-        <file src="Scripts\i18n\en-US\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\globalize.culture.js" />
         <file src="Scripts\i18n\en-US\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\en-US\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\en-US\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\en-US\meio.mask.js" />
         <file src="Scripts\i18n\pt-BR\bootstrap-datepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datepicker.js" />
         <file src="Scripts\i18n\pt-BR\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datetimepicker.js" />
-        <file src="Scripts\i18n\pt-BR\globalize.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\globalize.culture.js" />
         <file src="Scripts\i18n\pt-BR\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\meio.mask.js" />
-        <file src="Scripts\i18n\globalize.js" target="content\Scripts\knockoutExtend\i18n\globalize.js" />
         <file src="Scripts\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\bootstrap-datetimepicker.js" />
         <file src="Scripts\bootstrap-timepicker.js" target="content\Scripts\knockoutExtend\bootstrap-timepicker.js" />
         <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockoutExtend\jquery.meio.mask.min.js" />

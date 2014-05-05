@@ -90,13 +90,10 @@
     <Content Include="Scripts\Globalize\globalize\number.min.js" />
     <Content Include="Scripts\i18n\en-US\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\en-US\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\i18n\en-US\globalize.culture.js" />
     <Content Include="Scripts\i18n\en-US\knockoutExtend.culture.js" />
     <Content Include="Scripts\i18n\en-US\meio.mask.js" />
-    <Content Include="Scripts\i18n\globalize.js" />
     <Content Include="Scripts\i18n\pt-BR\bootstrap-datepicker.js" />
     <Content Include="Scripts\i18n\pt-BR\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\i18n\pt-BR\globalize.culture.js" />
     <Content Include="Scripts\i18n\pt-BR\knockoutExtend.culture.js" />
     <Content Include="Scripts\i18n\pt-BR\meio.mask.js" />
     <Content Include="Scripts\jasmine-samples\Player.js" />

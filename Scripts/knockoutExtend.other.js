@@ -7,7 +7,8 @@
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
-            observable($(element).val());
+            var valor = $(element).val().replace(/\s/g, '');
+            observable(valor);
             if (observable.isValid != null) {
                 observable.isValid();
             }
