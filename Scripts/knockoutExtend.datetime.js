@@ -243,7 +243,8 @@ ko.bindingHandlers.timeMask = {
                 //language: Globalize.culture().name
                 //, pickDate: false
                 //, pickTime: true
-                showMeridian: false
+                showMeridian: false,
+                defaultTime: false
                 //, format: Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }
@@ -257,16 +258,17 @@ ko.bindingHandlers.timeMask = {
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = null;
-            switch (Globalize.locale().locale) {
-                case 'en-US':
-                    numberValue = new Date(value);
-                    break;
-                default:
-                    numberValue = Globalize.parseDate(value);
-                    break;
-            }
-            observable(numberValue);
+            //var numberValue = null;
+            //switch (Globalize.locale().locale) {
+            //    case 'en-US':
+            //        numberValue = new Date(value);
+            //        break;
+            //    default:
+            //        numberValue = Globalize.parseDate(value);
+            //        break;
+            //}
+            $(element).timepicker("setTime", value);
+            observable(value);
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -283,7 +285,9 @@ ko.bindingHandlers.timeMask = {
         if ($(element).is("input")) {
             //var format = Globalize.culture().calendar.patterns.T;
             $(element).val(value);
-            //$(element).setMask('time');
+            $(element).timepicker("setTime", value);
+            //$('#timepicker').timepicker('setTime', '12:45 AM');
+            //$(element).setMask('time');            
         }
         else {
             $(element).text(value);
