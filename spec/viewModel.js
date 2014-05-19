@@ -60,30 +60,9 @@
         }
 
     self.Locale =
-        function (locale) {
-            //loadjscssfile("Scripts/i18n/globalize.js", "js");
+        function (locale) {            
 
-            $.getJSON("Scripts/Globalize/cldr/i18n/segments/" + locale + "/exceptions.json", null, Globalize.load);
-
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/likelySubtags.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/timeData.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/weekData.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/calendarData.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/calendarPreferenceData.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/currencyData.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/dayPeriods.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/supplemental/numberingSystems.json", null, Globalize.load);
-
-            $.getJSON("Scripts/Globalize/cldr/i18n/main/" + locale + "/listPatterns.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/main/" + locale + "/dateFields.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/main/" + locale + "/ca-gregorian.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/main/" + locale + "/numbers.json", null, Globalize.load);
-            $.getJSON("Scripts/Globalize/cldr/i18n/main/" + locale + "/currencies.json", null, Globalize.load);
-
-            //$.getJSON("Scripts/i18n/" + locale + "/globalizeCulture.Date.json", null, Globalize.load);
-
-            
-            
+            $.knockoutExtend.load("Scripts/", locale);            
             
             loadjscssfile("Scripts/i18n/" + locale + "/meio.mask.js", "js");
             loadjscssfile("Scripts/i18n/" + locale + "/bootstrap-datepicker.js", "js");
@@ -93,11 +72,12 @@
 
     self.Apply =
         function (locale) {
+
             var element = $('.container')[0];
             ko.cleanNode(element);
             Globalize.locale(locale);
             ko.applyBindings(self, element);
-            self.Load();            
+            self.Load();
         }
 
     function loadjscssfile(filename, filetype) {

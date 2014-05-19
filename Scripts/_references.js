@@ -3,3 +3,5 @@
 /// <reference path="jasmine/jasmine.js" />
 /// <reference path="jasmine/jasmine-html.js" />
 /// <reference path="../spec/viewModel.js" />
+/// <reference path="knockoutExtend.js" />
+/// <reference path="Globalize/globalize.js" />

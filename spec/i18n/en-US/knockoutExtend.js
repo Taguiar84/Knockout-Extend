@@ -8,7 +8,7 @@
         }, 1000);
     })
 
-    it("Chamge Locale", function (done) {
+    it("Change Locale", function (done) {
         done();
     });
 
