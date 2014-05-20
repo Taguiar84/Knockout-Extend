@@ -73,12 +73,13 @@
             </div>
             <div class="col-md-4">
                 <label>Percent</label>
-                <input class="form-control" id="anotherPercentValue" type="text" data-bind="decimalMask: PercentValue">
+                <input class="form-control" id="anotherPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue">
             </div>
             <div class="col-md-4">
                 <label>Percent</label>
-                <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">
-                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: { mask: '999999,999.99', type: 'reverse' }, globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">-->
+                <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue">
+                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">-->
+                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: 'percent', globalizeFormat:  {minimumFractionDigits: 4, maximumFractionDigits: 4 } } ">-->
             </div>
         </div>
 

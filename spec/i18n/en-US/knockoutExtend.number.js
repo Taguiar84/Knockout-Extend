@@ -18,7 +18,7 @@
 
         var percentValue = $('#percentValue');
         var anotherPercentValue = $('#anotherPercentValue');
-        var maskPercentValue = $('#maskPercentValue');
+        //var maskPercentValue = $('#maskPercentValue');
 
         expect($(integerValue).val()).toBe((2).toString());
         expect($(anotherIntegerValue).val()).toBe((5).toString());
@@ -28,7 +28,7 @@
 
         expect($(percentValue).val()).toBe('0.1500');
         expect($(anotherPercentValue).val()).toBe('0.0400');
-        expect($(maskPercentValue).val()).toBe('0,040000');
+        //expect($(maskPercentValue).val()).toBe('0,040000');
 
         done();
     });
@@ -44,7 +44,7 @@
 
         var percentValue = $('#percentValue');
         var anotherPercentValue = $('#anotherPercentValue');
-        var maskPercentValue = $('#maskPercentValue');
+        //var maskPercentValue = $('#maskPercentValue');
 
         viewModel.IntegerValue(34658);
         expect($(integerValue).val()).toBe('34.658');
@@ -60,7 +60,7 @@
         expect($(percentValue).val()).toBe('0.0001');
         viewModel.AnotherPercentValue(341.0801)
         expect($(anotherPercentValue).val()).toBe('341.0801');
-        expect($(maskPercentValue).val()).toBe('341,080100');
+        //expect($(maskPercentValue).val()).toBe('341,080100');
         done();
     });
 
