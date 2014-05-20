@@ -10,6 +10,8 @@
     <link href="Content/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="Content/bootstrap-datetimepicker.css" rel="stylesheet" />
 
+    <link href="Content/fileupload/css/jquery.fileupload.css" rel="stylesheet" />
+    <link href="Content/fileupload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 
     <link href="Content/bootstrap-timepicker.css" rel="stylesheet" />
     <link href="Content/css/font-awesome.css" rel="stylesheet" />
@@ -133,21 +135,22 @@
                 <input class="form-control" id="licenceTagValue" type="text" data-bind="licenceTagMask: LicenceTag" />
             </div>
         </div>
+    </div>
+
+    <div class="container fileUploadContainer">
         <div class="row">
             <div class="col-md-12">
                 <label data-bind="text: 'logo:'"></label>
-                
+
                 <div data-bind="fileupload:{ observable:  viewModel.Image }">
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 
     <script src="Scripts/jquery-2.1.0.min.js"></script>
+    <script src="Content/fileupload/js/vendor/jquery-ui-1.10.3.js"></script>
     
      <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap-datepicker.js"></script>
@@ -156,7 +159,19 @@
     <script src="Scripts/bootstrap-timepicker.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
     <script src="Scripts/knockout-3.1.0.js"></script>
-    
+
+    <script src="Content/fileupload/js/vendor/canvas-to-blob.min.js"></script>
+    <script src="Content/fileupload/js/vendor/tmpl.min.js"></script>
+    <script src="Content/fileupload/js/vendor/load-image.min.js"></script>
+    <script src="Content/fileupload/js/jquery.iframe-transport.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-process.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-image.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-audio.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-video.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-validate.js"></script>
+    <script src="Content/fileupload/js/jquery.fileupload-ui.js"></script>
+
      <!--<script src="Scripts/i18n/globalize.js"></script>-->
 
     <!--<script data-main="Scripts/i18n/Globalize/globalize.js" src="Scripts/require.js"></script>
@@ -182,6 +197,7 @@
     <script src="Scripts/knockoutExtend.js"></script>
     <script src="Scripts/knockoutExtend.number.js"></script>
     <script src="Scripts/knockoutExtend.datetime.js"></script>
+    <script src="Scripts/knockoutExtend.compoments.js"></script>
     <script src="Scripts/knockoutExtend.other.js"></script>
     <!-- mock files-->
     <script src="spec/viewModel.js"></script>

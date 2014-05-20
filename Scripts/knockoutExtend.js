@@ -1,60 +1,87 @@
 ﻿$.knockoutExtend = {};
 $.knockoutExtend.defaults = {
-    culture: { changeMaskFunction: null}
+    culture: { changeMaskFunction: null },
+    fileUpload: { url: "/FileUpload" }
 };
 $.knockoutExtend.loaded = false;
 
 $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
 
     var arrayPath = new Array();
+    var createArrayItem = function (url, type, templateName) {
+        this.url = url;
+        this.type = type;
+        this.templateName = templateName;
+    }
+
     var count = 0;
-    var successFunction =
-        function (json) {
-            Globalize.load(json);
+    var successFunctionJson =
+        function (data) {
+            Globalize.load(data);
             count++;
             if (arrayPath.length == count)
                 $.knockoutExtend.loaded = true;
-
         }
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/segments/" + locale + "/exceptions.json");
+    var successFunctionTemplate =
+        function (data, name) {
+            var template = document.createElement('script');
+            template.setAttribute("type", "text/x-tmpl");
+            template.setAttribute("id", name);
+            template.innerHTML = data;
+            document.getElementsByTagName("head")[0].appendChild(template);
+            count++;
+            if (arrayPath.length == count)
+                $.knockoutExtend.loaded = true;
+        }
 
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/likelySubtags.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/timeData.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/weekData.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/calendarData.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/calendarPreferenceData.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/currencyData.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/dayPeriods.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/supplemental/numberingSystems.json");
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/segments/" + locale + "/exceptions.json", '.json'));
 
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/listPatterns.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/dateFields.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/ca-gregorian.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/numbers.json");
-    arrayPath.push(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/currencies.json");
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/likelySubtags.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/timeData.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/weekData.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/calendarData.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/calendarPreferenceData.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/currencyData.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/dayPeriods.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/numberingSystems.json", '.json'));
 
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/listPatterns.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/dateFields.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/ca-gregorian.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/numbers.json", '.json'));
+    arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/currencies.json", '.json'));
 
-    for (var i = 0; i<arrayPath.length;i++){
-        var url = arrayPath[i];
-        $.getJSON(url, null, successFunction);
+    arrayPath.push(new createArrayItem(baseUrl + "Templates/fileUpload-Download.html", '.html', 'template-download'));
+    arrayPath.push(new createArrayItem(baseUrl + "Templates/fileUpload-Upload.html", '.html', 'template-upload'));
+    arrayPath.push(new createArrayItem(baseUrl + "Templates/fileUpload.html", '.html', 'fileUpload'));
+
+    for (var i = 0; i < arrayPath.length; i++) {
+        var item = arrayPath[i];
+        switch (item.type) {
+            case '.json':
+                $.getJSON(item.url, null, successFunctionJson);
+                break;
+            case '.html':
+
+                var wrapperFunc = function (data) {
+                    var name;
+                    if (data.indexOf('name=fileUpload-Download') != -1) {
+                        data = data.replace('name=fileUpload-Download', '');
+                        name = 'template-download';
+                    }
+                    if (data.indexOf('name=fileUpload-Upload') != -1) {
+                        data = data.replace('name=fileUpload-Upload', '');
+                        name = 'template-upload';
+                    }
+                    if (data.indexOf('name=fileUpload') != -1) {
+                        data = data.replace('name=fileUpload', '');
+                        name = 'template-fileUpload';
+                    }
+
+                    successFunctionTemplate(data, name);
+                }
+                $.get(item.url, null, wrapperFunc, 'html');
+                break;
+        }
     }
-
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/segments/" + locale + "/exceptions.json", null, Globalize.load);
-    
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/likelySubtags.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/timeData.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/weekData.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/calendarData.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/calendarPreferenceData.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/currencyData.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/dayPeriods.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/supplemental/numberingSystems.json", null, Globalize.load);
-
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/listPatterns.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/dateFields.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/ca-gregorian.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/numbers.json", null, Globalize.load);
-    //$.getJSON(baseUrl + "Globalize/cldr/i18n/main/" + locale + "/currencies.json", null, Globalize.load);
-
-    //$.knockoutExtend.loaded = true;
 }

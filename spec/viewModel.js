@@ -73,6 +73,8 @@
             loadjscssfile("Scripts/i18n/" + locale + "/knockoutExtend.culture.js", "js");            
         }
 
+    var first = true;
+
     self.Apply =
         function (locale) {
 
@@ -81,6 +83,12 @@
             Globalize.locale(locale);
             ko.applyBindings(self, element);
             self.Load();
+
+            if (first) {
+                first = false;
+                element = $('.fileUploadContainer')[0];
+                ko.applyBindings(self, element);
+            }
         }
 
     function loadjscssfile(filename, filetype) {
