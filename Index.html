@@ -133,6 +133,14 @@
                 <input class="form-control" id="licenceTagValue" type="text" data-bind="licenceTagMask: LicenceTag" />
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label data-bind="text: 'logo:'"></label>
+                
+                <div data-bind="fileupload:{ observable:  viewModel.Image }">
+                </div>
+            </div>
+        </div>
 
 
 

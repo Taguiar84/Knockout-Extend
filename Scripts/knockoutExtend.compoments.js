@@ -34,6 +34,76 @@
     }
 };
 
+ko.bindingHandlers.fileupload = {
+    init: function (element, valueAccessor) {
+
+        //Register templates
+        if ($('#template-download').length == 0) {
+            var script = document.createElement('script');
+            script.type = 'text/x-tmpl';
+            script.id = "template-download";
+            $(script).text(templateLoad.FileUpload_DownloadTemplate());
+            $("body").append(script);
+        }
+        if ($('#template-upload').length == 0) {
+            var script = document.createElement('script');
+            script.type = 'text/x-tmpl';
+            script.id = "template-upload";
+            $(script).text(templateLoad.FileUpload_UploadTemplate());
+            $("body").append(script);
+        }
+
+        var defaults = {
+            disableImageResize: false,
+            autoUpload: true,
+            url: core.urlBaseWebApi() + "FileUpload"
+            , observable: viewModel != null && viewModel.FileUpload != null ? viewModel.FileUpload : null
+        };
+
+        defaults = $.extend(true, defaults, valueAccessor());
+
+        var observable = defaults.observable;//pode ser passado pela configuração
+
+        $(element).append(templateLoad.FileUpload());
+        $(element).fileupload(defaults)
+            .bind('fileuploaddone', function (e, data) {
+            })
+            .bind('fileuploadcompleted', function (e, data) {
+                $(data.context).find('.size').text('ok');
+                $(data.context).find('.name').text(data.result[0].displayName);
+                //data.result
+                var btnRemove = $(data.context).find('.glyphicon-ban-circle');
+                btnRemove.removeClass('glyphicon-ban-circle');
+                btnRemove.addClass('glyphicon-remove-circle');
+
+                var retorno = data.result[0];
+
+                //register in viewModel
+                if (observable != null) {
+                    observable.push(data.result[0]);
+                }
+
+                $(btnRemove).bind("click", function () {
+                    $.asyncRequest.delete({
+                        Url: core.urlBaseWebApi() + retorno.delete_url
+                    });
+                    observable.remove(function (item) { return item.name == retorno.name });
+                });
+            })
+        //.bind('fileuploadprocessdone', function (e, data) {
+        //    alert(data);
+        //})
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            $(element).fileupload('destroy');
+        });
+    },
+    update: function (element) {
+    }
+};
+
+
+
 //ko.bindingHandlers.endereco = {
 //    init: function (element, valueAccessor, allBindingsAccessor) {
 

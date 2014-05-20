@@ -29,6 +29,9 @@
     self.AnotherPhoneValue = ko.observable(null);
     self.LicenceTag = ko.observable(null);
 
+
+    self.Image = ko.observableArray();
+
     self.Load =
         function () {
             self.NormalText('It\'s normal text');
