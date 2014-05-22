@@ -1,7 +1,11 @@
 ﻿$.knockoutExtend = {};
 $.knockoutExtend.defaults = {
     culture: { changeMaskFunction: null },
-    fileUpload: { url: "/FileUpload" }
+    fileUpload: {
+        url: "/FileUpload",
+        previewNoImageUrl: '/Scripts/knockoutExtend/fileupload/img/generalFile.png',
+        deleteUrl: '/'
+    }
 };
 $.knockoutExtend.loaded = false;
 
