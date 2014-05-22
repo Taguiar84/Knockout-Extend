@@ -37,26 +37,12 @@
 ko.bindingHandlers.fileupload = {
     init: function (element, valueAccessor) {
 
-        //Register templates
-        //if ($('#template-download').length == 0) {
-        //    var script = document.createElement('script');
-        //    script.type = 'text/x-tmpl';
-        //    script.id = "template-download";
-        //    $(script).text(templateLoad.FileUpload_DownloadTemplate());
-        //    $("body").append(script);
-        //}
-        //if ($('#template-upload').length == 0) {
-        //    var script = document.createElement('script');
-        //    script.type = 'text/x-tmpl';
-        //    script.id = "template-upload";
-        //    $(script).text(templateLoad.FileUpload_UploadTemplate());
-        //    $("body").append(script);
-        //}
-
         var defaults = {
-            disableImageResize: false,
-            autoUpload: true,
-            url: $.knockoutExtend.defaults.fileUpload.url
+            options: {
+                disableImageResize: false,
+                autoUpload: true,
+                url: $.knockoutExtend.defaults.fileUpload.url
+            }
             , observable: viewModel != null && viewModel.FileUpload != null ? viewModel.FileUpload : null
         };
 
@@ -65,7 +51,7 @@ ko.bindingHandlers.fileupload = {
         var observable = defaults.observable;//pode ser passado pela configuração
 
         $(element).append($('#template-fileUpload').html());
-        $(element).fileupload(defaults)
+        $(element).fileupload(defaults.options)
             .bind('fileuploaddone', function (e, data) {
             })
             .bind('fileuploadcompleted', function (e, data) {
