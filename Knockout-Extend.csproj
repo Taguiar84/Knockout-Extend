@@ -107,6 +107,7 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\fileupload\css\jquery.fileupload-ui.css" />
     <Content Include="Content\fileupload\css\jquery.fileupload.css" />
+    <Content Include="Content\fileupload\img\generalFile.png" />
     <Content Include="Content\fileupload\img\loading.gif" />
     <Content Include="Content\fileupload\img\progressbar.gif" />
     <Content Include="Content\fileupload\js\jquery.fileupload-audio.js" />

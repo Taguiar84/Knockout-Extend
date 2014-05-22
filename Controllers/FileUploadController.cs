@@ -65,9 +65,15 @@ namespace WebClient.Controllers
         private HttpResponseMessage WriteJsonIframeSafe(HttpContext context, List<FilesStatus> statuses)
         {
             context.Response.AddHeader("Vary", "Accept");
+
+            var json = new
+            {
+                files = statuses.ToArray()
+            };
+
             var response = new HttpResponseMessage()
             {
-                Content = new StringContent(_js.Serialize(statuses.ToArray()))
+                Content = new StringContent(_js.Serialize(json))
             };
             if (context.Request["HTTP_ACCEPT"].Contains("application/json"))
             {

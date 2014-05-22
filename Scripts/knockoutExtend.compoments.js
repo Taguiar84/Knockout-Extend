@@ -69,9 +69,21 @@ ko.bindingHandlers.fileupload = {
             .bind('fileuploaddone', function (e, data) {
             })
             .bind('fileuploadcompleted', function (e, data) {
-                $(data.context).find('.size').text('ok');
-                $(data.context).find('.name').text(data.result[0].displayName);
-                //data.result
+
+                var file = data.result.files[0];
+
+                $(data.context).find('.size').text(file.size);
+                $(data.context).find('.name').text(file.displayName);
+
+                var element = $(data.context).find('.preview')[0];
+
+                if (!file.thumbnail_url) {
+                    file.thumbnail_url = $.knockoutExtend.defaults.fileUpload.previewNoImageUrl
+                }
+
+                var preview = "<a href=\"" + file.url + "\" title=\"" + file.displayName + "\" download=\"" + file.name + "\" data-gallery><img src=\"" + file.thumbnail_url + "\" style=\"width: 32px; height: 32px\" ></a>";
+                $(element).html(preview);
+
                 var btnRemove = $(data.context).find('.glyphicon-ban-circle');
                 btnRemove.removeClass('glyphicon-ban-circle');
                 btnRemove.addClass('glyphicon-remove-circle');
@@ -80,14 +92,14 @@ ko.bindingHandlers.fileupload = {
 
                 //register in viewModel
                 if (observable != null) {
-                    observable.push(data.result[0]);
+                    observable.push(file);
                 }
 
                 $(btnRemove).bind("click", function () {
-                    $.asyncRequest.delete({
-                        Url: core.urlBaseWebApi() + retorno.delete_url
-                    });
-                    observable.remove(function (item) { return item.name == retorno.name });
+                    //$.asyncRequest.delete({
+                    //    Url: $.knockoutExtend.defaults.fileUpload.deleteUrl + file.delete_url
+                    //});
+                    observable.remove(function (item) { return item.name == file.name });
                 });
             })
         //.bind('fileuploadprocessdone', function (e, data) {
@@ -243,7 +255,7 @@ ko.bindingHandlers.colorpicker = {
 //        //ko.renderTemplate("template-carouselThumbnail", valueAccessor().observable, {}, region, "replaceNode");
 
 //        $(element).append(templateLoad.Carousel_ThumbnailTemplate());
-        
+
 
 
 //        //$(element).find('.thumbnail').click(function () {
