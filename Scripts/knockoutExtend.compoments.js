@@ -50,6 +50,13 @@ ko.bindingHandlers.fileupload = {
 
         var observable = defaults.observable;//pode ser passado pela configuração
 
+
+        observable.subscribe(function (value) {
+            if (value.length == 0)
+                $(element).find('button:not(:reset) + .cancel').click();;
+
+        });
+
         $(element).append($('#template-fileUpload').html());
         $(element).fileupload(defaults.options)
             .bind('fileuploaddone', function (e, data) {
@@ -70,11 +77,11 @@ ko.bindingHandlers.fileupload = {
                 var preview = "<a href=\"" + file.url + "\" title=\"" + file.displayName + "\" download=\"" + file.name + "\" data-gallery><img src=\"" + file.thumbnail_url + "\" style=\"width: 32px; height: 32px\" ></a>";
                 $(element).html(preview);
 
-                var btnRemove = $(data.context).find('.glyphicon-ban-circle');
-                btnRemove.removeClass('glyphicon-ban-circle');
-                btnRemove.addClass('glyphicon-remove-circle');
+                var btnRemove = $(data.context).find('button')[0];
 
-                var retorno = data.result[0];
+                var icone = $(btnRemove).find('.glyphicon-ban-circle');
+                icone.removeClass('glyphicon-ban-circle');
+                icone.addClass('glyphicon-remove-circle');
 
                 //register in viewModel
                 if (observable != null) {
@@ -82,9 +89,7 @@ ko.bindingHandlers.fileupload = {
                 }
 
                 $(btnRemove).bind("click", function () {
-                    //$.asyncRequest.delete({
-                    //    Url: $.knockoutExtend.defaults.fileUpload.deleteUrl + file.delete_url
-                    //});
+                    $.ajax($.knockoutExtend.defaults.fileUpload.deleteUrl + file.delete_url, { type: 'DELETE' })
                     observable.remove(function (item) { return item.name == file.name });
                 });
             })
@@ -97,6 +102,8 @@ ko.bindingHandlers.fileupload = {
         });
     },
     update: function (element) {
+        //alert('laga');
+
     }
 };
 
