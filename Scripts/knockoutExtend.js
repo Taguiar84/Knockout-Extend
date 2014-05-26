@@ -34,8 +34,11 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
             template.innerHTML = data;
             document.getElementsByTagName("head")[0].appendChild(template);
             count++;
-            if (arrayPath.length == count)
+            if (arrayPath.length == count) {
                 $.knockoutExtend.loaded = true;
+                if (successCalback != null)
+                    successCalback();
+            }
         }
 
     arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/segments/" + locale + "/exceptions.json", '.json'));
