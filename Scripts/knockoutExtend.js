@@ -19,12 +19,19 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
     }
 
     var count = 0;
+    var executeSuccess = false;
+
     var successFunctionJson =
         function (data) {
             Globalize.load(data);
             count++;
-            if (arrayPath.length == count)
+            if (count = arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
+                if (successCalback != null && !executeSuccess) {
+                    executeSuccess = true;
+                    successCalback();
+                }
+            }
         }
     var successFunctionTemplate =
         function (data, name) {
@@ -34,13 +41,15 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
             template.innerHTML = data;
             document.getElementsByTagName("head")[0].appendChild(template);
             count++;
-            if (arrayPath.length == count) {
+            if (count = arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
-                if (successCalback != null)
+                if (successCalback != null && !executeSuccess) {
+                    executeSuccess = true;
                     successCalback();
+                }
             }
         }
-
+    arrayPath = new Array();
     arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/segments/" + locale + "/exceptions.json", '.json'));
 
     arrayPath.push(new createArrayItem(baseUrl + "Globalize/cldr/i18n/supplemental/likelySubtags.json", '.json'));

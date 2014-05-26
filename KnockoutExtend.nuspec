@@ -2,15 +2,16 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.3.9</version>
+        <version>0.0.4.2</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
         <licenseUrl>https://raw.github.com/Taguiar84/Knockout-Extend/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/Taguiar84/Knockout-Extend</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Extend knockout with BootStrap, Mask and Globalization and Format</description>
-        <summary>Extend knockout with BootStrap, Mask and Globalization and Format</summary>
+        <description>Extend knockout with BootStrap, Mask, Globalization and Format.
+Fast config: Integer, Date, DateTime, Currency, Percent, CreditCard, UploadFile</description>
+        <summary>Extend knockout with BootStrap, Mask, Globalization and Format</summary>
         <dependencies>
             <dependency id="jQuery" version="2.0.3" />
             <dependency id="knockoutjs" version="3.0.0" />
@@ -22,6 +23,26 @@
         <file src="Content\bootstrap-colorpicker.css" target="content\Content\bootstrap-colorpicker.css" />
         <file src="Content\bootstrap-datetimepicker.css" target="content\Content\bootstrap-datetimepicker.css" />
         <file src="Content\bootstrap-timepicker.css" target="content\Content\bootstrap-timepicker.css" />
+        <file src="Scripts\fileupload\css\jquery.fileupload-ui.css" target="content\Scripts\knockoutExtend\fileupload\css\jquery.fileupload-ui.css" />
+        <file src="Scripts\fileupload\css\jquery.fileupload.css" target="content\Scripts\knockoutExtend\fileupload\css\jquery.fileupload.css" />
+        <file src="Scripts\fileupload\img\generalFile.png" target="content\Scripts\knockoutExtend\fileupload\img\generalFile.png" />
+        <file src="Scripts\fileupload\img\loading.gif" target="content\Scripts\knockoutExtend\fileupload\img\loading.gif" />
+        <file src="Scripts\fileupload\img\progressbar.gif" target="content\Scripts\knockoutExtend\fileupload\img\progressbar.gif" />
+        <file src="Scripts\fileupload\js\vendor\canvas-to-blob.min.js" target="content\Scripts\knockoutExtend\fileupload\js\vendor\canvas-to-blob.min.js" />
+        <file src="Scripts\fileupload\js\vendor\jquery-ui-1.10.3.js" target="content\Scripts\knockoutExtend\fileupload\js\vendor\jquery-ui-1.10.3.js" />
+        <file src="Scripts\fileupload\js\vendor\jquery.ui.widget.js" target="content\Scripts\knockoutExtend\fileupload\js\vendor\jquery.ui.widget.js" />
+        <file src="Scripts\fileupload\js\vendor\load-image.min.js" target="content\Scripts\knockoutExtend\fileupload\js\vendor\load-image.min.js" />
+        <file src="Scripts\fileupload\js\vendor\tmpl.min.js" target="content\Scripts\knockoutExtend\fileupload\js\vendor\tmpl.min.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-audio.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-audio.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-image.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-image.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-jquery-ui.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-jquery-ui.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-process.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-process.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-ui.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-ui.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-validate.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-validate.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload-video.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload-video.js" />
+        <file src="Scripts\fileupload\js\jquery.fileupload.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.fileupload.js" />
+        <file src="Scripts\fileupload\js\jquery.iframe-transport.js" target="content\Scripts\knockoutExtend\fileupload\js\jquery.iframe-transport.js" />
+        <file src="Scripts\fileupload\js\main.js" target="content\Scripts\knockoutExtend\fileupload\js\main.js" />
         <file src="Scripts\Globalize\cldr\i18n\main\en-US\ca-gregorian.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\ca-gregorian.json" />
         <file src="Scripts\Globalize\cldr\i18n\main\en-US\currencies.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\currencies.json" />
         <file src="Scripts\Globalize\cldr\i18n\main\en-US\dateFields.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\main\en-US\dateFields.json" />
@@ -65,6 +86,9 @@
         <file src="Scripts\i18n\pt-BR\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\bootstrap-datetimepicker.js" />
         <file src="Scripts\i18n\pt-BR\knockoutExtend.culture.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\knockoutExtend.culture.js" />
         <file src="Scripts\i18n\pt-BR\meio.mask.js" target="content\Scripts\knockoutExtend\i18n\pt-BR\meio.mask.js" />
+        <file src="Scripts\Templates\fileUpload-Download.html" target="content\Scripts\knockoutExtend\Templates\fileUpload-Download.html" />
+        <file src="Scripts\Templates\fileUpload-Upload.html" target="content\Scripts\knockoutExtend\Templates\fileUpload-Upload.html" />
+        <file src="Scripts\Templates\fileUpload.html" target="content\Scripts\knockoutExtend\Templates\fileUpload.html" />
         <file src="Scripts\bootstrap-datetimepicker.js" target="content\Scripts\knockoutExtend\bootstrap-datetimepicker.js" />
         <file src="Scripts\bootstrap-timepicker.js" target="content\Scripts\knockoutExtend\bootstrap-timepicker.js" />
         <file src="Scripts\jquery.meio.mask.min.js" target="content\Scripts\knockoutExtend\jquery.meio.mask.min.js" />
