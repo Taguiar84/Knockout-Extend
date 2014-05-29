@@ -25,7 +25,7 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
         function (data) {
             Globalize.load(data);
             count++;
-            if (count = arrayPath.length - 1) {
+            if (count == arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
                 if (successCalback != null && !executeSuccess) {
                     executeSuccess = true;
@@ -41,7 +41,7 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
             template.innerHTML = data;
             document.getElementsByTagName("head")[0].appendChild(template);
             count++;
-            if (count = arrayPath.length - 1) {
+            if (count == arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
                 if (successCalback != null && !executeSuccess) {
                     executeSuccess = true;
