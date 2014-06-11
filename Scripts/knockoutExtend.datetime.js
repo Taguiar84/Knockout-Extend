@@ -66,7 +66,9 @@ ko.bindingHandlers.dateMask = {
                     break;
             }
             observable(dateValue);
-            $(element).datepicker("setDate", dateValue);
+            if (dateValue != null) {
+                $(element).datepicker("setDate", dateValue);
+            }
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -136,7 +138,9 @@ ko.bindingHandlers.dateTimeMask = {
                     break;
             }
             observable(dateValue);
-            $(element).datetimepicker("setDate", dateValue);
+            if (dateValue != null) {
+                $(element).datetimepicker("setDate", dateValue);
+            }
 
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -171,12 +175,10 @@ ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
-        //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
-        var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: locale,
+                language: Globalize.culture().name
                 //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }
@@ -213,14 +215,13 @@ ko.bindingHandlers.dateTimeOffSetMask = {
             return;
         }
         var valor = new Date(value);
-        var format = { datetime: "short" }
         if ($(element).is("input")) {
+            var format = Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             $(element).val(Globalize.formatDate(valor, format));
             $(element).setMask('datetime');
-            $(element).datetimepicker("setDate", valor);
         }
         else {
-            $(element).text(Globalize.formatDate(valor, format));
+            $(element).text(Globalize.formatDate(valor, 'd'));
         }
     }
 };
