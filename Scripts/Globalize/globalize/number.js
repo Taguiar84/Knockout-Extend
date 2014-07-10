@@ -674,10 +674,24 @@ Globalize.parseNumber = function (value, patterns, locale) {
     patterns = patterns || {};
     var type = patterns.number || "decimal";
 
+    var groupDefault, decimalDefault;
+
     var cldr = Globalize.locale();
+
+    switch (cldr.locale) {
+        case "pt":
+            groupDefault = ".";
+            decimalDefault = ",";
+            break;
+        case "en":
+            groupDefault = ",";
+            decimalDefault = ".";
+            break;
+    }
+
     var numberSymbols = cldr.main(["numbers", "symbols-numberSystem-" + cldr.main("numbers/defaultNumberingSystem")]);
-    var groupSymbol = numberSymbols.group;
-    var decimalSymbol = numberSymbols.decimal;
+    var groupSymbol = numberSymbols.group || groupDefault;
+    var decimalSymbol = numberSymbols.decimal || decimalDefault;
     value = value.split(groupSymbol).join('');
     value = value.replace(numberSymbols.decimal, '.');
     switch (type) {
@@ -686,19 +700,6 @@ Globalize.parseNumber = function (value, patterns, locale) {
         case "decimal":
             return parseFloat(value);
     }
-
-
-    
-        
-
-    //numberPattern("decimal", locale);
-
-    //return cldr.main([
-	//	"numbers",
-	//	style + "Formats-numberSystem-" + numberNumberingSystem(cldr),
-	//	"standard"
-    //]);
-	//return null;
 };
 
 return Globalize;
