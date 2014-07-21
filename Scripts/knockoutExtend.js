@@ -27,8 +27,13 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
             count++;
             if (count == arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
-                if (successCalback != null && !executeSuccess) {
-                    executeSuccess = true;
+                if (locale == 'pt-BR') {
+                    Globalize.locale('pt');
+                } else {
+                    Globalize.locale(locale);
+                }
+                if (successCalback != null && !executeSuccess) {                    
+                    executeSuccess = true;                    
                     successCalback();
                 }
             }
@@ -43,6 +48,11 @@ $.knockoutExtend.load = function (baseUrl, locale, successCalback) {
             count++;
             if (count == arrayPath.length - 1) {
                 $.knockoutExtend.loaded = true;
+                if (locale == 'pt-BR') {
+                    Globalize.locale('pt');
+                } else {
+                    Globalize.locale(locale);
+                }
                 if (successCalback != null && !executeSuccess) {
                     executeSuccess = true;
                     successCalback();
