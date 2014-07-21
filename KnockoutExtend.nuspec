@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>KnockoutExtend</id>
-        <version>0.0.4.2</version>
+        <version>0.0.4.3</version>
         <title>KnockoutExtend</title>
         <authors>Thiago Aguiar</authors>
         <owners>Thiago Aguiar</owners>
@@ -63,6 +63,8 @@ Fast config: Integer, Date, DateTime, Currency, Percent, CreditCard, UploadFile<
         <file src="Scripts\Globalize\cldr\i18n\supplemental\numberingSystems.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\numberingSystems.json" />
         <file src="Scripts\Globalize\cldr\i18n\supplemental\timeData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\timeData.json" />
         <file src="Scripts\Globalize\cldr\i18n\supplemental\weekData.json" target="content\Scripts\knockoutExtend\Globalize\cldr\i18n\supplemental\weekData.json" />
+        <file src="Scripts\Globalize\cldr\event.js" target="content\Scripts\knockoutExtend\Globalize\cldr\event.js" />
+        <file src="Scripts\Globalize\cldr\event.min.js" target="content\Scripts\knockoutExtend\Globalize\cldr\event.min.js" />
         <file src="Scripts\Globalize\cldr\supplemental.js" target="content\Scripts\knockoutExtend\Globalize\cldr\supplemental.js" />
         <file src="Scripts\Globalize\cldr\supplemental.min.js" target="content\Scripts\knockoutExtend\Globalize\cldr\supplemental.min.js" />
         <file src="Scripts\Globalize\cldr\unresolved.js" target="content\Scripts\knockoutExtend\Globalize\cldr\unresolved.js" />
