@@ -136,6 +136,8 @@
     <Content Include="Scripts\fileupload\js\vendor\tmpl.min.js" />
     <Content Include="Scripts\Globalize\cldr.js" />
     <Content Include="Scripts\Globalize\cldr.min.js" />
+    <Content Include="Scripts\Globalize\cldr\event.js" />
+    <Content Include="Scripts\Globalize\cldr\event.min.js" />
     <Content Include="Scripts\Globalize\cldr\supplemental.js" />
     <Content Include="Scripts\Globalize\cldr\supplemental.min.js" />
     <Content Include="Scripts\Globalize\cldr\unresolved.js" />

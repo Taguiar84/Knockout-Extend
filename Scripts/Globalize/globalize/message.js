@@ -1,13 +1,13 @@
 /*!
- * Globalize v1.0.0-alpha.2
+ * Globalize v1.0.0-alpha.4
  *
  * http://github.com/jquery/globalize
  *
- * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-04-18T14:47Z
+ * Date: 2014-07-13T05:36Z
  */
 (function( root, factory ) {
 
@@ -15,7 +15,10 @@
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD
-		define( [ "cldr", "../globalize" ], factory );
+		define([
+			"cldr",
+			"../globalize"
+		], factory );
 	} else if ( typeof exports === "object" ) {
 
 		// Node, CommonJS
@@ -27,67 +30,51 @@
 	}
 }(this, function( Cldr, Globalize ) {
 
-
-/**
- * getLocale( [locale] )
- *
- * @locale [String]
- *
- * Get locale instance given locale string.
- * Get default locale if locale argument is undefined.
- */
-var commonGetLocale = function( locale ) {
-	return locale ? new Cldr( locale ) : Globalize.locale();
-};
-
-
-
-
-var arrayIsArray = Array.isArray || function( obj ) {
-	return Object.prototype.toString.call( obj ) === "[object Array]";
-};
-
-
-
-
-var alwaysArray = function( stringOrArray ) {
-	return arrayIsArray( stringOrArray ) ?  stringOrArray : [ stringOrArray ];
-};
-
-
+var alwaysArray = Globalize._alwaysArray,
+	validateDefaultLocale = Globalize._validateDefaultLocale,
+	validatePresence = Globalize._validatePresence,
+	validateType = Globalize._validateType,
+	validateTypePlainObject = Globalize._validateTypePlainObject;
 
 
 /**
- * Globalize.loadMessages( locale, json )
- *
- * @locale [String]
+ * .loadTranslations( json )
  *
  * @json [JSON]
  *
- * Load messages (translation) data per locale.
+ * Load translation data.
  */
-Globalize.loadMessages = function( locale, json ) {
+Globalize.loadTranslations = function( json ) {
 	var customData = {
-		"globalize-messages": {}
+		"globalize-translations": json
 	};
-	locale = new Cldr( locale );
-	customData[ "globalize-messages" ][ locale.attributes.languageId ] = json;
+
+	validatePresence( json, "json" );
+	validateTypePlainObject( json, "json" );
+
 	Cldr.load( customData );
 };
 
 /**
- * Globalize.translate( path, locale )
+ * .translate( path )
  *
  * @path [String or Array]
  *
- * @locale [String]
- *
  * Translate item given its path.
  */
-Globalize.translate = function( path , locale ) {
-	locale = commonGetLocale( locale );
+Globalize.translate =
+Globalize.prototype.translate = function( path ) {
+	var cldr;
+
+	validatePresence( path, "path" );
+	validateType( path, "path", typeof path === "string" || Array.isArray( path ), "a String nor an Array");
+
 	path = alwaysArray( path );
-	return locale.get( [ "globalize-messages/{languageId}" ].concat( path ) );
+	cldr = this.cldr;
+
+	validateDefaultLocale( cldr );
+
+	return cldr.get( [ "globalize-translations/{languageId}" ].concat( path ) );
 };
 
 return Globalize;

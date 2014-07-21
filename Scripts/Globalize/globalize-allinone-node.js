@@ -1,13 +1,13 @@
 /*!
- * Globalize v1.0.0-alpha.2
+ * Globalize v1.0.0-alpha.4
  *
  * http://github.com/jquery/globalize
  *
- * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-04-18T14:47Z
+ * Date: 2014-07-13T05:36Z
  */
 
 // Core

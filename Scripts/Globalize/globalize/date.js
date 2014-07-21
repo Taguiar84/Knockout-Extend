@@ -1,13 +1,13 @@
 /*!
- * Globalize v1.0.0-alpha.2
+ * Globalize v1.0.0-alpha.4
  *
  * http://github.com/jquery/globalize
  *
- * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-04-18T14:47Z
+ * Date: 2014-07-13T05:36Z
  */
 (function( root, factory ) {
 
@@ -18,6 +18,7 @@
 		define([
 			"cldr",
 			"../globalize",
+			"cldr/event",
 			"cldr/supplemental"
 		], factory );
 	} else if ( typeof exports === "object" ) {
@@ -31,31 +32,32 @@
 	}
 }(this, function( Cldr, Globalize ) {
 
+var alwaysArray = Globalize._alwaysArray,
+	createError = Globalize._createError,
+	formatMessage = Globalize._formatMessage,
+	isPlainObject = Globalize._isPlainObject,
+	validateCldr = Globalize._validateCldr,
+	validateDefaultLocale = Globalize._validateDefaultLocale,
+	validatePresence = Globalize._validatePresence,
+	validateType = Globalize._validateType;
 
-/**
- * getLocale( [locale] )
- *
- * @locale [String]
- *
- * Get locale instance given locale string.
- * Get default locale if locale argument is undefined.
- */
-var commonGetLocale = function( locale ) {
-	return locale ? new Cldr( locale ) : Globalize.locale();
+
+var validateTypeDate = function( value, name ) {
+	validateType( value, name, typeof value === "undefined" || value instanceof Date, "Date" );
 };
 
 
 
 
-var arrayMap = function( array, callback ) {
-	var clone, i, length;
-	if ( array.map ) {
-		return array.map( callback );
-	}
-	for ( clone = [], i = 0, length = array.length; i < length; i++ ) {
-		clone[ i ] = callback( array[ i ], i, array );
-	}
-	return clone;
+var validateTypeDatePattern = function( value, name ) {
+	validateType( value, name, typeof value === "undefined" || typeof value === "string" || isPlainObject( value ), "String or plain Object" );
+};
+
+
+
+
+var validateTypeString = function( value, name ) {
+	validateType( value, name, typeof value === "undefined" || typeof value === "string", "a string" );
 };
 
 
@@ -95,23 +97,34 @@ var dateAllPresets = function( cldr ) {
 	result = result.concat( objectValues( cldr.main( "dates/calendars/gregorian/dateFormats" ) ) );
 
 	// Datetime
-	result = result.concat( arrayMap( objectValues( cldr.main( "dates/calendars/gregorian/dateTimeFormats" ) ), function( datetimeFormat, key ) {
+	result = result.concat( objectValues( cldr.main( "dates/calendars/gregorian/dateTimeFormats" ) ).map(function( datetimeFormat, key ) {
 		if ( typeof datetimeFormat !== "string" ) {
 			return datetimeFormat;
 		}
-		return datetimeFormat
-			.replace( /\{0\}/, cldr.main([
+		return formatMessage( datetimeFormat, [
+			cldr.main([
 				"dates/calendars/gregorian/timeFormats",
 				key
-			]))
-			.replace( /\{1\}/, cldr.main([
+			]),
+			cldr.main([
 				"dates/calendars/gregorian/dateFormats",
 				key
-			]));
+			])
+		]);
 	}));
 
-	return arrayMap( result, function( pattern ) {
+	return result.map(function( pattern ) {
 		return { pattern: pattern };
+	});
+};
+
+
+
+
+var createErrorInvalidParameterValue = function( name, value ) {
+	return createError( "E_INVALID_PAR_VALUE", "Invalid `{name}` value ({value}).", {
+		name: name,
+		value: value
 	});
 };
 
@@ -146,57 +159,51 @@ var dateExpandPattern = function( pattern, cldr ) {
 		pattern = { skeleton: pattern };
 	}
 
-	if ( typeof pattern === "object" ) {
+	switch ( true ) {
+		case "skeleton" in pattern:
+			result = cldr.main([
+				"dates/calendars/gregorian/dateTimeFormats/availableFormats",
+				pattern.skeleton
+			]);
+			break;
 
-		switch ( true ) {
-			case "skeleton" in pattern:
-				result = cldr.main([
-					"dates/calendars/gregorian/dateTimeFormats/availableFormats",
-					pattern.skeleton
+		case "date" in pattern:
+		case "time" in pattern:
+			result = cldr.main([
+				"dates/calendars/gregorian",
+				"date" in pattern ? "dateFormats" : "timeFormats",
+				( pattern.date || pattern.time )
+			]);
+			break;
+
+		case "datetime" in pattern:
+			result = cldr.main([
+				"dates/calendars/gregorian/dateTimeFormats",
+				pattern.datetime
+			]);
+			if ( result ) {
+				result = formatMessage( result, [
+					cldr.main([
+						"dates/calendars/gregorian/timeFormats",
+						pattern.datetime
+					]),
+					cldr.main([
+						"dates/calendars/gregorian/dateFormats",
+						pattern.datetime
+					])
 				]);
-				break;
+			}
+			break;
 
-			case "date" in pattern:
-			case "time" in pattern:
-				result = cldr.main([
-					"dates/calendars/gregorian",
-					"date" in pattern ? "dateFormats" : "timeFormats",
-					( pattern.date || pattern.time )
-				]);
-				break;
+		case "pattern" in pattern:
+			result = pattern.pattern;
+			break;
 
-			case "datetime" in pattern:
-				result = cldr.main([
-					"dates/calendars/gregorian/dateTimeFormats",
-					pattern.datetime
-				]);
-				if ( result ) {
-					result = result
-						.replace( /\{0\}/, cldr.main([
-							"dates/calendars/gregorian/timeFormats",
-							pattern.datetime
-						]))
-						.replace( /\{1\}/, cldr.main([
-							"dates/calendars/gregorian/dateFormats",
-							pattern.datetime
-						]));
-				}
-				break;
-
-			case "pattern" in pattern:
-				result = pattern.pattern;
-				break;
-
-			default:
-				throw new Error( "Invalid pattern" );
-		}
-
-	} else {
-		throw new Error( "Invalid pattern" );
-	}
-
-	if ( !result ) {
-		throw new Error( "Pattern not found" );
+		default:
+			throw createErrorInvalidParameterValue({
+				name: "pattern",
+				value: pattern
+			});
 	}
 
 	return result;
@@ -210,26 +217,11 @@ var dateWeekDays = [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ];
 
 
 
-var arrayIndexOf = function( array, item ) {
-	if ( array.indexOf ) {
-		return array.indexOf( item );
-	}
-	for ( var i = 0, length = array.length; i < length; i++ ) {
-		if ( array[i] === item ) {
-			return i;
-		}
-	}
-	return -1;
-};
-
-
-
-
 /**
  * firstDayOfWeek
  */
 var dateFirstDayOfWeek = function( cldr ) {
-	return arrayIndexOf( dateWeekDays, cldr.supplemental.weekData.firstDay() );
+	return dateWeekDays.indexOf( cldr.supplemental.weekData.firstDay() );
 };
 
 
@@ -494,19 +486,19 @@ var dateFormat = function( date, pattern, cldr ) {
 					// http://unicode.org/cldr/trac/ticket/6790
 					ret = cldr.main([
 							"dates/calendars/gregorian/days",
-							[ chr === "c" ? "stand-alone" : "format" ],
+							chr === "c" ? "stand-alone" : "format",
 							"short",
 							ret
 						]) || cldr.main([
 							"dates/calendars/gregorian/days",
-							[ chr === "c" ? "stand-alone" : "format" ],
+							chr === "c" ? "stand-alone" : "format",
 							"abbreviated",
 							ret
 						]);
 				} else {
 					ret = cldr.main([
 						"dates/calendars/gregorian/days",
-						[ chr === "c" ? "stand-alone" : "format" ],
+						chr === "c" ? "stand-alone" : "format",
 						widths[ length < 3 ? 0 : length - 3 ],
 						ret
 					]);
@@ -590,22 +582,6 @@ var dateFormat = function( date, pattern, cldr ) {
 
 
 
-var arrayEvery = function( array, callback ) {
-	var i, length;
-	if ( array.every ) {
-		return array.every( callback );
-	}
-	for ( i = 0, length = array.length; i < length; i++ ) {
-		if ( !callback( array[ i ], i, array ) ) {
-			return false;
-		}
-	}
-	return true;
-};
-
-
-
-
 /**
  * tokenizer( value, pattern )
  *
@@ -637,7 +613,7 @@ var dateTokenizer = function( value, pattern, cldr ) {
 		tokens = [],
 		widths = [ "abbreviated", "wide", "narrow" ];
 
-	valid = arrayEvery( pattern.match( datePatternRe ), function( current ) {
+	valid = pattern.match( datePatternRe ).every(function( current ) {
 		var chr, length, tokenRe,
 			token = {};
 
@@ -858,6 +834,40 @@ var dateTokenizer = function( value, pattern, cldr ) {
 };
 
 
+
+
+/**
+ * Differently from native date.setDate(), this function returns a date whose
+ * day remains inside the month boundaries. For example:
+ *
+ * setDate( FebDate, 31 ): a "Feb 28" date.
+ * setDate( SepDate, 31 ): a "Sep 30" date.
+ */
+var dateSetDate = function( date, day ) {
+	var lastDay = new Date( date.getFullYear(), date.getMonth() + 1 , 0 ).getDate();
+	
+	date.setDate( day < 1 ? 1 : day < lastDay ? day : lastDay );
+};
+
+
+
+
+/**
+ * Differently from native date.setMonth(), this function adjusts date if
+ * needed, so final month is always the one set.
+ *
+ * setMonth( Jan31Date, 1 ): a "Feb 28" date.
+ * setDate( Jan31Date, 8 ): a "Sep 30" date.
+ */
+var dateSetMonth = function( date, month ) {
+	var originalDate = date.getDate();
+	
+	date.setDate( 1 );
+	date.setMonth( month );
+	dateSetDate( date, originalDate );
+};
+
+
 var dateParse = (function() {
 
 function outOfRange( value, low, high ) {
@@ -870,7 +880,7 @@ function outOfRange( value, low, high ) {
  * ref: http://www.unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns
  */
 return function( value, pattern, cldr ) {
-	var amPm, era, hour24, valid,
+	var amPm, era, hour, hour12, valid,
 		YEAR = 0,
 		MONTH = 1,
 		DAY = 2,
@@ -887,7 +897,7 @@ return function( value, pattern, cldr ) {
 		return null;
 	}
 
-	valid = arrayEvery( tokens, function( token ) {
+	valid = tokens.every(function( token ) {
 		var century, chr, value, length;
 
 		if ( token.type === "literal" ) {
@@ -951,7 +961,7 @@ return function( value, pattern, cldr ) {
 				if( outOfRange( value, 1, 12 ) ) {
 					return false;
 				}
-				date.setMonth( value - 1 );
+				dateSetMonth( date, value - 1 );
 				truncateAt.push( MONTH );
 				break;
 
@@ -966,7 +976,7 @@ return function( value, pattern, cldr ) {
 				if( outOfRange( value, 1, 31 ) ) {
 					return false;
 				}
-				date.setDate( value );
+				dateSetDate( date, value );
 				truncateAt.push( DAY );
 				break;
 
@@ -1003,29 +1013,42 @@ return function( value, pattern, cldr ) {
 				break;
 
 			// Hour
-			case "K": // 0-11
-				value = +token.lexeme + 1;
-
-			/* falls through */
 			case "h": // 1-12
-				value = value || +token.lexeme;
+				value = +token.lexeme;
 				if( outOfRange( value, 1, 12 ) ) {
 					return false;
 				}
+				hour = hour12 = true;
+				date.setHours( value === 12 ? 0 : value );
+				truncateAt.push( HOUR );
+				break;
+
+			case "K": // 0-11
+				value = +token.lexeme;
+				if( outOfRange( value, 0, 11 ) ) {
+					return false;
+				}
+				hour = hour12 = true;
 				date.setHours( value );
 				truncateAt.push( HOUR );
 				break;
 
-			case "H": // 0-23
-				value = +token.lexeme + 1;
-
-			/* falls through */
 			case "k": // 1-24
-				hour24 = true;
-				value = value || +token.lexeme;
+				value = +token.lexeme;
 				if( outOfRange( value, 1, 24 ) ) {
 					return false;
 				}
+				hour = true;
+				date.setHours( value === 24 ? 0 : value );
+				truncateAt.push( HOUR );
+				break;
+
+			case "H": // 0-23
+				value = +token.lexeme;
+				if( outOfRange( value, 0, 23 ) ) {
+					return false;
+				}
+				hour = true;
 				date.setHours( value );
 				truncateAt.push( HOUR );
 				break;
@@ -1078,7 +1101,12 @@ return function( value, pattern, cldr ) {
 		return true;
 	});
 
-	if ( !valid || amPm && hour24 ) {
+	if ( !valid ) {
+		return null;
+	}
+
+	// 12-hour format needs AM or PM, 24-hour format doesn't, ie. return null if amPm && !hour12 || !amPm && hour12.
+	if ( hour && !( !amPm ^ hour12 ) ) {
 		return null;
 	}
 
@@ -1087,7 +1115,7 @@ return function( value, pattern, cldr ) {
 		date.setFullYear( date.getFullYear() * -1 + 1 );
 	}
 
-	if ( amPm === "pm" && date.getHours() !== 12 ) {
+	if ( hour12 && amPm === "pm" ) {
 		date.setHours( date.getHours() + 12 );
 	}
 
@@ -1103,91 +1131,82 @@ return function( value, pattern, cldr ) {
 }());
 
 
-var arrayIsArray = Array.isArray || function( obj ) {
-	return Object.prototype.toString.call( obj ) === "[object Array]";
-};
-
-
-
-
-var alwaysArray = function( stringOrArray ) {
-	return arrayIsArray( stringOrArray ) ?  stringOrArray : [ stringOrArray ];
-};
-
-
-
-
-var arraySome = function( array, callback ) {
-	var i, length;
-	if ( array.some ) {
-		return array.some( callback );
-	}
-	for ( i = 0, length = array.length; i < length; i++ ) {
-		if ( callback( array[ i ], i, array ) ) {
-			return true;
-		}
-	}
-	return false;
-};
-
-
-
+function validateRequiredCldr( path, value ) {
+	validateCldr( path, value, {
+		skip: [
+			/dates\/calendars\/gregorian\/days\/.*\/short/,
+			/supplemental\/timeData\/(?!001)/,
+			/supplemental\/weekData\/(?!001)/
+		]
+	});
+}
 
 /**
- * Globalize.formatDate( value, pattern, locale )
+ * .formatDate( value, pattern )
  *
  * @value [Date]
  *
  * @pattern [String or Object] see date/expand_pattern for more info.
  *
- * @locale [String]
- *
- * Formats a date or number according to the given pattern string and the given locale (or the default locale if not specified).
+ * Formats a date or number according to the given pattern string and the default/instance locale.
  */
-Globalize.formatDate = function( value, pattern, locale ) {
-	if ( !( value instanceof Date ) ) {
-		throw new Error( "Value is not date" );
-	}
+Globalize.formatDate =
+Globalize.prototype.formatDate = function( value, pattern ) {
+	var cldr, ret;
 
-	if ( !pattern ) {
-		throw new Error( "Missing pattern" );
-	}
+	validatePresence( value, "value" );
+	validatePresence( pattern, "pattern" );
+	validateTypeDate( value, "value" );
+	validateTypeDatePattern( pattern, "pattern" );
 
-	locale = commonGetLocale( locale );
-	pattern = dateExpandPattern( pattern, locale );
-	return dateFormat( value, pattern, locale );
+	cldr = this.cldr;
+
+	validateDefaultLocale( cldr );
+
+	cldr.on( "get", validateRequiredCldr );
+	pattern = dateExpandPattern( pattern, cldr );
+	ret = dateFormat( value, pattern, cldr );
+	cldr.off( "get", validateRequiredCldr );
+
+	return ret;
 };
 
 /**
- * Globalize.parseDate( value, patterns, locale )
+ * .parseDate( value, patterns )
  *
  * @value [String]
  *
  * @patterns [Array] Optional. See date/expand_pattern for more info about each pattern. Defaults to the list of all presets defined in the locale (see date/all_presets for more info).
  *
- * @locale [String]
- *
  * Return a Date instance or null.
  */
-Globalize.parseDate = function( value, patterns, locale ) {
-	var date;
-	locale = commonGetLocale( locale );
+Globalize.parseDate =
+Globalize.prototype.parseDate = function( value, patterns ) {
+	var cldr, date;
 
-	if ( typeof value !== "string" ) {
-		throw new Error( "invalid value (" + value + "), string expected" );
-	}
+	validatePresence( value, "value" );
+	validateTypeString( value, "value" );
+
+	cldr = this.cldr;
+
+	validateDefaultLocale( cldr );
+
+	cldr.on( "get", validateRequiredCldr );
 
 	if ( !patterns ) {
-		patterns = dateAllPresets( locale );
+		patterns = dateAllPresets( cldr );
 	} else {
 		patterns = alwaysArray( patterns );
 	}
 
-	arraySome( patterns, function( pattern ) {
-		pattern = dateExpandPattern( pattern, locale );
-		date = dateParse( value, pattern, locale );
+	patterns.some(function( pattern ) {
+		validateTypeDatePattern( pattern, "patterns" );
+		pattern = dateExpandPattern( pattern, cldr );
+		date = dateParse( value, pattern, cldr );
 		return !!date;
 	});
+
+	cldr.off( "get", validateRequiredCldr );
 
 	return date || null;
 };

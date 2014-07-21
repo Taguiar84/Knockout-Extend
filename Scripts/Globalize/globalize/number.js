@@ -1,13 +1,13 @@
 /*!
- * Globalize v1.0.0-alpha.2
+ * Globalize v1.0.0-alpha.4
  *
  * http://github.com/jquery/globalize
  *
- * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-04-18T14:47Z
+ * Date: 2014-07-13T05:36Z
  */
 (function( root, factory ) {
 
@@ -17,7 +17,8 @@
 		// AMD
 		define([
 			"cldr",
-			"../globalize"
+			"../globalize",
+			"cldr/event",
 		], factory );
 	} else if ( typeof exports === "object" ) {
 
@@ -30,17 +31,22 @@
 	}
 }(this, function( Cldr, Globalize ) {
 
+var validateCldr = Globalize._validateCldr,
+	validateDefaultLocale = Globalize._validateDefaultLocale,
+	validatePresence = Globalize._validatePresence,
+	validateType = Globalize._validateType,
+	validateTypePlainObject = Globalize._validateTypePlainObject;
 
-/**
- * getLocale( [locale] )
- *
- * @locale [String]
- *
- * Get locale instance given locale string.
- * Get default locale if locale argument is undefined.
- */
-var commonGetLocale = function( locale ) {
-	return locale ? new Cldr( locale ) : Globalize.locale();
+
+var validateTypeNumber = function( value, name ) {
+	validateType( value, name, typeof value === "undefined" || typeof value === "number", "Number" );
+};
+
+
+
+
+var validateTypeString = function( value, name ) {
+	validateType( value, name, typeof value === "undefined" || typeof value === "string", "a string" );
 };
 
 
@@ -172,6 +178,88 @@ var numberFormatIntegerFractionDigits = function( number, minimumIntegerDigits, 
 
 
 /**
+ * toPrecision( number, precision, round )
+ *
+ * @number (Number)
+ *
+ * @precision (Number) significant figures precision (not decimal precision).
+ *
+ * @round (Function)
+ *
+ * Return number.toPrecision( precision ) using the given round function.
+ */
+var numberToPrecision = function( number, precision, round ) {
+	var roundOrder, roundIncrement;
+
+	// Get number at two extra significant figure precision.
+	number = number.toPrecision( precision + 2 );
+
+	// Then, round it to the required significant figure precision.
+	roundOrder = Math.ceil( Math.log( Math.abs( number ) ) / Math.log( 10 ) );
+	roundOrder -= precision;
+	roundIncrement = Math.pow( 10, roundOrder );
+
+	number = round( number, roundIncrement );
+
+	// Ignore decimal error, eg. `1234 * 0.0001 = 0.12340000000000001`.
+	if ( roundOrder < 0 ) {
+		number = +number.toFixed( -roundOrder );
+	}
+
+	return number;
+};
+
+
+
+
+/**
+ * toPrecision( number, minimumSignificantDigits, maximumSignificantDigits, round )
+ *
+ * @number [Number] 
+ *
+ * @minimumSignificantDigits [Number] 
+ *
+ * @maximumSignificantDigits [Number] 
+ *
+ * @round [Function] 
+ *
+ * Return the formatted significant digits number.
+ */
+var numberFormatSignificantDigits = function( number, minimumSignificantDigits, maximumSignificantDigits, round ) {
+	var atMinimum, atMaximum;
+
+	// Sanity check.
+	if ( minimumSignificantDigits > maximumSignificantDigits ) {
+		maximumSignificantDigits = minimumSignificantDigits;
+	}
+
+	atMinimum = numberToPrecision( number, minimumSignificantDigits, round );
+	atMaximum = numberToPrecision( number, maximumSignificantDigits, round );
+
+	// Use atMaximum only if it has more significant digits than atMinimum.
+	number = +atMinimum === +atMaximum ? atMinimum : atMaximum;
+
+	// Expand integer numbers, eg. 123e5 to 12300.
+	number = ( +number ).toString( 10 );
+
+	if ( (/e/).test( number ) ) {
+		throw new Error( "Ops! Integers out of (1e21, 1e-7) not supported" );
+	}
+
+	// Add trailing zeros if necessary.
+	if ( minimumSignificantDigits - number.replace( /^0+|\./g, "" ).length > 0 ) {
+		number = number.split( "." );
+		number[ 1 ] = stringPad( number[ 1 ] || "", minimumSignificantDigits - number[ 0 ].replace( /^0+/, "" ).length, true );
+		number = number.join( "." );
+	}
+
+	return number;
+};
+
+
+
+
+/**
  * EBNF representation:
  * 
  * number_pattern_re =        prefix?
@@ -230,7 +318,7 @@ var numberPatternRe = (/^(('[^']+'|''|[^*#@0,.E])*)(\*.)?((([#,]*[0,]*0+)(\.0*[0
  * Return the formatted number.
  * ref: http://www.unicode.org/reports/tr35/tr35-numbers.html
  */
-var numberFormatProperties = function( pattern ) {
+var numberPatternProperties = function( pattern ) {
 	var aux1, aux2, fractionPattern, integerFractionOrSignificantPattern, integerPattern, maximumFractionDigits, maximumSignificantDigits, minimumFractionDigits, minimumIntegerDigits, minimumSignificantDigits, padding, prefix, primaryGroupingSize, roundIncrement, scientificNotation, secondaryGroupingSize, significantPattern, suffix;
 
 	pattern = pattern.match( numberPatternRe );
@@ -333,94 +421,31 @@ var numberFormatProperties = function( pattern ) {
 
 
 /**
- * toPrecision( number, precision, round )
- *
- * @number (Number)
- *
- * @precision (Number) significant figures precision (not decimal precision).
- *
- * @round (Function)
- *
- * Return number.toPrecision( precision ) using the given round function.
- */
-var numberToPrecision = function( number, precision, round ) {
-	var roundOrder, roundIncrement;
-
-	// Get number at two extra significant figure precision.
-	number = number.toPrecision( precision + 2 );
-
-	// Then, round it to the required significant figure precision.
-	roundOrder = Math.ceil( Math.log( Math.abs( number ) ) / Math.log( 10 ) );
-	roundOrder -= precision;
-	roundIncrement = Math.pow( 10, roundOrder );
-
-	number = round( number, roundIncrement );
-
-	// Ignore decimal error, eg. `1234 * 0.0001 = 0.12340000000000001`.
-	if ( roundOrder < 0 ) {
-		number = +number.toFixed( -roundOrder );
-	}
-
-	return number;
-};
-
-
-
-
-/**
- * toPrecision( number, minimumSignificantDigits, maximumSignificantDigits, round )
- *
- * @number [Number] 
- *
- * @minimumSignificantDigits [Number] 
- *
- * @maximumSignificantDigits [Number] 
- *
- * @round [Function] 
- *
- * Return the formatted significant digits number.
- */
-var numberFormatSignificantDigits = function( number, minimumSignificantDigits, maximumSignificantDigits, round ) {
-	var atMinimum, atMaximum;
-
-	// Sanity check.
-	if ( minimumSignificantDigits > maximumSignificantDigits ) {
-		maximumSignificantDigits = minimumSignificantDigits;
-	}
-
-	atMinimum = numberToPrecision( number, minimumSignificantDigits, round );
-	atMaximum = numberToPrecision( number, maximumSignificantDigits, round );
-
-	// Use atMaximum only if it has more significant digits than atMinimum.
-	number = +atMinimum === +atMaximum ? atMinimum : atMaximum;
-
-	// Expand integer numbers, eg. 123e5 to 12300.
-	number = ( +number ).toString( 10 );
-
-	if ( (/e/).test( number ) ) {
-		throw new Error( "Ops! Integers out of (1e21, 1e-7) not supported" );
-	}
-
-	// Add trailing zeros if necessary.
-	if ( minimumSignificantDigits - number.replace( /^0+|\./g, "" ).length > 0 ) {
-		number = number.split( "." );
-		number[ 1 ] = stringPad( number[ 1 ] || "", minimumSignificantDigits - number[ 0 ].replace( /^0+/, "" ).length, true );
-		number = number.join( "." );
-	}
-
-	return number;
-};
-
-
-
-
-/**
  * NumberingSystem( cldr )
  *
  * TODO support ( native | traditional | finance ).
  */
 var numberNumberingSystem = function( cldr ) {
 	return cldr.main( "numbers/defaultNumberingSystem" );
+};
+
+
+
+
+/**
+ * Symbol( name, cldr )
+ *
+ * @name [String] Symbol name.
+ *
+ * @cldr [Cldr instance].
+ *
+ * Return the localized symbol given its name.
+ */
+var numberSymbol = function( name, cldr ) {
+	return cldr.main([
+		"numbers/symbols-numberSystem-" + numberNumberingSystem( cldr ),
+		name
+	]);
 };
 
 
@@ -434,21 +459,6 @@ var numberSymbolName = {
 	"-" : "minusSign",
 	"E" : "exponential",
 	"\u2030" : "perMille"
-};
-
-
-
-
-/**
- * MinusSign( symbol, cldr )
- *
- * Return the localized minus sign.
- */
-var numberSymbol = function( symbol, cldr ) {
-	return cldr.main([
-		"numbers/symbols-numberSystem-" + numberNumberingSystem( cldr ),
-		numberSymbolName[ symbol ]
-	]);
 };
 
 
@@ -516,7 +526,7 @@ var numberFormat = function( number, pattern, cldr, options ) {
 
 	options = options || {};
 	round = numberRound( options.round );
-	properties = numberFormatProperties( pattern[ 0 ] );
+	properties = numberPatternProperties( pattern[ 0 ] );
 	padding = properties[ 1 ];
 	minimumIntegerDigits = options.minimumIntegerDigits || properties[ 2 ];
 	minimumFractionDigits = options.minimumFractionDigits || properties[ 3 ];
@@ -533,7 +543,7 @@ var numberFormat = function( number, pattern, cldr, options ) {
 
 		// "If there is no explicit negative subpattern, the negative subpattern is the localized minus sign prefixed to the positive subpattern" UTS#35
 		pattern = pattern[ 1 ] || "-" + pattern[ 0 ];
-		properties = numberFormatProperties( pattern );
+		properties = numberPatternProperties( pattern );
 	} else {
 		pattern = pattern[ 0 ];
 	}
@@ -595,8 +605,167 @@ var numberFormat = function( number, pattern, cldr, options ) {
 		if ( symbol.charAt( 0 ) === "'" ) {
 			return symbol;
 		}
-		return numberSymbol( symbol, cldr );
+		return numberSymbol( numberSymbolName[ symbol ], cldr );
 	});
+};
+
+
+
+
+/**
+ * EBNF representation:
+ * 
+ * number_pattern_re =        prefix_including_padding?
+ *                            number
+ *                            scientific_notation?
+ *                            suffix?
+ *
+ * number =                   integer_including_group_separator fraction_including_decimal_separator
+ *
+ * integer_including_group_separator =
+ *                            regexp([0-9,]*[0-9]+)
+ *
+ * fraction_including_decimal_separator =
+ *                            regexp((\.[0-9]+)?)
+
+ * prefix_including_padding = non_number_stuff
+ *
+ * scientific_notation =      regexp(E[+-]?[0-9]+)
+ *
+ * suffix =                   non_number_stuff
+ *
+ * non_number_stuff =         regexp([^0-9]*)
+ *
+ *
+ * Regexp groups:
+ *
+ * 0: number_pattern_re
+ * 1: prefix
+ * 2: integer_including_group_separator fraction_including_decimal_separator
+ * 3: integer_including_group_separator
+ * 4: fraction_including_decimal_separator
+ * 5: scientific_notation
+ * 6: suffix
+ */
+var numberNumberRe = (/^([^0-9]*)(([0-9,]*[0-9]+)(\.[0-9]+)?)(E[+-]?[0-9]+)?([^0-9]*)$/);
+
+
+
+
+/**
+ * symbolMap( cldr )
+ *
+ * @cldr [Cldr instance].
+ *
+ * Return the (localized symbol, pattern symbol) key value pair, eg. {
+ *   "٫": ".",
+ *   "٬": ",",
+ *   "٪": "%",
+ *   ...
+ * };
+ */
+var numberSymbolMap = function( cldr ) {
+	var symbol,
+		symbolMap = {};
+
+	for ( symbol in numberSymbolName ) {
+		symbolMap[ numberSymbol( numberSymbolName[ symbol ], cldr ) ] = symbol;
+	}
+
+	return symbolMap;
+};
+
+
+
+
+// ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions
+var regexpEscape = function( string ){
+	return string.replace( /([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1" );
+};
+
+
+
+
+/**
+ * parse( value, cldr )
+ *
+ * @value [String].
+ *
+ * @cldr [Cldr instance].
+ *
+ * Return the parsed Number (including Infinity) or NaN when value is invalid.
+ * ref: http://www.unicode.org/reports/tr35/tr35-numbers.html
+ */
+var numberParse = function( value, pattern, cldr ) {
+	var aux, localizedSymbolsRe, number, prefix, properties, suffix, symbolMap;
+
+	// Infinite number.
+	if ( aux = value.match( numberSymbol( "infinity", cldr ) ) ) {
+
+		number = Infinity;
+		prefix = value.slice( 0, aux.length );
+		suffix = value.slice( aux.length + 1 );
+
+	// Finite number.
+	} else {
+
+		symbolMap = numberSymbolMap( cldr );
+		localizedSymbolsRe = new RegExp( Object.keys( symbolMap ).map(function( localizedSymbol ) {
+			return regexpEscape( localizedSymbol );
+		}).join( "|" ), "g" );
+
+		// Reverse localized symbols.
+		value = value.replace( localizedSymbolsRe, function( localizedSymbol ) {
+			return symbolMap[ localizedSymbol ];
+		});
+
+		// Is it a valid number?
+		value = value.match( numberNumberRe );
+		if ( !value ) {
+
+			// Invalid number.
+			return NaN;
+		}
+
+		prefix = value[ 1 ];
+		suffix = value[ 6 ];
+
+		// Remove grouping separators.
+		number = value[ 2 ].replace( /,/g, "" );
+
+		// Scientific notation
+		if ( value[ 5 ] ) {
+			number += value[ 5 ];
+		}
+
+		number = +number;
+
+		// Is it a valid number?
+		if ( isNaN( number ) ) {
+
+			// Invalid number.
+			return NaN;
+		}
+
+		// Percent
+		if ( value[ 0 ].indexOf( "%" ) !== -1 ) {
+			number /= 100;
+
+		// Per mille
+		} else if ( value[ 0 ].indexOf( "\u2030" ) !== -1 ) {
+			number /= 1000;
+		}
+	}
+
+	// Negative number
+	// "If there is an explicit negative subpattern, it serves only to specify the negative prefix and suffix. If there is no explicit negative subpattern, the negative subpattern is the localized minus sign prefixed to the positive subpattern" UTS#35
+	pattern = pattern.split( ";" );
+	properties = numberPatternProperties( pattern[ 1 ] || pattern[ 0 ] );
+	if ( prefix === ( pattern[ 1 ] ? "" : "-" ) + properties[ 0 ] && suffix === properties[ 10 ] ) {
+		number *= -1;
+	}
+
+	return number;
 };
 
 
@@ -625,7 +794,7 @@ var numberPattern = function( style, cldr ) {
 
 
 /**
- * Globalize.formatNumber( value, pattern, locale )
+ * .formatNumber( value, pattern )
  *
  * @value [Number]
  *
@@ -633,73 +802,62 @@ var numberPattern = function( style, cldr ) {
  * - style: [String] "decimal" (default) or "percent".
  * - see also number/format options.
  *
- * @locale [String]
- *
- * Format a number according to the given attributes and the given locale (or the default locale if not specified).
+ * Format a number according to the given attributes and default/instance locale.
  */
-Globalize.formatNumber = function( value, attributes, locale ) {
-	var pattern;
+Globalize.formatNumber =
+Globalize.prototype.formatNumber = function( value, attributes ) {
+	var cldr, pattern, ret;
 
-	if ( typeof value !== "number" ) {
-		throw new Error( "Value is not a number" );
-	}
+	validatePresence( value, "value" );
+	validateTypeNumber( value, "value" );
+	validateTypePlainObject( attributes, "attributes" );
 
 	attributes = attributes || {};
-	locale = commonGetLocale( locale );
+	cldr = this.cldr;
+
+	validateDefaultLocale( cldr );
+
+	cldr.on( "get", validateCldr );
 
 	if ( !attributes.pattern ) {
-		pattern = numberPattern( attributes.style || "decimal", locale );
+		pattern = numberPattern( attributes.style || "decimal", cldr );
 	}
 
-	return numberFormat( value, pattern, locale, attributes );
+	ret = numberFormat( value, pattern, cldr, attributes );
+
+	cldr.off( "get", validateCldr );
+
+	return ret;
 };
 
 /**
- * Globalize.parseNumber( value, patterns, locale )
+ * .parseNumber( value )
  *
  * @value [String]
  *
- * @patterns [TBD]
- *
- * @locale [String]
- *
- * Return a Number or null.
+ * Return the parsed Number (including Infinity) or NaN when value is invalid.
  */
-Globalize.parseNumber = function (value, patterns, locale) {
-    locale = commonGetLocale(locale);
+Globalize.parseNumber =
+Globalize.prototype.parseNumber = function( value ) {
+	var cldr, pattern, ret;
 
-    if ( typeof value !== "string" ) {
-        throw new Error( "invalid value (" + value + "), string expected" );
-    }
-    patterns = patterns || {};
-    var type = patterns.number || "decimal";
+	validatePresence( value, "value" );
+	validateTypeString( value, "value" );
 
-    var groupDefault, decimalDefault;
+	cldr = this.cldr;
 
-    var cldr = Globalize.locale();
+	validateDefaultLocale( cldr );
 
-    switch (cldr.locale) {
-        case "pt":
-            groupDefault = ".";
-            decimalDefault = ",";
-            break;
-        case "en":
-            groupDefault = ",";
-            decimalDefault = ".";
-            break;
-    }
+	cldr.on( "get", validateCldr );
 
-    var numberSymbols = cldr.main(["numbers", "symbols-numberSystem-" + cldr.main("numbers/defaultNumberingSystem")]);
-    var groupSymbol = numberSymbols.group || groupDefault;
-    var decimalSymbol = numberSymbols.decimal || decimalDefault;
-    value = value.split(groupSymbol).join('');
-    value = value.replace(numberSymbols.decimal, '.');
-    switch (type) {
-        case "int":
-            return parseInt(value);            
-        case "decimal":
-            return parseFloat(value);
-    }
+	// TODO: What about per mille? Which "style" does it belong to?
+	pattern = numberPattern( value.indexOf( "%" ) !== -1 ? "percent" : "decimal", cldr );
+
+	ret = numberParse( value, pattern, cldr );
+
+	cldr.off( "get", validateCldr );
+
+	return ret;
 };
 
 return Globalize;

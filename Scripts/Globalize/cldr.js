@@ -1,15 +1,15 @@
 /**
- * CLDR JavaScript Library v0.3.5
+ * CLDR JavaScript Library v0.3.8
  * http://jquery.com/
  *
  * Copyright 2013 Rafael Xavier de Souza
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-04-21T20:09Z
+ * Date: 2014-07-13T05:05Z
  */
 /*!
- * CLDR JavaScript Library v0.3.5 2014-04-21T20:09Z MIT license © Rafael Xavier
+ * CLDR JavaScript Library v0.3.8 2014-07-13T05:05Z MIT license © Rafael Xavier
  * http://git.io/h4lmVg
  */
 (function( root, factory ) {
@@ -29,19 +29,79 @@
 
 
 
-	// @path: normalized path
-	var resourceGet = function( data, path ) {
-		var i,
-			node = data,
-			length = path.length;
-
-		for ( i = 0; i < length - 1; i++ ) {
-			node = node[ path[ i ] ];
-			if ( !node ) {
-				return undefined;
-			}
+	var arrayForEach = function( array, callback ) {
+		var i, length;
+		if ( array.forEach ) {
+			return array.forEach( callback );
 		}
-		return node[ path[ i ] ];
+		for ( i = 0, length = array.length; i < length; i++ ) {
+			callback( array[ i ], i, array );
+		}
+	};
+
+
+
+
+	var objectKeys = function( object ) {
+		var i,
+			result = [];
+
+		if ( Object.keys ) {
+			return Object.keys( object );
+		}
+
+		for ( i in object ) {
+			result.push( i );
+		}
+
+		return result;
+	};
+
+
+
+
+	var createError = function( code, attributes ) {
+		var error, message;
+
+		message = code + ( attributes && JSON ? ": " + JSON.stringify( attributes ) : "" );
+		error = new Error( message );
+		error.code = code;
+
+		// extend( error, attributes );
+		arrayForEach( objectKeys( attributes ), function( attribute ) {
+			error[ attribute ] = attributes[ attribute ];
+		});
+
+		return error;
+	};
+
+
+
+
+	var validate = function( code, check, attributes ) {
+		if ( !check ) {
+			throw createError( code, attributes );
+		}
+	};
+
+
+
+
+	var validatePresence = function( value, name ) {
+		validate( "E_MISSING_PARAMETER", typeof value !== "undefined", {
+			name: name
+		});
+	};
+
+
+
+
+	var validateType = function( value, name, check, expected ) {
+		validate( "E_INVALID_PAR_TYPE", check, {
+			expected: expected,
+			name: name,
+			value: value
+		});
 	};
 
 
@@ -49,6 +109,37 @@
 
 	var arrayIsArray = Array.isArray || function( obj ) {
 		return Object.prototype.toString.call( obj ) === "[object Array]";
+	};
+
+
+
+
+	var validateTypePath = function( value, name ) {
+		validateType( value, name, typeof value === "string" || arrayIsArray( value ), "String or Array" );
+	};
+
+
+
+
+	/**
+	 * Function inspired by jQuery Core, but reduced to our use case.
+	 */
+	var isPlainObject = function( obj ) {
+		return obj !== null && "" + obj === "[object Object]";
+	};
+
+
+
+
+	var validateTypePlainObject = function( value, name ) {
+		validateType( value, name, typeof value === "undefined" || isPlainObject( value ), "Plain Object" );
+	};
+
+
+
+
+	var validateTypeString = function( value, name ) {
+		validateType( value, name, typeof value === "string", "a string" );
 	};
 
 
@@ -79,16 +170,6 @@
 
 
 
-	var itemGetResolved = function( Cldr, path, attributes ) {
-		// Resolve path
-		var normalizedPath = pathNormalize( path, attributes );
-
-		return resourceGet( Cldr._resolved, normalizedPath );
-	};
-
-
-
-
 	var arraySome = function( array, callback ) {
 		var i, length;
 		if ( array.some ) {
@@ -105,35 +186,49 @@
 
 
 
-	// Return the maximized language id as defined in
-	// http://www.unicode.org/reports/tr35/#Likely_Subtags
-	// 1. Canonicalize.
-	// 1.1 Make sure the input locale is in canonical form: uses the right separator, and has the right casing.
-	// TODO Right casing? What df? It seems languages are lowercase, scripts are Capitalized, territory is uppercase. I am leaving this as an exercise to the user.
-
-	// 1.2 Replace any deprecated subtags with their canonical values using the <alias> data in supplemental metadata. Use the first value in the replacement list, if it exists. Language tag replacements may have multiple parts, such as "sh" ➞ "sr_Latn" or mo" ➞ "ro_MD". In such a case, the original script and/or region are retained if there is one. Thus "sh_Arab_AQ" ➞ "sr_Arab_AQ", not "sr_Latn_AQ".
-	// TODO What <alias> data?
-
-	// 1.3 If the tag is grandfathered (see <variable id="$grandfathered" type="choice"> in the supplemental data), then return it.
-	// TODO grandfathered?
-
-	// 1.4 Remove the script code 'Zzzz' and the region code 'ZZ' if they occur.
-	// 1.5 Get the components of the cleaned-up source tag (languages, scripts, and regions), plus any variants and extensions.
-	// 2. Lookup. Lookup each of the following in order, and stop on the first match:
-	// 2.1 languages_scripts_regions
-	// 2.2 languages_regions
-	// 2.3 languages_scripts
-	// 2.4 languages
-	// 2.5 und_scripts
-	// 3. Return
-	// 3.1 If there is no match, either return an error value, or the match for "und" (in APIs where a valid language tag is required).
-	// 3.2 Otherwise there is a match = languagem_scriptm_regionm
-	// 3.3 Let xr = xs if xs is not empty, and xm otherwise.
-	// 3.4 Return the language tag composed of languager _ scriptr _ regionr + variants + extensions .
-
-	//
-	// @subtags [Array] normalized language id subtags tuple (see init.js).
-	var likelySubtags = function( Cldr, cldr, subtags, options ) {
+	/**
+	 * Return the maximized language id as defined in
+	 * http://www.unicode.org/reports/tr35/#Likely_Subtags
+	 * 1. Canonicalize.
+	 * 1.1 Make sure the input locale is in canonical form: uses the right
+	 * separator, and has the right casing.
+	 * TODO Right casing? What df? It seems languages are lowercase, scripts are
+	 * Capitalized, territory is uppercase. I am leaving this as an exercise to
+	 * the user.
+	 *
+	 * 1.2 Replace any deprecated subtags with their canonical values using the
+	 * <alias> data in supplemental metadata. Use the first value in the
+	 * replacement list, if it exists. Language tag replacements may have multiple
+	 * parts, such as "sh" ➞ "sr_Latn" or mo" ➞ "ro_MD". In such a case, the
+	 * original script and/or region are retained if there is one. Thus
+	 * "sh_Arab_AQ" ➞ "sr_Arab_AQ", not "sr_Latn_AQ".
+	 * TODO What <alias> data?
+	 *
+	 * 1.3 If the tag is grandfathered (see <variable id="$grandfathered"
+	 * type="choice"> in the supplemental data), then return it.
+	 * TODO grandfathered?
+	 *
+	 * 1.4 Remove the script code 'Zzzz' and the region code 'ZZ' if they occur.
+	 * 1.5 Get the components of the cleaned-up source tag (languages, scripts,
+	 * and regions), plus any variants and extensions.
+	 * 2. Lookup. Lookup each of the following in order, and stop on the first
+	 * match:
+	 * 2.1 languages_scripts_regions
+	 * 2.2 languages_regions
+	 * 2.3 languages_scripts
+	 * 2.4 languages
+	 * 2.5 und_scripts
+	 * 3. Return
+	 * 3.1 If there is no match, either return an error value, or the match for
+	 * "und" (in APIs where a valid language tag is required).
+	 * 3.2 Otherwise there is a match = languagem_scriptm_regionm
+	 * 3.3 Let xr = xs if xs is not empty, and xm otherwise.
+	 * 3.4 Return the language tag composed of languager _ scriptr _ regionr +
+	 * variants + extensions.
+	 *
+	 * @subtags [Array] normalized language id subtags tuple (see init.js).
+	 */
+	var coreLikelySubtags = function( Cldr, cldr, subtags, options ) {
 		var match, matchFound,
 			language = subtags[ 0 ],
 			script = subtags[ 1 ],
@@ -182,15 +277,19 @@
 
 
 
-	// Given a locale, remove any fields that Add Likely Subtags would add.
-	// http://www.unicode.org/reports/tr35/#Likely_Subtags
-	// 1. First get max = AddLikelySubtags(inputLocale). If an error is signaled, return it.
-	// 2. Remove the variants from max.
-	// 3. Then for trial in {language, language _ region, language _ script}. If AddLikelySubtags(trial) = max, then return trial + variants.
-	// 4. If you do not get a match, return max + variants.
-	// 
-	// @maxLanguageId [Array] maxLanguageId tuple (see init.js).
-	var removeLikelySubtags = function( Cldr, cldr, maxLanguageId ) {
+	/**
+	 * Given a locale, remove any fields that Add Likely Subtags would add.
+	 * http://www.unicode.org/reports/tr35/#Likely_Subtags
+	 * 1. First get max = AddLikelySubtags(inputLocale). If an error is signaled,
+	 * return it.
+	 * 2. Remove the variants from max.
+	 * 3. Then for trial in {language, language _ region, language _ script}. If
+	 * AddLikelySubtags(trial) = max, then return trial + variants.
+	 * 4. If you do not get a match, return max + variants.
+	 * 
+	 * @maxLanguageId [Array] maxLanguageId tuple (see init.js).
+	 */
+	var coreRemoveLikelySubtags = function( Cldr, cldr, maxLanguageId ) {
 		var match, matchFound,
 			language = maxLanguageId[ 0 ],
 			script = maxLanguageId[ 1 ],
@@ -202,7 +301,7 @@
 			[ [ language, "Zzzz", territory ], [ language, territory ] ],
 			[ [ language, script, "ZZ" ], [ language, script ] ]
 		], function( test ) {
-			var result = likelySubtags( Cldr, cldr, test[ 0 ] );
+			var result = coreLikelySubtags( Cldr, cldr, test[ 0 ] );
 			match = test[ 1 ];
 			return result && result[ 0 ] === maxLanguageId[ 0 ] &&
 				result[ 1 ] === maxLanguageId[ 1 ] &&
@@ -216,21 +315,36 @@
 
 
 
-	var alwaysArray = function( stringOrArray ) {
-		return typeof stringOrArray === "string" ?  [ stringOrArray ] : stringOrArray;
+	// @path: normalized path
+	var resourceGet = function( data, path ) {
+		var i,
+			node = data,
+			length = path.length;
+
+		for ( i = 0; i < length - 1; i++ ) {
+			node = node[ path[ i ] ];
+			if ( !node ) {
+				return undefined;
+			}
+		}
+		return node[ path[ i ] ];
 	};
 
 
 
 
-	var arrayForEach = function( array, callback ) {
-		var i, length;
-		if ( array.forEach ) {
-			return array.forEach( callback );
-		}
-		for ( i = 0, length = array.length; i < length; i++ ) {
-			callback( array[ i ], i, array );
-		}
+	var itemGetResolved = function( Cldr, path, attributes ) {
+		// Resolve path
+		var normalizedPath = pathNormalize( path, attributes );
+
+		return resourceGet( Cldr._resolved, normalizedPath );
+	};
+
+
+
+
+	var alwaysArray = function( stringOrArray ) {
+		return typeof stringOrArray === "string" ?  [ stringOrArray ] : stringOrArray;
 	};
 
 
@@ -276,9 +390,24 @@
 }());
 
 
+	/**
+	 * new Cldr()
+	 */
 	var Cldr = function( locale ) {
 		this.init( locale );
 	};
+
+	// Build optimization hack to avoid duplicating functions across modules.
+	Cldr._alwaysArray = alwaysArray;
+	Cldr._createError = createError;
+	Cldr._itemGetResolved = itemGetResolved;
+	Cldr._jsonMerge = jsonMerge;
+	Cldr._pathNormalize = pathNormalize;
+	Cldr._resourceGet = resourceGet;
+	Cldr._validatePresence = validatePresence;
+	Cldr._validateType = validateType;
+	Cldr._validateTypePath = validateTypePath;
+	Cldr._validateTypePlainObject = validateTypePlainObject;
 
 	Cldr._resolved = {};
 
@@ -288,25 +417,20 @@
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
-		if ( typeof json !== "object" ) {
-			throw new Error( "invalid json" );
-		}
+		validatePresence( json, "json" );
+		validateTypePlainObject( json, "json" );
 		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
 
-	// Build optimization hack to avoid duplicating functions across modules.
-	Cldr._alwaysArray = alwaysArray;
-	Cldr._jsonMerge = jsonMerge;
-	Cldr._pathNormalize = pathNormalize;
-	Cldr._resourceGet = resourceGet;
-
+	/**
+	 * .init() automatically run on instantiation/construction.
+	 */
 	Cldr.prototype.init = function( locale ) {
 		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant,
 			sep = Cldr.localeSep;
 
-		if ( typeof locale !== "string" ) {
-			throw new Error( "invalid locale type: \"" + JSON.stringify( locale ) + "\"" );
-		}
+		validatePresence( locale, "locale" );
+		validateTypeString( locale, "locale" );
 
 		// Normalize locale code.
 		// Get (or deduce) the "triple subtags": language, territory (also aliased as region), and script subtags.
@@ -371,12 +495,12 @@
 		}
 
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = likelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		maxLanguageId = coreLikelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
 		territory  = maxLanguageId[ 2 ];
 
-		languageId = removeLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
+		languageId = coreRemoveLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
 
 		// Set attributes
 		this.attributes = {
@@ -396,11 +520,24 @@
 		this.locale = variant ? [ languageId, variant ].join( sep ) : languageId;
 	};
 
+	/**
+	 * .get()
+	 */
 	Cldr.prototype.get = function( path ) {
+
+		validatePresence( path, "path" );
+		validateTypePath( path, "path" );
+
 		return itemGetResolved( Cldr, path, this.attributes );
 	};
 
+	/**
+	 * .main()
+	 */
 	Cldr.prototype.main = function( path ) {
+		validatePresence( path, "path" );
+		validateTypePath( path, "path" );
+
 		path = alwaysArray( path );
 		return this.get( [ "main/{languageId}" ].concat( path ) );
 	};
