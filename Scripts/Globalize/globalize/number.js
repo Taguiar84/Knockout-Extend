@@ -668,8 +668,8 @@ Globalize.formatNumber = function( value, attributes, locale ) {
 Globalize.parseNumber = function (value, patterns, locale) {
     locale = commonGetLocale(locale);
 
-    if ( typeof value !== "string" ) {
-        throw new Error( "invalid value (" + value + "), string expected" );
+    if (typeof value !== "string") {
+        throw new Error("invalid value (" + value + "), string expected");
     }
     patterns = patterns || {};
     var type = patterns.number || "decimal";
@@ -696,7 +696,7 @@ Globalize.parseNumber = function (value, patterns, locale) {
     value = value.replace(numberSymbols.decimal, '.');
     switch (type) {
         case "int":
-            return parseInt(value);            
+            return parseInt(value);
         case "decimal":
             return parseFloat(value);
     }
