@@ -175,39 +175,33 @@ ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
-        //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
-        var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: locale,               
+                language: Globalize.culture().name
+                //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             });
         }
 
+
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
             var observable = valueAccessor();
-            var date = new Date(e.date.toUTCString())
-            date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
-            observable(date);
+            observable(e.date);
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var dateValue = null;
+            var numberValue = null;
             switch (Globalize.locale().locale) {
                 case 'en-US':
-                    dateValue = new Date(value);
+                    numberValue = new Date(value);
                     break;
                 default:
-                    dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
+                    numberValue = Globalize.parseDate(value);
                     break;
             }
-            observable(dateValue);
-            if (dateValue != null) {
-                $(element).datetimepicker("setDate", dateValue);
-            }
-
+            observable(numberValue);
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -221,15 +215,13 @@ ko.bindingHandlers.dateTimeOffSetMask = {
             return;
         }
         var valor = new Date(value);
-        var format = { datetime: "short" }
-        //var format = { pattern: "dd/mm" }
         if ($(element).is("input")) {
+            var format = Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             $(element).val(Globalize.formatDate(valor, format));
             $(element).setMask('datetime');
-            $(element).datetimepicker("setDate", valor);
         }
         else {
-            $(element).text(Globalize.formatDate(valor, format));
+            $(element).text(Globalize.formatDate(valor, 'd'));
         }
     }
 };

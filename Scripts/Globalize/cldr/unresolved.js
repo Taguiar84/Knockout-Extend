@@ -1,15 +1,15 @@
 /**
- * CLDR JavaScript Library v0.3.8
+ * CLDR JavaScript Library v0.3.5
  * http://jquery.com/
  *
  * Copyright 2013 Rafael Xavier de Souza
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-07-13T05:05Z
+ * Date: 2014-04-21T20:09Z
  */
 /*!
- * CLDR JavaScript Library v0.3.8 2014-07-13T05:05Z MIT license © Rafael Xavier
+ * CLDR JavaScript Library v0.3.5 2014-04-21T20:09Z MIT license © Rafael Xavier
  * http://git.io/h4lmVg
  */
 (function( factory ) {
@@ -31,9 +31,6 @@
 	var jsonMerge = Cldr._jsonMerge;
 	var pathNormalize = Cldr._pathNormalize;
 	var resourceGet = Cldr._resourceGet;
-	var validatePresence = Cldr._validatePresence;
-	var validateTypePath = Cldr._validateTypePath;
-	var validateTypePlainObject = Cldr._validateTypePlainObject;
 
 
 
@@ -97,10 +94,8 @@
 		normalizedPath = pathNormalize( path, attributes );
 
 		// Check resolved (cached) data first
-		// 1: Due to #16, never use the cached resolved non-leaf nodes. It may not
-		//    represent its leafs in its entirety.
 		value = resourceGet( Cldr._resolved, normalizedPath );
-		if ( value && typeof value !== "object" /* 1 */ ) {
+		if ( value ) {
 			return value;
 		}
 
@@ -113,10 +108,8 @@
 			value = lookup( Cldr, parent, path, jsonMerge( attributes, { languageId: parent }), locale );
 		}
 
-		if ( value ) {
-			// Set resolved (cached)
-			resourceSet( Cldr._resolved, normalizedPath, value );
-		}
+		// Set resolved (cached)
+		resourceSet( Cldr._resolved, normalizedPath, value );
 
 		return value;
 	};
@@ -126,36 +119,29 @@
 }());
 
 
+	var getSuper;
+
 	Cldr._raw = {};
 
-	/**
-	 * Load resolved or unresolved cldr data
-	 * @json [JSON]
-	 *                                       
-	 * Overwrite Cldr.load().
-	 */
+	// Load resolved or unresolved cldr data
+	// @json [JSON]
+	//
+	// Overwrite Cldr.load().
 	Cldr.load = function( json ) {
-		validatePresence( json, "json" );
-		validateTypePlainObject( json, "json" );
+		if ( typeof json !== "object" ) {
+			throw new Error( "invalid json" );
+		}
 		Cldr._raw = jsonMerge( Cldr._raw, json );
 	};
 
-	/**
-	 * Overwrite Cldr.prototype.get().
-	 */
+	// Overload Cldr.prototype.get().
+	getSuper = Cldr.prototype.get;
 	Cldr.prototype.get = function( path ) {
-		validatePresence( path, "path" );
-		validateTypePath( path, "path" );
-
 		// 1: use languageId as locale on item lookup for simplification purposes, because no other extended subtag is used anyway on bundle parent lookup.
 		// 2: during init(), this method is called, but languageId is yet not defined. Use "" as a workaround in this very specific scenario.
-		return itemLookup( Cldr, this.attributes && this.attributes.languageId /* 1 */ || "" /* 2 */, path, this.attributes );
+		return getSuper.apply( this, arguments ) ||
+			itemLookup( Cldr, this.attributes && this.attributes.languageId /* 1 */ || "" /* 2 */, path, this.attributes );
 	};
-
-	// In case cldr/unresolved is loaded after cldr/event, we trigger its overloads again. Because, .get is overwritten in here.
-	if ( Cldr._eventInit ) {
-		Cldr._eventInit();
-	}
 
 	return Cldr;
 

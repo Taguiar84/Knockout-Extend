@@ -27,9 +27,6 @@
         var dateTimeValue = $('#dateTimeValue');
         var anotherDateTimeValue = $('#anotherDateTimeValue');
 
-        var dateTimeOffSetValue = $('#dateTimeOffSetValue');
-        var anotherDateOffSetTimeValue = $('#anotherDateTimeOffSetValue');
-
         var timeValue = $('#timeValue');
         var anotherTimeValue = $('#anotherTimeValue');
 
@@ -46,14 +43,6 @@
 
         viewModel.AnotherDateTimeValue(new Date('2015-12-30 12:00:00'));
         expect($(anotherDateTimeValue).val()).toBe('12/30/2015 12:00');
-
-        //DateTimeOffSet
-        viewModel.DateTimeOffSetValue(new Date('2014-02-01 12:00:00'));
-        expect($(dateTimeValue).val()).toBe('02/01/2014 12:00');
-
-        viewModel.AnotherDateTimeOffSetValue(new Date('2015-12-30 12:00:00'));
-        expect($(anotherDateTimeValue).val()).toBe('12/30/2015 12:00');
-
 
         //Time
         viewModel.TimeValue('13:33');

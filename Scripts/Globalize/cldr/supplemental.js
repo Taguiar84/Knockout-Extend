@@ -1,15 +1,15 @@
 /**
- * CLDR JavaScript Library v0.3.8
+ * CLDR JavaScript Library v0.3.5
  * http://jquery.com/
  *
  * Copyright 2013 Rafael Xavier de Souza
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-07-13T05:05Z
+ * Date: 2014-04-21T20:09Z
  */
 /*!
- * CLDR JavaScript Library v0.3.8 2014-07-13T05:05Z MIT license © Rafael Xavier
+ * CLDR JavaScript Library v0.3.5 2014-04-21T20:09Z MIT license © Rafael Xavier
  * http://git.io/h4lmVg
  */
 (function( factory ) {
@@ -27,13 +27,9 @@
 
 }(function( Cldr ) {
 
-	// Build optimization hack to avoid duplicating functions across modules.
-	var alwaysArray = Cldr._alwaysArray;
 
 
-
-
-	var supplementalMain = function( cldr ) {
+	var supplemental = function( cldr ) {
 
 		var prepend, supplemental;
 		
@@ -82,16 +78,15 @@
 
 
 
-	var initSuper = Cldr.prototype.init;
+	var alwaysArray,
+		initSuper = Cldr.prototype.init;
 
-	/**
-	 * .init() automatically ran on construction.
-	 *
-	 * Overload .init().
-	 */
+	// Build optimization hack to avoid duplicating functions across modules.
+	alwaysArray = Cldr._alwaysArray;
+
 	Cldr.prototype.init = function() {
 		initSuper.apply( this, arguments );
-		this.supplemental = supplementalMain( this );
+		this.supplemental = supplemental( this );
 	};
 
 	return Cldr;
