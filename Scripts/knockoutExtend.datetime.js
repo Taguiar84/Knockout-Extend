@@ -175,33 +175,45 @@ ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().currencyMaskOptions || {};
 
+        //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
+        var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker({
-                language: Globalize.culture().name
-                //, format: Globalize.culture().calendar.patterns.d.toLowerCase() + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
+                language: locale,
+                //timeFormat: 'hh:mm z',
+                //showTimezone: true,
+                //TimeZone: "-0400"
+                //pickDate: false
+                //format: 'dd/mm/yyyy hh:ii'
             });
         }
 
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
             var observable = valueAccessor();
-            observable(e.date);
+            var date = new Date(e.date.toUTCString())
+            date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
+            observable(date);
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
             var value = $(element).val();
-            var numberValue = null;
+            var dateValue = null;
             switch (Globalize.locale().locale) {
                 case 'en-US':
-                    numberValue = new Date(value);
+                    dateValue = new Date(value);
                     break;
                 default:
-                    numberValue = Globalize.parseDate(value);
+                    dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
                     break;
             }
-            observable(numberValue);
+            observable(dateValue);
+            if (dateValue != null) {
+                $(element).datetimepicker("setDate", dateValue);
+            }
+
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });
@@ -215,13 +227,14 @@ ko.bindingHandlers.dateTimeOffSetMask = {
             return;
         }
         var valor = new Date(value);
+        var format = { datetime: "short" }
         if ($(element).is("input")) {
-            var format = Globalize.culture().calendar.patterns.d + " " + Globalize.culture().calendar.patterns.T //Pensar melhor
             $(element).val(Globalize.formatDate(valor, format));
             $(element).setMask('datetime');
+            $(element).datetimepicker("setDate", valor);
         }
         else {
-            $(element).text(Globalize.formatDate(valor, 'd'));
+            $(element).text(Globalize.formatDate(valor, format));
         }
     }
 };
@@ -300,14 +313,4 @@ ko.bindingHandlers.timeMask = {
 };
 if (ko.validation != null) {
     ko.validation.makeBindingHandlerValidatable('timeMask');
-}
-
-//function verificandoOffSet(valor) {
-//    if (valor.split(':').length == 3)
-//        valor += ":00";
-//    return valor;
-//}
-
-if (ko.validation != null) {
-    ko.validation.registerExtenders();
 }

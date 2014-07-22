@@ -17,6 +17,9 @@
     self.DateTimeValue = ko.observable(null);
     self.AnotherDateTimeValue = ko.observable(null);
 
+    self.DateTimeOffSetValue = ko.observable(null);
+    self.AnotherDateTimeOffSetValue = ko.observable(null);
+
     self.TimeValue = ko.observable(null);
     self.AnotherTimeValue = ko.observable(null);
 
@@ -49,6 +52,9 @@
 
             self.DateTimeValue(new Date('2014-01-01 12:00:00'));
             self.AnotherDateTimeValue(new Date('2014-01-01 12:00:00'));
+
+            self.DateTimeOffSetValue(new Date('2014-01-01 12:00:00'));
+            self.AnotherDateTimeOffSetValue(new Date('2014-01-01 12:00:00'));
 
             self.TimeValue('11:45');
             self.AnotherTimeValue('23:01');
