@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.monthYearMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().monthYearMaskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('19/9999');
@@ -35,16 +35,21 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.dateMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
+        var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
+
+        var options = $.extend({},            
+            {//extra para colocar linguagem do globalize
+                language: locale,
+                //format: 'dd/mm/yyyy'//Pensar melhor
+            }
+        ,
+        allBindingsAccessor().dateMaskOptions//definido na tela
+        )       
 
         if ($(element).is("input")) {
             $(element).setMask('date');
-            //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
-            var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
-            $(element).datepicker({
-                language: locale,
-                //format: 'dd/mm/yyyy'//Pensar melhor
-            });
+            $(element).datepicker(options);
         }
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
@@ -101,22 +106,22 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.dateTimeMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
-
         //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
         var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
-        if ($(element).is("input")) {
-            $(element).setMask('datetime');
-            $(element).datetimepicker({
+        var options = $.extend({},            
+            {//extra para colocar linguagem do globalize
                 language: locale,
                 //timeFormat: 'hh:mm z',
                 //showTimezone: true,
                 //TimeZone: "-0400"
                 //pickDate: false
                 //format: 'dd/mm/yyyy hh:ii'
-            });
+            }
+        , allBindingsAccessor().dateTimeMaskOptions)
+        if ($(element).is("input")) {
+            $(element).setMask('datetime');
+            $(element).datetimepicker(options);
         }
-
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
             var observable = valueAccessor();
