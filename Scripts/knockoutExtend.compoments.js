@@ -178,16 +178,15 @@ ko.bindingHandlers.select2 = {
 };
 
 ko.bindingHandlers.multiselect = {
-    init: function (element, valueAccessor) {
+    init: function (element, valueAccessor, allBindingsAccessor) {
         $(element).multiSelect(valueAccessor());
-
-        if (valueAccessor().availableObs != null) {
-            valueAccessor().availableObs.subscribe(function (value) {
+        if (allBindingsAccessor().options != null) {            
+            allBindingsAccessor().options.subscribe(function (value) {
                 $(element).multiSelect('refresh');
             });
         }
-        if (valueAccessor().selectedObs != null) {
-            valueAccessor().selectedObs.subscribe(function (value) {
+        if (allBindingsAccessor().selectedOptions != null) {            
+            allBindingsAccessor().selectedOptions.subscribe(function (value) {                
                 $(element).multiSelect('refresh');
             });
         }
