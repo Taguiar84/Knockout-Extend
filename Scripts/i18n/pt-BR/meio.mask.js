@@ -9,5 +9,6 @@
     , 'percent': { mask: '9999,999', type: 'reverse', defaultValue: '+' }
     , 'zipCode': { mask: '99999-999', defaultValue: '' }
     , 'phone': { mask: '(99) 9999-9999', defaultValue: '' }
+    , 'countryPhone': { mask: '99 (99) 9999-9999', defaultValue: '' }
     , 'licenceTag': { mask: 'aaa-9999', defaultValue: '' }
 });

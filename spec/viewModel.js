@@ -62,14 +62,14 @@
             self.PercentValue(.15);
             self.AnotherPercentValue(.04);
 
-            self.PhoneValue('7991999401');
-            self.PhoneCountryValue('157991999401');
+            self.PhoneValue('79991999401');
+            self.PhoneCountryValue('1579991999401');
             self.AnotherPhoneValue('19993214321');
             self.LicenceTag('DEM-6143');
         }
 
     self.Locale =
-        function (locale) {            
+        function (locale) {
 
             $.knockoutExtend.load("Scripts/", locale);            
             

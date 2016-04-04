@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -286,6 +287,8 @@
     <Content Include="spec\i18n\en-US\knockoutExtend.datetime.js" />
     <Content Include="spec\i18n\en-US\knockoutExtend.js" />
     <Content Include="spec\i18n\en-US\knockoutExtend.number.js" />
+    <Content Include="spec\i18n\en-US\knockoutExtend.phone.js" />
+    <Content Include="spec\i18n\pt-BR\knockoutExtend.phone.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.datetime.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.js" />
     <Content Include="spec\i18n\pt-BR\knockoutExtend.number.js" />

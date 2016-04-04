@@ -193,7 +193,10 @@ ko.bindingHandlers.phoneMask = {
         var options = allBindingsAccessor().phoneMaskOptions || {};
 
         var mask = 'phone';
-        var newMask;
+        //var newMask;
+        if (options.country) {
+            mask = "countryPhone"
+        }
         mask = options.mask || mask;
         
         if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
@@ -234,7 +237,11 @@ ko.bindingHandlers.phoneMask = {
         var value = ko.utils.unwrapObservable(valueAccessor());
 
         var mask = 'phone';
-        var newMask;
+        //var newMask;
+        if (options.country) {
+            mask = "countryPhone"
+        }
+
         mask = options.mask || mask;
 
         if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
