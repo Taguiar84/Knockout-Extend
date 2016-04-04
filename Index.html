@@ -129,15 +129,15 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label>Phone</label>
+                <label>Phone <i data-bind="phoneMask: PhoneValue"></i></label>
                 <input class="form-control" id="phoneValue" type="text" data-bind="phoneMask: PhoneValue" />
             </div>
             <div class="col-md-3">
-                <label>Phone</label>
+                <label>Phone <i data-bind="phoneMask: AnotherPhoneValue"></i></label>
                 <input class="form-control" id="anotherPhoneValue" type="text" data-bind="phoneMask: AnotherPhoneValue" />
             </div>
             <div class="col-md-3">
-                <label>Phone</label>
+                <label>Phone <i data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }"></i></label>
                 <input class="form-control" id="phoneCountryValue" type="text" data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }" />
             </div>
             <div class="col-md-3">
