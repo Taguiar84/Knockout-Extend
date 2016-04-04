@@ -53,27 +53,32 @@ ko.bindingHandlers.dateMask = {
         }
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
-            //var observable = valueAccessor();
-            //var date = new Date(e.date.toUTCString())
-            //date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
-            //observable(date);
+            var observable = valueAccessor();
+            var date = new Date(e.date.toUTCString())
+            date.setMinutes(e.date.getTimezoneOffset() + e.date.getMinutes())
+
+            var elementValue = $(e.target).val();
+            //var elementDate = Globalize.parseDate(elementValue, "yMd");
+            if (elementValue.length == 10) {
+                observable(date);
+            }
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
-            var observable = valueAccessor();
-            var value = $(element).val();
-            switch (Globalize.locale().locale) {
-                case 'en-US':
-                    dateValue = new Date(value);
-                    break;
-                default:
-                    dateValue = Globalize.parseDate(value, "yMd");
-                    break;
-            }
-            observable(dateValue);
-            if (dateValue != null) {
-                $(element).datepicker("setDate", dateValue);
-            }
+            //var observable = valueAccessor();
+            //var value = $(element).val();
+            //switch (Globalize.locale().locale) {
+            //    case 'en-US':
+            //        dateValue = new Date(value);
+            //        break;
+            //    default:
+            //        dateValue = Globalize.parseDate(value, "yMd");
+            //        break;
+            //}
+            //observable(dateValue);
+            //if (dateValue != null) {
+            //    $(element).datepicker("setDate", dateValue);
+            //}
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         });

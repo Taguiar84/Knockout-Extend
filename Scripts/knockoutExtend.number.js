@@ -199,7 +199,7 @@ ko.bindingHandlers.phoneMask = {
         }
         mask = options.mask || mask;
         
-        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
+        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null && valueAccessor() != null) {
             mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
         }
 
@@ -244,7 +244,7 @@ ko.bindingHandlers.phoneMask = {
 
         mask = options.mask || mask;
 
-        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
+        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null && valueAccessor() != null) {
             mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
         }
 

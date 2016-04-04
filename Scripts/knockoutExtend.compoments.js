@@ -4,10 +4,12 @@
         var modelValue = valueAccessor();
         var value = ko.utils.unwrapObservable(valueAccessor());
 
-        $(element).html(value);
-        var editor = CKEDITOR.replace(element, {
-            toolbar: 'Standard'
-        });
+        setTimeout(function () {
+            $(element).html(value);
+            var editor = CKEDITOR.replace(element, {
+                toolbar: 'Standard'
+            });
+        }, 1500);
 
         //handle edits made in the editor
         editor.on('change', function (e) {
