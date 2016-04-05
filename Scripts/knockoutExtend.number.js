@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.currencyMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().monthYearMaskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('currency');
