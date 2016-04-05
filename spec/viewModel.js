@@ -2,6 +2,9 @@
     var self = this;
 
     self.NormalText = ko.observable();
+    self.CpfValue = ko.observable();
+    self.CnpjValue = ko.observable();
+    self.CpfCnpjValue = ko.observable();
 
     self.IntegerValue = ko.observable(null);
     self.AnotherIntegerValue = ko.observable(null);
