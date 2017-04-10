@@ -1,4 +1,4 @@
-﻿$.knockoutExtend.defaults.culture.changeMaskFunction = function (currentValue, options) {
+﻿$.knockoutExtend.defaults.culture.changePhoneMaskFunction = function (currentValue, options) {
     //var dddList = ['11', '12', '13', '14', '15', '16', '17', '18', '19', '21', '22', '24', '27'];
     var value = currentValue;
     var mask = 'phone';

@@ -17,6 +17,7 @@
         var anotherCurrencyValue = $('#anotherCurrencyValue');
 
         var percentValue = $('#percentValue');
+        var positiveCurrencyValue = $('#positiveCurrencyValue');
         var anotherPercentValue = $('#anotherPercentValue');
         //var maskPercentValue = $('#maskPercentValue');
 
@@ -24,6 +25,7 @@
         expect($(anotherIntegerValue).val()).toBe((5).toString());
 
         expect($(currencyValue).val()).toBe('2.46');
+        expect($(positiveCurrencyValue).val()).toBe('8.89');
         expect($(anotherCurrencyValue).val()).toBe('0.20');
 
         expect($(percentValue).val()).toBe('0.1500');
@@ -40,6 +42,7 @@
         var anotherIntegerValue = $('#anotherIntegerValue');
 
         var currencyValue = $('#currencyValue');
+        var positiveCurrencyValue = $('#positiveCurrencyValue');
         var anotherCurrencyValue = $('#anotherCurrencyValue');
 
         var percentValue = $('#percentValue');
@@ -53,6 +56,8 @@
 
         viewModel.CurrencyValue(9876.89)
         expect($(currencyValue).val()).toBe('9,876.89');
+        viewModel.PositiveCurrencyValue(-9876.89)
+        expect($(positiveCurrencyValue).val()).toBe('9,876.89');
         viewModel.AnotherCurrencyValue(1263.99)
         expect($(anotherCurrencyValue).val()).toBe('1,263.99');
 

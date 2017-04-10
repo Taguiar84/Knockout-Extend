@@ -1,9 +1,12 @@
 ﻿ko.bindingHandlers.currencyMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().monthYearMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
+
+        var mask = "currency";
+        mask = options.mask || mask;
 
         if ($(element).is("input"))
-            $(element).setMask('currency');
+            $(element).setMask(mask);
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
             var observable = valueAccessor();
@@ -18,8 +21,12 @@
         });
     },
 
-    update: function (element, valueAccessor) {
-        var value = ko.utils.unwrapObservable(valueAccessor());
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().maskOptions || {};
+        var value = ko.utils.unwrapObservable(valueAccessor());        
+
+        var mask = "currency";
+        mask = options.mask || mask;
 
         if (value == null || isNaN(value)) {
             $(element).val(null);
@@ -33,10 +40,10 @@
             valor = Globalize.parseNumber(value).toString();
         if ($(element).is("input")) {
             $(element).val(valor);
-            $(element).setMask('currency');
+            $(element).setMask(mask);
         }
         else {
-            $(element).text($.mask.string(valor, 'currency'));
+            $(element).text($.mask.string(valor, mask));
         }
     }
 };
@@ -46,7 +53,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.integerMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().integerMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         var mask = options.mask || 'integer';
         if ($(element).is("input"))
@@ -66,7 +73,7 @@ ko.bindingHandlers.integerMask = {
     },
 
     update: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().integerMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         var value = ko.utils.unwrapObservable(valueAccessor());
 
@@ -96,7 +103,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.decimalMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().decimalMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         var mask = options.mask || 'decimal';
         var globalizeFormat = options.globalizeFormat ||  "n4";
@@ -118,7 +125,7 @@ ko.bindingHandlers.decimalMask = {
     },
 
     update: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().decimalMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         var value = ko.utils.unwrapObservable(valueAccessor());
 
@@ -150,7 +157,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.zipCodeMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('zipCode');
@@ -190,7 +197,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.phoneMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().phoneMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         var mask = 'phone';
         //var newMask;
@@ -199,8 +206,8 @@ ko.bindingHandlers.phoneMask = {
         }
         mask = options.mask || mask;
         
-        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null && valueAccessor() != null) {
-            mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
+        if ($.knockoutExtend.defaults.culture.changePhoneMaskFunction != null && valueAccessor() != null) {
+            mask = $.knockoutExtend.defaults.culture.changePhoneMaskFunction(valueAccessor()(), options);
         }
 
         if ($(element).is("input"))
@@ -218,8 +225,8 @@ ko.bindingHandlers.phoneMask = {
         ko.utils.registerEventHandler(element, 'keydown', function () {
             currentValue = $(element).val().replace(/[^\d]+/g, '');
             var mask;
-            if ($.knockoutExtend.defaults.culture.changeMaskFunction != null) {
-                mask = $.knockoutExtend.defaults.culture.changeMaskFunction(currentValue, options);
+            if ($.knockoutExtend.defaults.culture.changePhoneMaskFunction != null) {
+                mask = $.knockoutExtend.defaults.culture.changePhoneMaskFunction(currentValue, options);
                 $(element).setMask(mask);
             }
             else {
@@ -233,7 +240,7 @@ ko.bindingHandlers.phoneMask = {
     },
 
     update: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().phoneMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
         var value = ko.utils.unwrapObservable(valueAccessor());
 
         var mask = 'phone';
@@ -244,8 +251,8 @@ ko.bindingHandlers.phoneMask = {
 
         mask = options.mask || mask;
 
-        if ($.knockoutExtend.defaults.culture.changeMaskFunction != null && valueAccessor() != null) {
-            mask = $.knockoutExtend.defaults.culture.changeMaskFunction(valueAccessor()(), options);
+        if ($.knockoutExtend.defaults.culture.changePhoneMaskFunction != null && valueAccessor() != null) {
+            mask = $.knockoutExtend.defaults.culture.changePhoneMaskFunction(valueAccessor()(), options);
         }
 
         if (value == null) {

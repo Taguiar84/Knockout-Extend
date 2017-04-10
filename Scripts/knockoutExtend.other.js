@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.creditCardMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('cc');
@@ -39,7 +39,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.cnpjMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('cnpj');
@@ -78,7 +78,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.cpfMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('cpf');
@@ -117,7 +117,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.cpfCnpjMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('cpf');
@@ -187,7 +187,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.licenceTagMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().carPlateMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('licenceTag');

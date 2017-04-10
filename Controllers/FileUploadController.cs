@@ -7,12 +7,12 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
-using System.Web.Http;
 using System.Web.Script.Serialization;
 
 
 namespace WebClient.Controllers
 {
+    /*
     public class FileUploadController : ApiController
     {
         private readonly JavaScriptSerializer _js = new JavaScriptSerializer { MaxJsonLength = 41943040 };
@@ -123,7 +123,7 @@ namespace WebClient.Controllers
             }
         }
     }
-
+    */
     #region FileStatus
     public class FilesStatus
     {

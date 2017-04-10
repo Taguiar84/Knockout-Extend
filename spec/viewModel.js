@@ -12,6 +12,7 @@
     self.LongValue = ko.observable(null);
 
     self.CurrencyValue = ko.observable(null);
+    self.PositiveCurrencyValue = ko.observable(null);    
     self.AnotherCurrencyValue = ko.observable(null);
 
     self.DateValue = ko.observable(null);
@@ -48,6 +49,7 @@
             self.LongValue(8763423746);
 
             self.CurrencyValue(2.46);
+            self.PositiveCurrencyValue(8.89);
             self.AnotherCurrencyValue(0.20);
 
             self.DateValue(new Date('2014-01-01 12:00:00'));

@@ -64,21 +64,25 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Short</label>
-                <input class="form-control" id="shortValue" type="text" data-bind="integerMask: ShortValue, integerMaskOptions: { mask: 'integer16'}">
+                <input class="form-control" id="shortValue" type="text" data-bind="integerMask: ShortValue, maskOptions: { mask: 'integer16'}">
             </div>
             <div class="col-md-6">
                 <label>Long</label>
-                <input class="form-control" id="longValue" type="text" data-bind="integerMask: LongValue, integerMaskOptions: { mask: 'integer64'}">
+                <input class="form-control" id="longValue" type="text" data-bind="integerMask: LongValue, maskOptions: { mask: 'integer64'}">
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <label>Valor</label>
+            <div class="col-md-4">
+                <label>Value</label>
                 <input class="form-control" id="currencyValue" type="text" data-bind="currencyMask: CurrencyValue">
             </div>
-            <div class="col-md-6">
-                <label>Valor</label>
+            <div class="col-md-4">
+                <label>Positive Value (on-the-fly)</label>
+                <input class="form-control" id="positiveCurrencyValue" type="text" data-bind="currencyMask: PositiveCurrencyValue, maskOptions:{ mask: { mask: '99,999.999.999.999', type: 'reverse', defaultValue: '000'}}">
+            </div>
+            <div class="col-md-4">
+                <label>Value</label>
                 <input class="form-control" id="anotherCurrencyValue" type="text" data-bind="currencyMask: AnotherCurrencyValue">
             </div>
         </div>
@@ -95,8 +99,8 @@
             <div class="col-md-4">
                 <label>Percent</label>
                 <input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue">
-                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">-->
-                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, decimalMaskOptions: { mask: 'percent', globalizeFormat:  {minimumFractionDigits: 4, maximumFractionDigits: 4 } } ">-->
+                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, maskOptions: { globalizeFormat:  {minimumFractionDigits: 6, maximumFractionDigits: 6 } } ">-->
+                <!--<input class="form-control" id="maskPercentValue" type="text" data-bind="decimalMask: AnotherPercentValue, maskOptions: { mask: 'percent', globalizeFormat:  {minimumFractionDigits: 4, maximumFractionDigits: 4 } } ">-->
             </div>
         </div>
 
@@ -152,8 +156,8 @@
                 <input class="form-control" id="anotherPhoneValue" type="text" data-bind="phoneMask: AnotherPhoneValue" />
             </div>
             <div class="col-md-3">
-                <label>Phone Country <i data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }"></i></label>
-                <input class="form-control" id="phoneCountryValue" type="text" data-bind="phoneMask: PhoneCountryValue, phoneMaskOptions{ country: true }" />
+                <label>Phone Country <i data-bind="phoneMask: PhoneCountryValue, maskOptions: { country: true }"></i></label>
+                <input class="form-control" id="phoneCountryValue" type="text" data-bind="phoneMask: PhoneCountryValue, maskOptions: { country: true }" />
             </div>
             <div class="col-md-3">
                 <label>Placa</label>
@@ -183,7 +187,7 @@
     <!--<script src="Scripts/bootstrap-datetimepicker.min.js"></script>-->
     <script src="Scripts/bootstrap-timepicker.js"></script>
     <script src="Scripts/jquery.meio.mask.min.js"></script>
-    <script src="Scripts/knockout-3.1.0.js"></script>
+    <script src="Scripts/knockout-3.4.2.js"></script>
 
     <script src="Scripts/fileupload/js/vendor/canvas-to-blob.min.js"></script>
     <script src="Scripts/fileupload/js/vendor/tmpl.min.js"></script>

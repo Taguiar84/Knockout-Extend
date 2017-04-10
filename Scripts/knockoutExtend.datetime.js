@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.monthYearMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().monthYearMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input"))
             $(element).setMask('19/9999');
@@ -183,7 +183,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
         var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
@@ -254,7 +254,7 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.timeMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().currencyMaskOptions || {};
+        var options = allBindingsAccessor().maskOptions || {};
 
         if ($(element).is("input")) {
             //$(element).setMask('time');

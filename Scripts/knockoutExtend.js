@@ -1,6 +1,6 @@
 ﻿$.knockoutExtend = {};
 $.knockoutExtend.defaults = {
-    culture: { changeMaskFunction: null },
+    culture: { changePhoneMaskFunction: null },
     fileUpload: {
         url: "/FileUpload",
         previewNoImageUrl: '/Scripts/knockoutExtend/fileupload/img/generalFile.png',
