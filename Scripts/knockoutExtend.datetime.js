@@ -44,7 +44,7 @@ ko.bindingHandlers.dateMask = {
                 //format: 'dd/mm/yyyy'//Pensar melhor
             }
         ,
-        allBindingsAccessor().dateMaskOptions//definido na tela
+        allBindingsAccessor().maskOptions//definido na tela
         )       
 
         if ($(element).is("input")) {
@@ -113,7 +113,7 @@ ko.bindingHandlers.dateTimeMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
         var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
-        var options = $.extend({},            
+        var options = $.extend({},
             {//extra para colocar linguagem do globalize
                 language: locale,
                 //timeFormat: 'hh:mm z',
@@ -122,7 +122,7 @@ ko.bindingHandlers.dateTimeMask = {
                 //pickDate: false
                 //format: 'dd/mm/yyyy hh:ii'
             }
-        , allBindingsAccessor().dateTimeMaskOptions)
+        , allBindingsAccessor().maskOptions);
         if ($(element).is("input")) {
             $(element).setMask('datetime');
             $(element).datetimepicker(options);
@@ -136,21 +136,21 @@ ko.bindingHandlers.dateTimeMask = {
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
-            var observable = valueAccessor();
-            var value = $(element).val();
-            var dateValue = null;
-            switch (Globalize.locale().locale) {
-                case 'en-US':
-                    dateValue = new Date(value);
-                    break;
-                default:
-                    dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
-                    break;
-            }
-            observable(dateValue);
-            if (dateValue != null) {
-                $(element).datetimepicker("setDate", dateValue);
-            }
+            //var observable = valueAccessor();
+            //var value = $(element).val();
+            //var dateValue = null;
+            //switch (Globalize.locale().locale) {
+            //    case 'en-US':
+            //        dateValue = new Date(value);
+            //        break;
+            //    default:
+            //        dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
+            //        break;
+            //}
+            //observable(dateValue);
+            //if (dateValue != null) {
+            //    $(element).datetimepicker("setDate", dateValue);
+            //}
 
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -183,22 +183,23 @@ if (ko.validation != null) {
 
 ko.bindingHandlers.dateTimeOffSetMask = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        var options = allBindingsAccessor().maskOptions || {};
-
         //corrigindo locale com Cldr, agora "pt" é igual "pt-BR", portugal continua com pt-PT
         var locale = Globalize.locale().locale == 'pt' ? 'pt-BR' : Globalize.locale().locale;
+        var options = $.extend({},
+           {//extra para colocar linguagem do globalize
+               language: locale,
+               //timeFormat: 'hh:mm z',
+               //showTimezone: true,
+               //TimeZone: "-0400"
+               //pickDate: false
+               //format: 'dd/mm/yyyy hh:ii'
+           }
+       , allBindingsAccessor().maskOptions);
+        
         if ($(element).is("input")) {
             $(element).setMask('datetime');
-            $(element).datetimepicker({
-                language: locale,
-                //timeFormat: 'hh:mm z',
-                //showTimezone: true,
-                //TimeZone: "-0400"
-                //pickDate: false
-                //format: 'dd/mm/yyyy hh:ii'
-            });
+            $(element).datetimepicker(options);
         }
-
 
         ko.utils.registerEventHandler(element, 'changeDate', function (e) {
             var observable = valueAccessor();
@@ -208,21 +209,21 @@ ko.bindingHandlers.dateTimeOffSetMask = {
         });
 
         ko.utils.registerEventHandler(element, 'focusout', function () {
-            var observable = valueAccessor();
-            var value = $(element).val();
-            var dateValue = null;
-            switch (Globalize.locale().locale) {
-                case 'en-US':
-                    dateValue = new Date(value);
-                    break;
-                default:
-                    dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
-                    break;
-            }
-            observable(dateValue);
-            if (dateValue != null) {
-                $(element).datetimepicker("setDate", dateValue);
-            }
+            //var observable = valueAccessor();
+            //var value = $(element).val();
+            //var dateValue = null;
+            //switch (Globalize.locale().locale) {
+            //    case 'en-US':
+            //        dateValue = new Date(value);
+            //        break;
+            //    default:
+            //        dateValue = Globalize.parseDate(value, {}, Globalize.locale().locale);
+            //        break;
+            //}
+            //observable(dateValue);
+            //if (dateValue != null) {
+            //    $(element).datetimepicker("setDate", dateValue);
+            //}
 
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
