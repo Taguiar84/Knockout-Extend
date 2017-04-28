@@ -166,17 +166,22 @@ ko.bindingHandlers.cpfCnpjMask = {
     update: function (element, valueAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor());
 
+        var mask = 'cpf';
+
         if (value == null) {
             $(element).val(null);
             return;
         }
-        //if ($(element).is("input")) {
-        //    $(element).val(value);
-        //    $(element).setMask('cpf');
-        //}
-        //else {
-        //    $(element).text($.mask.string(value, 'cpf'));
-        //}
+        else if (value.length > 11)
+            mask = 'cnpj';
+
+        if ($(element).is("input")) {
+            $(element).val(value);
+            $(element).setMask(mask);
+        }
+        else {
+            $(element).text($.mask.string(value, mask));
+        }
     }
 };
 if (ko.validation != null) {
